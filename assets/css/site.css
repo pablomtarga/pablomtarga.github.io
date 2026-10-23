@@ -358,19 +358,17 @@ html:not(.js) .lang, html:not(.js) .menu-btn, html:not(.js) .clip-btn { display:
 .hero__photo { margin: 0; }
 .hero__photo img { width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover; object-position: 50% 40%; border-radius: 20px; background: var(--navy-850); }
 .hero__photo figcaption { margin-top: 10px; font-size: 13px; color: var(--on-dark-2); }
-.gallery { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 8px; }
-.gallery img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; border-radius: 10px; background: var(--bg-2); }
-#photos .head { margin-bottom: 28px; }
-#photos .head h2 { font-size: 28px; }
+.gallery { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; max-width: 900px; }
+.gallery img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; border-radius: 6px; background: var(--bg-2); }
 .tile__private { margin-top: 18px; font-size: 15px; color: var(--ink-2); }
 @media (max-width: 833px) {
   .hero__photo img { aspect-ratio: 3 / 2; object-position: 50% 60%; }
 }
 @media (max-width: 734px) {
-  .gallery { display: flex; overflow-x: auto; gap: 10px; margin-inline: calc(var(--pad) * -1); padding: 0 var(--pad) 8px; scroll-snap-type: x mandatory; scroll-padding-inline: var(--pad); scrollbar-width: none; }
-  .gallery::-webkit-scrollbar { display: none; }
-  .gallery li { flex: none; width: 72%; scroll-snap-align: start; }
+  .gallery { gap: 3px; margin-inline: calc(var(--pad) * -1); }
+  .gallery img { border-radius: 0; }
 }
+
 @media (max-width: 833px) {
   .hero.has-photo .hero__in { grid-template-columns: 1fr; gap: 36px; }
 }
