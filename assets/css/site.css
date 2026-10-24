@@ -1,4 +1,45 @@
-/* Pablo Targa — personal site. Apple-style layout in navy and blue. */
+/* =============================================================================
+   PT Solutions · Pablo Targa — estilo do site inteiro (todas as páginas usam este arquivo)
+
+   COMO ACHAR AS COISAS
+   Use a busca do editor (Cmd+F) com o número da seção, por exemplo "== 9".
+
+    1. Fontes
+    2. Cores, tamanhos e curvas  ← para mudar uma cor do site, mexa só aqui
+    3. Base (vale para todas as páginas)
+    4. Idiomas (EN / PT / ES)
+    5. Botões e links
+    6. Barra do topo, seletor de idioma e menu do celular
+    7. Seções e títulos
+    8. Topo da página inicial (foto do A'DAM, "Hi, I'm Pablo", faixa de logos)
+    9. Serviços (painel de vidro)
+   10. Experiência
+   11. Gavetas "More skills" e "Curiosities"
+   12. Chamada de apps (cartão escuro) e celular desenhado
+   13. Fotografia (grade e foto ampliada)
+   14. Contato (formulário)
+   15. Página de Apps (cartões e agentes)
+   16. Páginas de texto (privacidade, termos, cookies)
+   17. Rodapé
+   18. Página 404
+   19. Animação de entrada do topo
+   20. Preferências do visitante (menos transparência, mais contraste, sem JavaScript)
+   21. Telas até 1068px (tablet)
+   22. Telas até 833px (tablet pequeno e celular)
+   23. Telas até 734px (celular)
+
+   REGRAS DE OURO
+   - Mudou este arquivo? Suba o número "?v=" no link dele em TODAS as páginas
+     (ou rode FERRAMENTAS/nova-versao.py). Sem isso o navegador mostra a versão velha.
+   - A ordem importa: quando duas regras mudam a mesma coisa, vale a que vem depois.
+     As seções 21 a 23 (celular e tablet) ficam no fim de propósito.
+   - Não use style="..." no HTML: a segurança do site (CSP) bloqueia.
+   ============================================================================= */
+
+
+/* == 1. Fontes ================================================================
+   Em Mac e iPhone o site usa a fonte do sistema (SF Pro). Nos outros aparelhos usa
+   a Inter, que fica guardada no próprio site (pasta assets/fonts), sem Google Fonts. */
 
 @font-face {
   font-family: 'Inter';
@@ -17,28 +58,35 @@
   unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
 }
 
+
+/* == 2. Cores, tamanhos e curvas ==============================================
+   Cada "--nome" é uma variável usada no resto do arquivo. Trocar o valor aqui
+   muda o site inteiro de uma vez. Ex.: --blue é o azul dos botões. */
+
 :root {
+  /* azul-marinho da marca (fundos escuros) */
   --navy-950: #040c1d;
   --navy-900: #071530;
   --navy-850: #0b1d40;
-  /* blues and neutrals measured on apple.com; navy stays as the brand colour */
-  --blue: #0071e3;
-  --blue-hover: #0076df;
-  --blue-press: #006edb;
-  --blue-link: #0066cc;
-  --blue-on-dark: #2997ff;
+  /* azuis e cinzas medidos na apple.com */
+  --blue: #0071e3;          /* botões */
+  --blue-hover: #0076df;    /* botão com o mouse em cima */
+  --blue-press: #006edb;    /* botão sendo clicado */
+  --blue-link: #0066cc;     /* links em fundo claro */
+  --blue-on-dark: #2997ff;  /* links e ícones em fundo escuro */
   --blue-soft: #e8f1fd;
 
-  --ink: #1d1d1f;
-  --ink-2: #6e6e73;
-  --bg: #ffffff;
-  --bg-2: #f5f5f7;
-  --line: #d2d2d7;
+  --ink: #1d1d1f;           /* texto principal */
+  --ink-2: #6e6e73;         /* texto de apoio (cinza) */
+  --bg: #ffffff;            /* fundo branco */
+  --bg-2: #f5f5f7;          /* fundo cinza-claro das seções alternadas */
+  --line: #d2d2d7;          /* linhas divisórias */
   --line-dark: rgba(255, 255, 255, 0.1);
-  --on-dark: #f5f8ff;
-  --on-dark-2: #a8b6cf;
+  --on-dark: #f5f8ff;       /* texto em fundo escuro */
+  --on-dark-2: #a8b6cf;     /* texto de apoio em fundo escuro */
 
-  /* top bar: dark over navy sections, light over white ones (site.js sets data-nav) */
+  /* barra do topo: escura sobre as seções azul-marinho. O site.js troca para as cores
+     claras do bloco logo abaixo quando a barra passa por cima de uma seção branca. */
   --nav-bg: rgba(7, 21, 48, 0.8);
   --nav-solid: #071530;
   --nav-fg: rgba(245, 248, 255, 0.8);
@@ -50,18 +98,21 @@
   --nav-seg-on-fg: #071530;
   --nav-focus: #2997ff;
 
+  /* fontes: a primeira que o aparelho tiver é a usada */
   --font: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Inter', 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   --font-display: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Inter', 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
 
-  --w: 1080px;
-  --pad: 22px;
-  --r-xl: 28px;
+  --w: 1080px;    /* largura máxima do conteúdo */
+  --pad: 22px;    /* margem das laterais (18px no celular, ver seção 23) */
+  --r-xl: 28px;   /* cantos arredondados: grande, médio e pequeno */
   --r-l: 22px;
   --r-m: 14px;
-  --nav-h: 44px;
+  --nav-h: 44px;  /* altura da barra do topo (48px no celular, ver seção 22) */
+  /* curvas de animação: --ease desacelera no fim; --ease-apple é a da apple.com */
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
   --ease-apple: cubic-bezier(0.4, 0, 0.6, 1);
 }
+/* cores da barra do topo quando ela está sobre uma seção branca */
 html[data-nav='light'] {
   --nav-bg: rgba(255, 255, 255, 0.8);
   --nav-solid: #fafafc;
@@ -75,10 +126,13 @@ html[data-nav='light'] {
   --nav-focus: #0071e3;
 }
 
-/* ---------- base ---------- */
+
+/* == 3. Base (vale para todas as páginas) ===================================== */
+
 *, *::before, *::after { box-sizing: border-box; }
 html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
 @media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
+/* ao pular para uma seção pelo menu, ela não fica escondida atrás da barra do topo */
 main, main [id] { scroll-margin-top: calc(var(--nav-h) + 12px); }
 body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--font); font-size: 17px; line-height: 1.5; letter-spacing: -0.011em; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; text-rendering: optimizeLegibility; }
 html.menu-open { overflow: hidden; }
@@ -89,25 +143,40 @@ img, video { height: auto; }
 a { color: inherit; }
 button, input, select, textarea { font: inherit; color: inherit; letter-spacing: inherit; }
 button { cursor: pointer; }
+/* contorno azul de quem navega pelo teclado (Tab). Não remover: é acessibilidade. */
 :focus-visible { outline: 3px solid var(--blue); outline-offset: 2px; border-radius: 6px; }
 .dark :focus-visible, .tile--dark :focus-visible, .proof :focus-visible, .teaser :focus-visible { outline-color: var(--blue-on-dark); }
 .nav :focus-visible, .menu :focus-visible { outline-color: var(--nav-focus); }
 ::selection { background: rgba(0, 113, 227, 0.22); }
+/* .sr-only: texto invisível na tela, mas lido por leitores de tela (para pessoas cegas) */
 .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+/* link "Pular para o conteúdo": só aparece ao apertar Tab no começo da página */
 .skip { position: absolute; left: 12px; top: -60px; z-index: 100; background: var(--blue); color: #fff; padding: 10px 16px; border-radius: 999px; text-decoration: none; }
 .skip:focus { top: 12px; }
-.nowrap { white-space: nowrap; }
-
-html:not([lang="en"]) .en, html:not([lang="pt-BR"]) .pt, html:not([lang="es"]) .es { display: none !important; }
 
 h1, h2, h3 { font-family: var(--font-display); text-wrap: balance; }
 p { text-wrap: pretty; }
+/* .wrap centraliza o conteúdo e limita a largura em --w */
 .wrap { max-width: var(--w); margin-inline: auto; }
 
-/* ---------- buttons and links (apple.com pills) ---------- */
+
+/* == 4. Idiomas (EN / PT / ES) ================================================
+   Todo texto existe três vezes: <span class="en">, <span class="pt"> e <span class="es">.
+   Esta regra esconde os dois idiomas que não estão escolhidos. Quem escolhe é o
+   boot.js/site.js, mudando o atributo lang da página. */
+
+html:not([lang="en"]) .en, html:not([lang="pt-BR"]) .pt, html:not([lang="es"]) .es { display: none !important; }
+
+
+/* == 5. Botões e links ========================================================
+   .btn          botão azul cheio (ex.: "Contact me")
+   .btn--ghost   botão só com contorno (ex.: "See my apps")
+   .btn--sm      versão pequena, usada na barra do topo
+   .more         link de texto com a setinha › */
+
 .btn { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; padding: 0 22px; border: 0; border-radius: 980px; background: var(--blue); color: #fff; box-shadow: inset 0 0 0 1px transparent; font-size: 17px; font-weight: 400; letter-spacing: -0.022em; text-decoration: none; white-space: nowrap; transition: background-color 0.32s var(--ease-apple), color 0.32s var(--ease-apple), box-shadow 0.32s var(--ease-apple), transform 0.32s var(--ease-apple); }
 .btn:hover { background: var(--blue-hover); }
-/* the press answers on pointer-down, faster than the release */
+/* ao clicar, o botão afunda um pouco e responde mais rápido */
 .btn:active { background: var(--blue-press); transform: scale(0.97); transition-duration: 0.1s; }
 .btn--ghost { background: transparent; color: var(--blue-link); box-shadow: inset 0 0 0 1px currentColor; }
 .btn--ghost:hover { background: var(--blue-hover); color: #fff; box-shadow: inset 0 0 0 1px var(--blue-hover); }
@@ -116,30 +185,39 @@ p { text-wrap: pretty; }
 .dark .btn--ghost:hover, .teaser .btn--ghost:hover { color: #fff; }
 .btn--sm { min-height: 28px; padding: 0 12px; font-size: 12px; letter-spacing: -0.01em; }
 .more { display: inline-flex; align-items: center; gap: 2px; color: var(--blue-link); font-size: 17px; text-decoration: none; }
+/* a setinha › é decoração: o "/ ''" faz o leitor de tela não ler o símbolo */
 .more::after { content: '›'; content: '›' / ''; font-size: 1.15em; line-height: 1; transform: translateY(-1px); transition: transform 0.2s var(--ease); }
 .more:hover { text-decoration: underline; text-underline-offset: 3px; }
 .more:hover::after { transform: translate(3px, -1px); }
 .dark .more, .tile--dark .more, .proof .more, .teaser .more { color: var(--blue-on-dark); }
+/* linha de botões ou links lado a lado */
+.cta-row { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 28px; margin-top: 36px; }
 
-/* ---------- navigation ---------- */
-/* Built like the apple.com global nav: a thin frosted bar whose links brighten on hover. */
+
+/* == 6. Barra do topo, seletor de idioma e menu do celular ====================
+   Barra fina e translúcida no estilo da apple.com. Três colunas: logo | links | idiomas e botão. */
+
 .nav { position: sticky; top: 0; z-index: 60; height: var(--nav-h); background: var(--nav-bg); -webkit-backdrop-filter: saturate(180%) blur(20px); backdrop-filter: saturate(180%) blur(20px); color: var(--nav-fg-strong); transition: background-color 0.32s var(--ease-apple), color 0.32s var(--ease-apple); }
 .menu-open .nav { background: var(--nav-solid); }
 .nav__in { max-width: calc(var(--w) + 2 * var(--pad)); height: 100%; margin-inline: auto; padding-inline: var(--pad); display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; }
+
+/* logo: o quadrado azul "PT" + "PT Solutions" e "Pablo Targa" embaixo */
 .brand { justify-self: start; display: inline-flex; align-items: center; gap: 10px; text-decoration: none; white-space: nowrap; }
 .brand__mark { width: 30px; height: 30px; flex: none; border-radius: 9px; box-shadow: 0 2px 10px rgba(0, 113, 227, 0.35); transition: transform 0.5s var(--ease); }
 .brand:hover .brand__mark { transform: rotate(-8deg) scale(1.06); }
 .brand__text { display: grid; line-height: 1.05; }
 .brand__name { font-family: var(--font-display); font-size: 15px; font-weight: 600; letter-spacing: -0.02em; }
 .brand__by { margin-top: 2px; font-size: 10px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; opacity: 0.62; }
+
+/* links do meio (Services, Experience, Apps, Photos) */
 .nav__links { display: flex; align-self: stretch; gap: 40px; }
 .nav__link { display: flex; align-items: center; height: 100%; font-size: 12px; letter-spacing: -0.01em; color: var(--nav-fg); text-decoration: none; transition: color 0.32s var(--ease-apple); }
 .nav__link:hover, .nav__link[aria-current] { color: var(--nav-fg-strong); }
 .nav__link:focus-visible { outline-offset: -8px; }
 .nav__end { justify-self: end; display: flex; align-items: center; gap: 14px; }
 
-
-/* language switch: one thumb that slides between EN and PT */
+/* seletor de idioma: EN, bandeira do Brasil e bandeira da Espanha.
+   A "pílula" branca (::before) desliza até o idioma escolhido. */
 .lang { position: relative; display: inline-flex; padding: 2px; border-radius: 999px; background: var(--nav-seg); transition: background-color 0.32s var(--ease-apple); }
 .lang::before { content: ''; position: absolute; top: 2px; left: 2px; width: calc((100% - 4px) / 3); height: calc(100% - 4px); border-radius: 999px; background: var(--nav-seg-on); box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12); transition: transform 0.32s var(--ease-apple), background-color 0.32s var(--ease-apple); }
 html[lang='pt-BR'] .lang::before { transform: translateX(100%); }
@@ -151,10 +229,12 @@ html[lang='es'] .lang::before { transform: translateX(200%); }
 .lang button:not([aria-pressed='true']) .flag { opacity: 0.7; filter: saturate(0.6); }
 .lang button:hover .flag { opacity: 1; filter: none; }
 
+/* botão de menu (≡) e menu de tela cheia: só aparecem no celular (seção 22) */
 .menu-btn { display: none; width: 44px; height: 44px; margin-right: -12px; border: 0; background: transparent; color: var(--nav-fg-strong); position: relative; }
 .menu-btn span { position: absolute; left: 13px; width: 18px; height: 1.5px; background: currentColor; border-radius: 2px; transition: transform 0.32s var(--ease-apple); }
 .menu-btn span:first-child { top: 18px; }
 .menu-btn span:last-child { top: 25px; }
+/* aberto, os dois tracinhos viram um X */
 .menu-btn[aria-expanded='true'] span:first-child { transform: translateY(3.5px) rotate(45deg); }
 .menu-btn[aria-expanded='true'] span:last-child { transform: translateY(-3.5px) rotate(-45deg); }
 .menu { position: fixed; inset: var(--nav-h) 0 0 0; z-index: 59; background: var(--nav-solid); color: var(--nav-fg-strong); padding: 20px calc(var(--pad) + 18px) 40px; overflow-y: auto; }
@@ -163,6 +243,7 @@ html[lang='es'] .lang::before { transform: translateX(200%); }
 .menu .btn { margin-top: 28px; width: 100%; }
 .menu__more { display: flex; gap: 24px; margin-top: 24px; }
 .menu__more a { display: inline-block; padding: 8px 0; color: var(--nav-fg-2); font-size: 15px; font-weight: 600; text-decoration: none; }
+/* os itens do menu entram um depois do outro (só para quem não desligou animações) */
 @media (prefers-reduced-motion: no-preference) {
   .menu:not([hidden]) > :not(.menu__main) { animation: menu-in 0.32s var(--ease-apple) both; }
   .menu:not([hidden]) .menu__main li { animation: menu-in 0.32s var(--ease-apple) both; }
@@ -174,7 +255,14 @@ html[lang='es'] .lang::before { transform: translateX(200%); }
 }
 @keyframes menu-in { from { opacity: 0; transform: translateY(-6px); } }
 
-/* ---------- sections ---------- */
+
+/* == 7. Seções e títulos ======================================================
+   .section        espaço em cima e embaixo de cada bloco da página
+   .section--alt   mesma coisa, com fundo cinza-claro
+   .dark           fundo azul-marinho com texto claro
+   .head           título + parágrafo de abertura de uma seção (centralizado)
+   .head--left     o mesmo, alinhado à esquerda */
+
 .section { padding: clamp(80px, 10vw, 128px) var(--pad); }
 .section--alt { background: var(--bg-2); }
 .dark { background: var(--navy-900); color: var(--on-dark); }
@@ -185,18 +273,25 @@ html[lang='es'] .lang::before { transform: translateX(200%); }
 .head--left p { margin-inline: 0; }
 .dark .head p, .page-head p { color: var(--on-dark-2); }
 
-/* ---------- stage: the A'DAM photo stays behind the intro and the services, zooms and softens as you scroll ---------- */
+
+/* == 8. Topo da página inicial ================================================
+   "Palco" (.stage): a foto do A'DAM fica parada atrás do "Hi, I'm Pablo" e dos serviços.
+   Ao rolar, o site.js manda um número --p de 0 a 1, que aproxima e escurece a foto.
+   Arquivos da foto: assets/photos/adam-night-900.jpg e -1500.jpg (e -blur, a versão borrada). */
+
 .stage { position: relative; background: #02060f; }
 .stage__bg { position: sticky; top: 0; height: 100vh; overflow: hidden; pointer-events: none; }
-/* the content slides up over the photo; a negative margin on the photo itself would let it escape the stage */
+/* o conteúdo sobe por cima da foto. (Não dá para usar margem negativa na própria foto:
+   ela escaparia do palco e cobriria as seções de baixo.) */
 .stage__bg + section { margin-top: -100vh; }
 .stage__img { position: absolute; top: 0; right: 0; width: auto; height: 100%; max-width: none; aspect-ratio: 3 / 4; object-fit: cover; transform-origin: 60% 40%; transform: scale(calc(1 + var(--p, 0) * 0.12)); -webkit-mask-image: linear-gradient(90deg, transparent, #000 38%); mask-image: linear-gradient(90deg, transparent, #000 38%); }
 .stage__img--soft { opacity: calc(var(--p, 0) * 1.6 - 0.3); }
+/* sombra que escurece a esquerda da foto para o texto ficar legível */
 .stage__shade { position: absolute; inset: 0; background: linear-gradient(90deg, #02060f 0%, rgba(2, 6, 15, 0.72) 42%, rgba(2, 6, 15, 0.08) 72%), linear-gradient(0deg, rgba(2, 6, 15, 0.7), transparent 28%); }
 .stage__dim { position: absolute; inset: 0; background: #02060f; opacity: calc(var(--p, 0) * 0.45); }
 .stage > section { position: relative; }
 
-/* ---------- hero: Hi, I'm Pablo ---------- */
+/* "Hi, I'm Pablo", o texto de apresentação e os botões */
 .hero { min-height: calc(100vh - var(--nav-h)); min-height: calc(100svh - var(--nav-h)); display: flex; flex-direction: column; justify-content: center; padding: 64px var(--pad) 72px; }
 .hero__in { width: 100%; max-width: var(--w); margin-inline: auto; }
 .hero__in > * { max-width: 600px; }
@@ -204,8 +299,11 @@ html[lang='es'] .lang::before { transform: translateX(200%); }
 .hero__lead { margin-top: 22px; max-width: 38ch; font-size: clamp(1.125rem, 0.95rem + 0.6vw, 1.4rem); line-height: 1.45; color: rgba(245, 248, 255, 0.8); letter-spacing: -0.014em; }
 .hero__lead b { color: var(--on-dark); font-weight: 600; }
 .hero__cta { position: relative; z-index: 2; display: flex; flex-wrap: wrap; align-items: center; gap: 14px; margin-top: 32px; }
+
+/* "Contact me": ao passar o mouse abre as opções LinkedIn ou formulário */
 .cta-menu { position: relative; display: inline-flex; }
 .cta-menu__pop { position: absolute; top: 100%; left: 0; z-index: 5; min-width: 270px; margin-top: 10px; padding: 6px; border-radius: 18px; background: #101a32; box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.12), 0 24px 48px -16px rgba(0, 0, 0, 0.6); opacity: 0; visibility: hidden; transform: translateY(-6px) scale(0.97); transform-origin: 28px 0; transition: opacity 0.2s var(--ease-apple), transform 0.2s var(--ease-apple), visibility 0s linear 0.2s; }
+/* "ponte" invisível entre o botão e o menu, para o mouse não perder o menu no caminho */
 .cta-menu__pop::before { content: ''; position: absolute; left: 0; right: 0; top: -12px; height: 12px; }
 .cta-menu:hover .cta-menu__pop, .cta-menu:focus-within .cta-menu__pop { opacity: 1; visibility: visible; transform: none; transition: opacity 0.22s var(--ease-apple), transform 0.32s var(--ease), visibility 0s; }
 .cta-menu.is-closed .cta-menu__pop { opacity: 0; visibility: hidden; }
@@ -213,40 +311,53 @@ html[lang='es'] .lang::before { transform: translateX(200%); }
 .cta-menu__pop a:hover { background: rgba(255, 255, 255, 0.1); }
 .cta-menu__ic { width: 22px; height: 22px; flex: none; }
 .cta-menu__ic--line { fill: none; stroke: var(--blue-on-dark); stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+/* celular não tem "passar o mouse": lá o botão vai direto para o formulário */
 @media (hover: none) { .cta-menu__pop { display: none; } }
+
+/* crédito da foto, no canto de baixo (no celular fica embaixo da faixa de logos) */
 .hero__credit { position: absolute; right: var(--pad); bottom: 20px; display: flex; align-items: center; gap: 6px; max-width: 360px; padding: 6px 10px; border-radius: 10px; background: rgba(2, 6, 15, 0.66); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); font-size: 13px; line-height: 1.35; color: var(--on-dark); }
 .hero__credit svg { width: 14px; height: 14px; flex: none; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
 
-/* tools I work with: a slow strip of logos, like a sponsor wall */
+/* "What I work with": faixa de logos que passa devagar. A lista existe duas vezes no
+   HTML para a faixa emendar sem buraco. Para trocar os logos, edite as duas listas. */
 .tools { margin-top: 44px; }
 @media (min-width: 834px) { .hero__in > .tools { max-width: min(600px, 44vw); } }
 .tools__h { font-family: var(--font); font-size: 13px; font-weight: 600; letter-spacing: 0.01em; color: rgba(245, 248, 255, 0.94); }
 .marquee { display: flex; overflow: hidden; margin-top: 14px; -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); }
+/* 45s = tempo de uma volta completa. Número maior = faixa mais lenta. */
 .marquee__track { display: flex; flex: none; gap: 30px; padding-right: 30px; animation: marquee 45s linear infinite; }
 .marquee:hover .marquee__track { animation-play-state: paused; }
 .tool { display: inline-flex; align-items: center; gap: 8px; flex: none; font-size: 15px; font-weight: 500; color: rgba(245, 248, 255, 0.86); white-space: nowrap; }
 .tool svg { width: 20px; height: 20px; flex: none; }
 .tool .lu { fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
 @keyframes marquee { to { transform: translateX(-100%); } }
+/* quem desligou animações no sistema vê os logos parados, em linhas */
 @media (prefers-reduced-motion: reduce) {
   .marquee { -webkit-mask-image: none; mask-image: none; }
   .marquee__track { flex: 1; flex-wrap: wrap; gap: 12px 24px; padding: 0; animation: none; }
   .marquee__track[aria-hidden] { display: none; }
 }
 
-/* ---------- services ---------- */
+
+/* == 9. Serviços (painel de vidro) ============================================
+   Cada serviço é um cartão (.svc) inteiro clicável, que leva ao formulário de contato
+   já com o assunto escolhido (data-topic no HTML, tratado no site.js). */
+
 .svc-section { padding-top: 16px; }
+/* .glass: o painel translúcido que desfoca a foto atrás */
 .glass { padding: clamp(26px, 4vw, 48px); border-radius: 32px; background: rgba(8, 17, 36, 0.55); -webkit-backdrop-filter: blur(28px) saturate(160%); backdrop-filter: blur(28px) saturate(160%); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.12), 0 40px 80px -40px rgba(0, 0, 0, 0.7); }
 .glass .head { margin-bottom: 32px; }
+.glass .cta-row { margin-top: 28px; }
+/* 3 colunas no computador, 2 no tablet (seção 21), 1 no celular (seção 23) */
 .services { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
-.svc { display: grid; grid-template-columns: 44px minmax(0, 1fr); grid-template-rows: auto 1fr auto; column-gap: 16px; padding: 22px 22px 20px; border-radius: 20px; background: rgba(255, 255, 255, 0.05); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08); transition: background-color 0.32s var(--ease-apple), box-shadow 0.32s var(--ease-apple), transform 0.32s var(--ease-apple); }
-.svc { position: relative; }
+.svc { position: relative; display: grid; grid-template-columns: 44px minmax(0, 1fr); grid-template-rows: auto 1fr auto; column-gap: 16px; padding: 22px 22px 20px; border-radius: 20px; background: rgba(255, 255, 255, 0.05); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08); transition: background-color 0.32s var(--ease-apple), box-shadow 0.32s var(--ease-apple), transform 0.32s var(--ease-apple); }
 .svc:hover { background: rgba(255, 255, 255, 0.09); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.16); transform: translateY(-2px); }
-/* the whole card is the link to the form; the title holds the real <a> */
+/* o link de verdade fica no título; o ::after estica a área de clique pelo cartão todo */
 .svc__link { color: inherit; text-decoration: none; }
 .svc__link::after { content: ''; position: absolute; inset: 0; border-radius: inherit; }
 .svc__link:focus-visible { outline: none; }
 .svc:has(.svc__link:focus-visible) { outline: 3px solid var(--blue-on-dark); outline-offset: 2px; }
+/* setinha › que aparece no canto ao passar o mouse */
 .svc::before { content: '›'; content: '›' / ''; position: absolute; top: 14px; right: 18px; font-size: 24px; line-height: 1; color: var(--blue-on-dark); opacity: 0; transform: translateX(-4px); transition: opacity 0.32s var(--ease-apple), transform 0.32s var(--ease-apple); }
 .svc:hover::before, .svc:has(.svc__link:focus-visible)::before { opacity: 1; transform: none; }
 .svc:active { transform: scale(0.99); }
@@ -254,52 +365,42 @@ html[lang='es'] .lang::before { transform: translateX(200%); }
 .svc__ic svg { width: 22px; height: 22px; fill: none; stroke: var(--blue-on-dark); stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
 .svc h3 { align-self: center; font-size: 18px; font-weight: 600; letter-spacing: -0.015em; line-height: 1.25; }
 .svc p { margin-top: 6px; font-size: 15px; line-height: 1.45; color: var(--on-dark-2); }
+/* etiqueta "On-site / Remote" */
 .svc__mode { justify-self: start; margin-top: 14px; padding: 3px 10px; border-radius: 999px; background: rgba(255, 255, 255, 0.09); font-size: 12px; font-weight: 500; color: var(--on-dark); }
-.glass .cta-row { margin-top: 28px; }
-.cta-row { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 28px; margin-top: 36px; }
 
-/* ---------- apps teaser ---------- */
-.teaser { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 48px; align-items: center; overflow: hidden; border-radius: var(--r-xl); background: var(--navy-900); color: var(--on-dark); padding: 56px 0 0 56px; }
-.teaser h2 { font-size: clamp(2rem, 1.2rem + 2.6vw, 3rem); font-weight: 600; letter-spacing: -0.015em; line-height: 1.08; }
-.teaser p { margin-top: 14px; max-width: 40ch; color: var(--on-dark-2); font-size: 18px; }
-.teaser .cta-row { margin-top: 28px; padding-bottom: 56px; }
-.teaser__phones { display: flex; gap: 16px; justify-content: center; align-self: end; margin-bottom: -120px; }
-.teaser__phones .phone { --pw: 190px; }
-.teaser__phones .phone:nth-child(2) { margin-top: 48px; }
 
-/* ---------- phone mockup ---------- */
-.phone { --pw: 260px; position: relative; flex: none; width: var(--pw); aspect-ratio: 390 / 844; padding: calc(var(--pw) * 0.034); background: #0a0e17; border-radius: calc(var(--pw) * 0.17); box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.14), 0 40px 80px -30px rgba(0, 0, 0, 0.6); }
-.phone__screen { position: relative; width: 100%; height: 100%; overflow: hidden; border-radius: calc(var(--pw) * 0.135); background: #000; }
-.phone__screen img, .phone__screen video { width: 100%; height: 100%; object-fit: cover; object-position: 50% 0; }
-.clip-btn { position: absolute; z-index: 3; right: 10px; bottom: 10px; display: grid; place-items: center; width: 44px; height: 44px; border: 0; border-radius: 50%; background: rgba(0, 0, 0, 0.55); color: #fff; transition: background-color 0.2s ease, transform 0.1s ease-out; }
-.clip-btn:hover { background: rgba(0, 0, 0, 0.7); }
-.clip-btn:active { transform: scale(0.94); }
-.clip-btn svg { width: 18px; height: 18px; fill: currentColor; }
-.clip-btn .i-play { display: none; }
-.clip-btn.is-paused .i-play { display: block; }
-.clip-btn.is-paused .i-pause { display: none; }
+/* == 10. Experiência ========================================================== */
 
-/* ---------- experience ---------- */
 .jobs-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 56px; }
 .job { padding: 26px 0 28px; border-top: 1px solid var(--line); }
 .job h3 { font-size: 22px; font-weight: 600; letter-spacing: -0.02em; }
 .job__meta { margin-top: 2px; font-size: 15px; color: var(--ink-2); }
+/* bandeira + cidade */
 .job__place { display: inline-flex; align-items: center; gap: 6px; white-space: nowrap; }
 .flag { width: 20px; height: 14px; flex: none; border-radius: 3px; clip-path: inset(0 round 3px); }
 .job p:last-child { margin-top: 10px; max-width: 52ch; }
 
-/* more skills and curiosities */
-/* the two drawers share one glass look over soft colour, and slide open (site.js) */
+
+/* == 11. Gavetas "More skills" e "Curiosities" ================================
+   São <details> do HTML: abrem e fecham sozinhas. O site.js só deixa o movimento suave.
+   As duas têm o mesmo vidro sobre manchas de cor azul (.drawers::before). */
+
 .drawers { position: relative; display: grid; gap: 20px; margin-top: 40px; }
+.drawers::before { content: ''; position: absolute; inset: 6% 4%; background: radial-gradient(38% 60% at 16% 55%, rgba(41, 151, 255, 0.5), transparent 70%), radial-gradient(34% 60% at 52% 45%, rgba(94, 92, 230, 0.32), transparent 70%), radial-gradient(34% 60% at 86% 55%, rgba(100, 210, 255, 0.42), transparent 70%); filter: blur(30px); pointer-events: none; }
+/* dentro das gavetas o cinza de apoio fica um pouco mais escuro, para ler bem sobre o vidro */
 .drawer { --ink-2: #55555a; --line: rgba(0, 0, 0, 0.1); position: relative; border-radius: var(--r-xl); background: rgba(255, 255, 255, 0.55); -webkit-backdrop-filter: blur(24px) saturate(160%); backdrop-filter: blur(24px) saturate(160%); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.85), 0 20px 50px -30px rgba(11, 27, 51, 0.35); }
+/* atenção: esta regra precisa vir ANTES do ".app:hover", senão o hover perde o fundo branco */
 .drawer .app { background: rgba(255, 255, 255, 0.62); }
 .drawer summary { list-style: none; display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 72px; padding: 0 28px; cursor: pointer; font-family: var(--font-display); font-size: 21px; font-weight: 600; letter-spacing: -0.015em; border-radius: var(--r-xl); }
 .drawer summary::-webkit-details-marker { display: none; }
 .drawer summary:focus-visible { outline-offset: -3px; }
+/* o + que vira × quando a gaveta abre */
 .plus { position: relative; flex: none; width: 18px; height: 18px; transition: transform 0.25s var(--ease); }
 .plus::before, .plus::after { content: ''; position: absolute; left: 0; right: 0; top: calc(50% - 1px); height: 2px; border-radius: 2px; background: var(--blue); }
 .plus::after { transform: rotate(90deg); }
 .drawer[open]:not(.is-closing) .plus { transform: rotate(45deg); }
+
+/* --- "More skills": apps que ele usa, com o nível de cada um --- */
 .more-skills__body { padding: 4px 28px 32px; }
 .ms-title, .ms-block h3, .app-group h4 { font-family: var(--font); font-size: 14px; font-weight: 600; letter-spacing: 0; color: var(--ink-2); }
 .ms-hint { margin-top: 4px; font-size: 13px; color: var(--ink-2); }
@@ -309,24 +410,28 @@ html[lang='es'] .lang::before { transform: translateX(200%); }
 .app { position: relative; display: inline-flex; align-items: center; gap: 8px; min-height: 40px; padding: 6px 12px 6px 8px; border-radius: 12px; background: var(--bg-2); color: var(--ink-2); font-size: 15px; font-weight: 500; transition: background-color 0.4s var(--ease-apple), color 0.4s var(--ease-apple), box-shadow 0.4s var(--ease-apple), transform 0.4s var(--ease-apple); }
 .app svg { width: 22px; height: 22px; flex: none; transition: color 0.4s var(--ease-apple), transform 0.4s var(--ease); }
 .app .lu { fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
-/* the level floats above the chip, so hovering never changes its size or makes the row wrap */
+/* o balão com o nível flutua acima do item, para o item nunca mudar de tamanho
+   (se mudasse, o último da linha pularia de linha e ficaria piscando) */
 .lvl { position: absolute; z-index: 3; bottom: calc(100% + 8px); left: 50%; display: inline-flex; align-items: center; gap: 6px; padding: 5px 9px; border-radius: 8px; background: var(--ink); color: #fff; font-size: 12px; font-weight: 600; white-space: nowrap; pointer-events: none; opacity: 0; transform: translate(-50%, 4px); transition: opacity 0.2s var(--ease-apple), transform 0.25s var(--ease-apple); }
 .lvl::after { content: ''; position: absolute; top: 100%; left: 50%; margin-left: -5px; border: 5px solid transparent; border-top-color: var(--ink); }
+/* as três barrinhas do nível: m1 = básico, m2 = intermediário, m3 = avançado */
 .meter { display: inline-flex; align-items: flex-end; gap: 2px; margin-left: 2px; }
 .meter i { width: 4px; border-radius: 2px; background: rgba(255, 255, 255, 0.28); }
 .meter i:nth-child(1) { height: 6px; }
 .meter i:nth-child(2) { height: 9px; }
 .meter i:nth-child(3) { height: 12px; }
 .m1 i:nth-child(1), .m2 i:nth-child(-n+2), .m3 i { background: var(--blue-on-dark); }
-/* hover: the chip switches on, like a light */
+/* mouse em cima: o item "acende" */
 .app:hover { background: #fff; color: var(--ink); box-shadow: 0 0 0 1px rgba(0, 113, 227, 0.3), 0 8px 24px -8px rgba(0, 113, 227, 0.5), 0 0 22px rgba(0, 113, 227, 0.16); transform: translateY(-1px); }
 .app:hover svg { transform: scale(1.08); }
 .app:hover .lu { color: var(--blue); }
 .app:hover .lvl { opacity: 1; transform: translate(-50%, 0); }
+/* quem usa teclado: ao focar o título da gaveta, todos os níveis aparecem dentro dos itens */
 .more-skills:has(summary:focus-visible) .lvl { position: static; padding: 0; background: none; color: var(--blue-link); opacity: 1; transform: none; }
 .more-skills:has(summary:focus-visible) .lvl::after { display: none; }
 .more-skills:has(summary:focus-visible) .meter i { background: var(--line); }
 .more-skills:has(summary:focus-visible) :is(.m1 i:nth-child(1), .m2 i:nth-child(-n+2), .m3 i) { background: var(--blue); }
+/* celular (sem mouse): os níveis ficam sempre visíveis dentro dos itens */
 @media (hover: none) {
   .ms-hint { display: none; }
   .lvl { position: static; padding: 0; background: none; color: var(--blue-link); opacity: 1; transform: none; }
@@ -334,13 +439,13 @@ html[lang='es'] .lang::before { transform: translateX(200%); }
   .meter i { background: var(--line); }
   .m1 i:nth-child(1), .m2 i:nth-child(-n+2), .m3 i { background: var(--blue); }
 }
+/* certificados e idiomas */
 .ms-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px 48px; margin-top: 36px; }
 .ms-block h3 { margin-bottom: 8px; }
 .ms-block li { display: flex; justify-content: space-between; gap: 14px; padding: 10px 0; border-top: 1px solid var(--line); font-size: 16px; }
 .ms-block li span:last-child { color: var(--ink-2); text-align: right; }
 
-/* curiosities: frosted glass over soft colour, one animated emoji each */
-.drawers::before { content: ''; position: absolute; inset: 6% 4%; background: radial-gradient(38% 60% at 16% 55%, rgba(41, 151, 255, 0.5), transparent 70%), radial-gradient(34% 60% at 52% 45%, rgba(94, 92, 230, 0.32), transparent 70%), radial-gradient(34% 60% at 86% 55%, rgba(100, 210, 255, 0.42), transparent 70%); filter: blur(30px); pointer-events: none; }
+/* --- "Curiosities": três cartões, cada um com um emoji animado --- */
 .curious__list { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; padding: 4px 28px 28px; }
 .cur { padding: 22px; border-radius: 20px; background: rgba(255, 255, 255, 0.55); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.9); transition: transform 0.32s var(--ease-apple), box-shadow 0.32s var(--ease-apple); }
 .cur:hover { transform: translateY(-3px); box-shadow: inset 0 0 0 1px #fff, 0 16px 30px -18px rgba(11, 27, 51, 0.35); }
@@ -349,6 +454,8 @@ html[lang='es'] .lang::before { transform: translateX(200%); }
 .emo { display: block; font-family: 'Apple Color Emoji', 'Segoe UI Emoji', 'Noto Color Emoji', sans-serif; font-size: 36px; line-height: 1; }
 .cur h3 { margin-top: 16px; font-size: 18px; font-weight: 600; letter-spacing: -0.015em; }
 .cur p { margin-top: 6px; font-size: 15px; line-height: 1.45; color: #48484d; }
+/* os emojis animam 2 vezes quando a gaveta abre, e de novo enquanto o mouse estiver em cima.
+   cup = xícara balançando com vapor; clap = claquete batendo; flip = cambalhota */
 @media (prefers-reduced-motion: no-preference) {
   .cur--cup .emo { animation: cup 3s ease-in-out 2; transform-origin: 50% 90%; }
   .cur--cup .cur__ic::before, .cur--cup .cur__ic::after { content: ''; position: absolute; top: 2px; width: 3px; height: 12px; border-radius: 3px; background: rgba(110, 110, 115, 0.5); opacity: 0; animation: steam 2.4s ease-out 3; }
@@ -356,7 +463,6 @@ html[lang='es'] .lang::before { transform: translateX(200%); }
   .cur--cup .cur__ic::after { left: 34px; animation-delay: 0.8s; }
   .cur--clap .emo { animation: clap 2.6s ease-in-out 2; transform-origin: 15% 85%; }
   .cur--flip .emo { animation: flip 3.4s cubic-bezier(0.5, 0, 0.3, 1) 2; }
-  /* hover starts them again, for as long as the pointer stays */
   .cur--cup:hover .emo { animation: cup-again 1.6s ease-in-out infinite; }
   .cur--cup:hover .cur__ic::before, .cur--cup:hover .cur__ic::after { animation-name: steam-again; animation-iteration-count: infinite; }
   .cur--clap:hover .emo { animation: clap-again 1.4s ease-in-out infinite; }
@@ -370,11 +476,75 @@ html[lang='es'] .lang::before { transform: translateX(200%); }
 @keyframes clap-again { 0%, 40%, 100% { transform: rotate(0); } 55% { transform: rotate(-14deg); } 70% { transform: rotate(5deg); } 85% { transform: rotate(0); } }
 @keyframes flip { 0%, 55% { transform: translateY(0) rotate(0); } 68% { transform: translateY(-12px) rotate(-180deg); } 80%, 100% { transform: translateY(0) rotate(-360deg); } }
 @keyframes flip-again { 0%, 30% { transform: translateY(0) rotate(0); } 55% { transform: translateY(-12px) rotate(-180deg); } 75%, 100% { transform: translateY(0) rotate(-360deg); } }
-/* reduced transparency: no blur, more opaque, but the colour still shows through a little */
-@media (prefers-reduced-transparency: reduce) { .drawer { background: rgba(255, 255, 255, 0.78); -webkit-backdrop-filter: none; backdrop-filter: none; } }
 
-/* ---------- contact ---------- */
+
+/* == 12. Chamada de apps (cartão escuro) e celular desenhado ================== */
+
+.teaser { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 48px; align-items: center; overflow: hidden; border-radius: var(--r-xl); background: var(--navy-900); color: var(--on-dark); padding: 56px 0 0 56px; }
+.teaser h2 { font-size: clamp(2rem, 1.2rem + 2.6vw, 3rem); font-weight: 600; letter-spacing: -0.015em; line-height: 1.08; }
+.teaser p { margin-top: 14px; max-width: 40ch; color: var(--on-dark-2); font-size: 18px; }
+.teaser .cta-row { margin-top: 28px; padding-bottom: 56px; }
+.teaser__phones { display: flex; gap: 16px; justify-content: center; align-self: end; margin-bottom: -120px; }
+.teaser__phones .phone { --pw: 190px; }
+.teaser__phones .phone:nth-child(2) { margin-top: 48px; }
+
+/* celular desenhado em CSS (moldura + tela). --pw é a largura; o resto acompanha. */
+.phone { --pw: 260px; position: relative; flex: none; width: var(--pw); aspect-ratio: 390 / 844; padding: calc(var(--pw) * 0.034); background: #0a0e17; border-radius: calc(var(--pw) * 0.17); box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.14), 0 40px 80px -30px rgba(0, 0, 0, 0.6); }
+.phone__screen { position: relative; width: 100%; height: 100%; overflow: hidden; border-radius: calc(var(--pw) * 0.135); background: #000; }
+.phone__screen img, .phone__screen video { width: 100%; height: 100%; object-fit: cover; object-position: 50% 0; }
+/* botão de pausar/tocar o vídeo do Iron (página de Apps) */
+.clip-btn { position: absolute; z-index: 3; right: 10px; bottom: 10px; display: grid; place-items: center; width: 44px; height: 44px; border: 0; border-radius: 50%; background: rgba(0, 0, 0, 0.55); color: #fff; transition: background-color 0.2s ease, transform 0.1s ease-out; }
+.clip-btn:hover { background: rgba(0, 0, 0, 0.7); }
+.clip-btn:active { transform: scale(0.94); }
+.clip-btn svg { width: 18px; height: 18px; fill: currentColor; }
+.clip-btn .i-play { display: none; }
+.clip-btn.is-paused .i-play { display: block; }
+.clip-btn.is-paused .i-pause { display: none; }
+
+
+/* == 13. Fotografia (grade e foto ampliada) ===================================
+   Grade: miniaturas quadradas em assets/photos/sm/ (480 e 720px).
+   Ao clicar abre a foto grande (assets/photos/xl/, 1440px) numa janela (.lightbox). */
+
+.gallery { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+.ph { display: block; width: 100%; padding: 0; border: 0; border-radius: 16px; overflow: hidden; background: var(--bg-2); cursor: zoom-in; transition: transform 0.32s var(--ease-apple); }
+.ph img { width: 100%; height: auto; aspect-ratio: 1; object-fit: cover; transition: transform 0.7s var(--ease), filter 0.7s var(--ease); }
+.ph:hover img { transform: scale(1.05); filter: saturate(1.08); }
+.ph:active { transform: scale(0.98); }
+.ph:focus-visible { outline-offset: 3px; }
+
+/* janela da foto ampliada, com o local e os botões ‹ › × */
+.lightbox { width: 100%; height: 100%; max-width: none; max-height: none; margin: 0; padding: 64px 84px 48px; border: 0; background: rgba(2, 6, 15, 0.86); -webkit-backdrop-filter: blur(18px); backdrop-filter: blur(18px); color: var(--on-dark); }
+.lightbox[open] { display: grid; place-items: center; }
+.lightbox::backdrop { background: transparent; }
+.lightbox__fig { margin: 0; display: grid; justify-items: center; max-width: 100%; }
+.lightbox__img.is-loading { opacity: 0.25; }
+.lightbox__img { transition: opacity 0.3s var(--ease-apple); width: auto; height: auto; max-width: 100%; max-height: calc(100vh - 170px); max-height: calc(100svh - 170px); border-radius: 18px; background: var(--navy-850); }
+.lightbox__cap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 6px 16px; width: 100%; margin-top: 14px; font-size: 15px; }
+.lightbox__place { display: inline-flex; align-items: center; gap: 6px; font-weight: 600; }
+.lightbox__place svg { width: 18px; height: 18px; flex: none; fill: none; stroke: var(--blue-on-dark); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.lightbox__count { color: var(--on-dark-2); font-variant-numeric: tabular-nums; }
+.lb-btn { position: fixed; display: grid; place-items: center; width: 44px; height: 44px; padding: 0; border: 0; border-radius: 50%; background: rgba(255, 255, 255, 0.12); color: #fff; transition: background-color 0.2s var(--ease-apple), transform 0.1s ease-out; }
+.lb-btn:hover { background: rgba(255, 255, 255, 0.24); }
+.lb-btn:active { transform: scale(0.92); }
+.lb-btn svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.lb-btn:focus-visible { outline-color: var(--blue-on-dark); }
+.lb-close { top: 16px; right: 16px; }
+.lb-prev, .lb-next { top: 50%; margin-top: -22px; }
+.lb-prev { left: 20px; }
+.lb-next { right: 20px; }
+@media (prefers-reduced-motion: no-preference) {
+  .lightbox[open] .lightbox__fig { animation: lb-in 0.4s var(--ease); }
+  .lightbox__img.is-swapping { animation: lb-swap 0.35s var(--ease); }
+}
+@keyframes lb-in { from { opacity: 0; transform: scale(0.96); } }
+@keyframes lb-swap { from { opacity: 0.2; } }
+
+
+/* == 14. Contato (formulário) ================================================= */
+
 .contact { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 20px; align-items: start; }
+/* versão centralizada, usada na página inicial */
 .contact--center { grid-template-columns: minmax(0, 660px); justify-content: center; gap: 28px; }
 .contact--center .direct { text-align: center; }
 .contact--center .direct .cta-row { justify-content: center; }
@@ -384,8 +554,10 @@ html[lang='es'] .lang::before { transform: translateX(200%); }
 .field label { font-size: 14px; font-weight: 600; }
 .field input, .field select, .field textarea { width: 100%; min-height: 50px; padding: 12px 14px; border: 1px solid #86868b; border-radius: 12px; background: #fff; font-size: 17px; transition: border-color 0.2s ease, box-shadow 0.2s ease; appearance: none; }
 .field textarea { min-height: 130px; resize: vertical; }
+/* setinha da lista "What is it about?" (desenho SVG dentro do próprio CSS) */
 .field select { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%236e6e73' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 14px center; background-size: 18px; padding-right: 42px; }
 .field input:focus-visible, .field select:focus-visible, .field textarea:focus-visible { outline: none; border-color: var(--blue); box-shadow: 0 0 0 3px var(--blue); }
+/* caixa de consentimento (obrigatória pela LGPD/GDPR) */
 .check { display: grid; grid-template-columns: 24px minmax(0, 1fr); gap: 12px; align-items: start; margin-top: 4px; font-size: 15px; line-height: 1.45; }
 .check input { appearance: none; -webkit-appearance: none; width: 24px; height: 24px; margin: 0; border: 1px solid #86868b; border-radius: 7px; background: #fff no-repeat center / 16px; cursor: pointer; transition: background-color 0.2s var(--ease-apple), border-color 0.2s var(--ease-apple), transform 0.1s ease-out; }
 .check input:active { transform: scale(0.92); }
@@ -397,6 +569,7 @@ html[lang='es'] .lang::before { transform: translateX(200%); }
 .form__note { font-size: 14px; color: var(--ink-2); }
 .form__note[data-state='ok'] { color: #1a7f37; }
 .form__note a { color: var(--blue-link); }
+/* aviso que só aparece se o navegador estiver sem JavaScript */
 .nojs-note { display: none; padding: 24px; border-radius: var(--r-l); background: var(--bg-2); }
 html:not(.js) .form { display: none; }
 html:not(.js) .nojs-note { display: block; }
@@ -404,9 +577,13 @@ html:not(.js) .nojs-note { display: block; }
 .direct .cta-row { margin-top: 12px; }
 .direct p { font-size: 17px; color: var(--ink-2); }
 
-/* ---------- apps page ---------- */
+
+/* == 15. Página de Apps (cartões e agentes) ================================== */
+
+/* cabeçalho azul-marinho das páginas internas (Apps, Privacidade, Termos, Cookies) */
 .page-head { padding: clamp(64px, 9vw, 112px) var(--pad) clamp(48px, 7vw, 80px); }
 .page-head p { margin-inline: 0; }
+/* grade "bento" de cartões: 6 colunas; tile--4 ocupa 4, tile--2 ocupa 2 */
 .bento { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 20px; }
 .tile { position: relative; overflow: hidden; display: flex; flex-direction: column; min-height: 500px; padding: 36px 36px 0; border-radius: var(--r-xl); background: var(--bg); }
 .tile--4 { grid-column: span 4; }
@@ -417,30 +594,32 @@ html:not(.js) .nojs-note { display: block; }
 .tile h2 { margin-top: 6px; font-size: clamp(1.75rem, 1.3rem + 1.1vw, 2.25rem); font-weight: 600; letter-spacing: -0.02em; line-height: 1.1; }
 .tile p { margin-top: 10px; max-width: 40ch; color: var(--ink-2); }
 .tile--dark p { color: var(--on-dark-2); }
-.tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 16px; }
-.tags li { padding: 4px 10px; border-radius: 999px; background: var(--bg-2); color: var(--ink-2); font-size: 13px; font-weight: 500; }
-.tile--dark .tags li { background: rgba(255, 255, 255, 0.08); color: var(--on-dark-2); }
 .tile__links { display: flex; flex-wrap: wrap; align-items: flex-start; align-content: flex-start; gap: 6px 22px; margin-top: 18px; }
 .tile__media { margin-top: auto; padding-top: 32px; display: flex; justify-content: center; }
 .tile__media .phone { --pw: 220px; margin-bottom: -150px; }
 .tile--4 .tile__media .phone { --pw: 260px; margin-bottom: -170px; }
+.tile__private { margin-top: 18px; font-size: 15px; color: var(--ink-2); }
+/* print de tela (Preflight) */
 .shot { width: 100%; border-radius: 14px 14px 0 0; box-shadow: 0 0 0 1px var(--line); object-fit: cover; object-position: 0 0; aspect-ratio: 16 / 10; }
+/* cartão grande do Iron: texto à esquerda, celular à direita (a partir de 735px) */
 @media (min-width: 735px) {
   .tile--split { display: grid; grid-template-columns: minmax(0, 1fr) auto; grid-template-rows: repeat(4, auto) 1fr; column-gap: 40px; align-content: start; }
   .tile--split > :not(.tile__media) { grid-column: 1; }
   .tile--split .tile__media { grid-column: 2; grid-row: 1 / -1; align-self: end; padding-top: 0; }
 }
+/* bloco "How I build them" */
 .proof { margin-top: 20px; padding: 32px; border-radius: var(--r-xl); background: var(--navy-900); color: var(--on-dark); display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 16px 40px; align-items: end; }
 .proof h2 { font-size: 24px; font-weight: 600; letter-spacing: -0.02em; }
 .proof p { margin-top: 10px; color: var(--on-dark-2); max-width: 60ch; }
 
-/* agents */
+/* agentes de IA: os botões (.chip) funcionam como abas; cada aba mostra um .agent */
 .chips { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-bottom: 24px; }
 .chip { min-height: 40px; padding: 0 18px; border: 0; border-radius: 999px; background: rgba(255, 255, 255, 0.08); color: var(--on-dark); font-size: 15px; font-weight: 500; transition: background-color 0.2s ease, color 0.2s ease, transform 0.1s ease-out; }
 .chip:hover { background: rgba(255, 255, 255, 0.14); }
 .chip:active { transform: scale(0.96); }
 .chip[aria-selected='true'] { background: var(--on-dark); color: var(--navy-900); }
 .agent { display: grid; grid-template-columns: 1fr 1.35fr 1fr; border-radius: var(--r-xl); background: var(--navy-850); overflow: hidden; }
+/* com JavaScript, só o agente escolhido aparece; sem JavaScript, aparecem todos */
 .js .agent { display: none; }
 .js .agent.is-on { display: grid; }
 html:not(.js) .agent + .agent { margin-top: 16px; }
@@ -468,7 +647,9 @@ html:not(.js) .chips { display: none; }
 }
 @keyframes fade-up { from { opacity: 0; transform: translateY(10px); } }
 
-/* ---------- privacy page ---------- */
+
+/* == 16. Páginas de texto (privacidade, termos, cookies) ===================== */
+
 .doc { max-width: 720px; margin-inline: auto; }
 .doc h2 { margin-top: 44px; font-size: 26px; font-weight: 600; letter-spacing: -0.02em; }
 .doc h2:first-child { margin-top: 0; }
@@ -477,16 +658,18 @@ html:not(.js) .chips { display: none; }
 .doc a { color: var(--blue-link); }
 .doc .updated { color: var(--ink-2); font-size: 15px; }
 .doc code { font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace; font-size: 0.88em; padding: 1px 6px; border-radius: 6px; background: var(--bg-2); }
+/* tabela da página de cookies (rola para o lado no celular) */
 .table-wrap { margin-top: 20px; overflow-x: auto; border-radius: var(--r-m); box-shadow: inset 0 0 0 1px var(--line); }
 .doc table { width: 100%; min-width: 560px; border-collapse: collapse; font-size: 15px; }
 .doc th, .doc td { padding: 12px 14px; text-align: left; vertical-align: top; }
 .doc th { font-size: 13px; font-weight: 600; color: var(--ink-2); background: var(--bg-2); }
 .doc td { border-top: 1px solid var(--line); }
-.model-form { margin-top: 44px; padding: 24px 26px; border-radius: var(--r-l); background: var(--bg-2); }
-.model-form p:first-child { margin-top: 0; }
-.model-form__h { font-family: var(--font-display); font-size: 19px; font-weight: 600; letter-spacing: -0.015em; }
 
-/* ---------- footer ---------- */
+
+/* == 17. Rodapé ===============================================================
+   Em cima: "© 2026 Pablo Targa · Amsterdam" centralizado.
+   Embaixo da linha: Apps, LinkedIn, GitHub à esquerda e as páginas legais à direita. */
+
 .footer { background: var(--bg-2); color: var(--ink-2); font-size: 13px; line-height: 1.5; padding: 22px var(--pad) 30px; }
 .footer .wrap { display: grid; gap: 12px; padding-top: 18px; border-top: 1px solid var(--line); }
 .footer__copy { text-align: center; }
@@ -498,13 +681,19 @@ html:not(.js) .chips { display: none; }
 .footer__legal a { color: var(--ink-2); }
 .footer__legal a[aria-current] { color: var(--ink); }
 
-/* ---------- 404 ---------- */
+
+/* == 18. Página 404 ("esta página não existe") =============================== */
+
 .notfound { min-height: 100vh; display: grid; place-content: center; text-align: center; padding: 40px var(--pad) 80px; }
 .notfound h1 { font-size: clamp(2.5rem, 1.5rem + 4vw, 4.5rem); font-weight: 600; letter-spacing: -0.02em; }
 .notfound p { margin-top: 14px; color: var(--on-dark-2); }
 .notfound .btn { margin-top: 28px; justify-self: center; white-space: normal; max-width: 100%; text-align: center; padding-block: 12px; }
 
-/* ---------- hero entrance ---------- */
+
+/* == 19. Animação de entrada do topo ==========================================
+   Elementos com class="rise" sobem e aparecem ao abrir a página.
+   d1, d2, d3 = pequenos atrasos para entrarem um depois do outro. */
+
 @media (prefers-reduced-motion: no-preference) {
   .js .rise { opacity: 0; transform: translateY(14px); animation: rise 0.9s var(--ease) forwards; }
   .js .rise.d1 { animation-delay: 0.08s; }
@@ -513,21 +702,33 @@ html:not(.js) .chips { display: none; }
 }
 @keyframes rise { to { opacity: 1; transform: none; } }
 
+
+/* == 20. Preferências do visitante ============================================
+   O sistema do visitante pode pedir menos transparência ou mais contraste
+   (Ajustes → Acessibilidade). O site respeita: vidros ficam mais sólidos e textos mais fortes. */
+
 @media (prefers-reduced-transparency: reduce) {
   .nav { background: var(--nav-solid); -webkit-backdrop-filter: none; backdrop-filter: none; }
+  /* menos transparência, mas a cor de trás ainda aparece um pouco */
+  .drawer { background: rgba(255, 255, 255, 0.78); -webkit-backdrop-filter: none; backdrop-filter: none; }
+  .glass { background: rgba(7, 21, 48, 0.86); -webkit-backdrop-filter: none; backdrop-filter: none; }
+  .lightbox { background: #02060f; -webkit-backdrop-filter: none; backdrop-filter: none; }
 }
 @media (prefers-contrast: more) {
   .nav { background: var(--nav-solid); box-shadow: 0 1px 0 currentColor; }
   .nav__link { color: var(--nav-fg-strong); }
-  .tags li { box-shadow: inset 0 0 0 1px currentColor; }
+  .glass { background: rgba(4, 12, 29, 0.92); }
+  .hero__lead, .tool { color: var(--on-dark); }
 }
-
-/* without JavaScript: no dead controls, nav stays usable */
+/* sem JavaScript: esconde os controles que não funcionariam */
 html:not(.js) .lang, html:not(.js) .menu-btn, html:not(.js) .clip-btn { display: none; }
 
-/* ---------- tablet ---------- */
+
+/* == 21. Telas até 1068px (tablet) =========================================== */
+
 @media (max-width: 1068px) {
   .nav__links { gap: 28px; }
+  .services { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .tile--2 { grid-column: span 3; }
   .tile--4 { grid-column: span 6; }
   .agent { grid-template-columns: 1fr 1fr; }
@@ -540,6 +741,11 @@ html:not(.js) .lang, html:not(.js) .menu-btn, html:not(.js) .clip-btn { display:
   .teaser .cta-row { padding-bottom: 0; }
   .teaser__phones { margin-bottom: -140px; }
 }
+
+
+/* == 22. Telas até 833px (tablet pequeno e celular) ==========================
+   A barra do topo troca os links pelo botão ≡; a foto do A'DAM ocupa a tela inteira. */
+
 @media (max-width: 833px) {
   :root { --nav-h: 48px; }
   .js .nav__links, .nav .btn--sm { display: none; }
@@ -549,17 +755,74 @@ html:not(.js) .lang, html:not(.js) .menu-btn, html:not(.js) .clip-btn { display:
   .nav__in { grid-template-columns: 1fr auto; }
   .nav__end { gap: 10px; }
   .lang button { position: relative; min-height: 32px; min-width: 38px; font-size: 13px; }
+  /* área de toque maior que o desenho do botão */
   .lang button::after { content: ''; position: absolute; inset: -6px -2px; }
+
+  .stage__img { left: 0; width: 100%; height: 100%; aspect-ratio: auto; object-position: 62% 30%; -webkit-mask-image: none; mask-image: none; }
+  .stage__shade { background: linear-gradient(180deg, rgba(2, 6, 15, 0.1) 0%, rgba(2, 6, 15, 0.3) 24%, rgba(2, 6, 15, 0.86) 44%, rgba(2, 6, 15, 0.94) 100%); }
+  /* o texto fica embaixo, deixando o topo da torre aparecer */
+  .hero { justify-content: flex-end; padding-top: max(140px, calc(100vh - 560px)); padding-top: max(140px, calc(100svh - 560px)); padding-bottom: 40px; }
+  .hero__credit { position: static; width: fit-content; max-width: 100%; margin: 32px auto 0; }
+
+  .lightbox { padding: 60px 12px 84px; }
+  .lb-prev, .lb-next { top: auto; bottom: 20px; margin-top: 0; }
+  .lb-prev { left: calc(50% - 56px); }
+  .lb-next { right: calc(50% - 56px); }
+}
+/* celulares baixos (ex.: iPhone SE): o título fica sobre a torre, então a sombra começa mais alto */
+@media (max-width: 833px) and (max-height: 760px) {
+  .stage__shade { background: linear-gradient(180deg, rgba(2, 6, 15, 0.25) 0%, rgba(2, 6, 15, 0.72) 16%, rgba(2, 6, 15, 0.9) 34%, rgba(2, 6, 15, 0.95) 100%); }
 }
 
-/* ---------- phone ---------- */
+
+/* == 23. Telas até 734px (celular) ===========================================
+   Tudo em uma coluna. Títulos e topo centralizados; textos longos à esquerda. */
+
 @media (max-width: 734px) {
   :root { --pad: 18px; }
-  .hero__cta { gap: 18px 24px; }
+
+  /* topo e títulos centralizados */
+  .hero__in, .head, .head--left, .glass .head { text-align: center; margin-inline: auto; }
+  .head--left p, .head p { margin-inline: auto; }
+  .hero__in > * { margin-inline: auto; }
+  .hero__cta { gap: 18px 24px; justify-content: center; }
+  .tools__h { text-align: center; }
+  .hero__credit { justify-content: center; }
+
+  /* serviços */
   .services { grid-template-columns: 1fr; }
+  .svc { padding: 18px; }
+  .glass { border-radius: 24px; }
+
+  /* experiência e gavetas */
+  .jobs-grid, .ms-grid { grid-template-columns: 1fr; }
+  .ms-grid { gap: 24px; }
+  .drawer summary { padding: 0 20px; font-size: 19px; }
+  .more-skills__body { padding: 4px 20px 24px; }
+  .app-groups { grid-template-columns: 1fr; }
+  .curious__list { grid-template-columns: 1fr; padding: 4px 16px 18px; }
+
+  /* chamada de apps */
   .teaser { padding: 36px 24px 0; }
+  .teaser > div:first-child { text-align: center; }
+  .teaser p { margin-inline: auto; }
+  .teaser .cta-row { justify-content: center; }
   .teaser__phones .phone { --pw: 150px; }
   .teaser__phones .phone:nth-child(3) { display: none; }
+
+  /* fotografia: grade de ponta a ponta, sem cantos */
+  .gallery { gap: 3px; margin-inline: calc(var(--pad) * -1); }
+  .ph { border-radius: 0; }
+
+  /* contato */
+  .form { padding: 28px 22px; }
+  .form .row { grid-template-columns: 1fr; }
+  .form .btn { justify-self: stretch; }
+
+  /* rodapé */
+  .footer__row, .footer nav { justify-content: center; }
+
+  /* página de Apps */
   .bento { gap: 14px; }
   .tile, .tile--2, .tile--4 { grid-column: 1 / -1; min-height: 460px; padding: 28px 24px 0; }
   .tile__media .phone, .tile--4 .tile__media .phone { --pw: 220px; margin-bottom: -150px; }
@@ -572,92 +835,4 @@ html:not(.js) .lang, html:not(.js) .menu-btn, html:not(.js) .clip-btn { display:
   .agent > div { padding: 28px 22px; }
   .agent > div + div { border-left: 0; border-top: 1px solid var(--line-dark); }
   .agent > div:first-child { border-bottom: 0; }
-  .jobs-grid, .ms-grid { grid-template-columns: 1fr; }
-  .ms-grid { gap: 24px; }
-  .drawer summary { padding: 0 20px; font-size: 19px; }
-  .footer__row, .footer nav { justify-content: center; }
-  .curious__list { grid-template-columns: 1fr; padding: 4px 16px 18px; }
-  .more-skills__body { padding: 4px 20px 24px; }
-  .app-groups { grid-template-columns: 1fr; }
-  .form { padding: 28px 22px; }
-  .form .row { grid-template-columns: 1fr; }
-  .form .btn { justify-self: stretch; }
-}
-
-/* ---------- photos: square, centred, open bigger with the place ---------- */
-.gallery { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
-.ph { display: block; width: 100%; padding: 0; border: 0; border-radius: 16px; overflow: hidden; background: var(--bg-2); cursor: zoom-in; transition: transform 0.32s var(--ease-apple); }
-.ph img { width: 100%; height: auto; aspect-ratio: 1; object-fit: cover; transition: transform 0.7s var(--ease), filter 0.7s var(--ease); }
-.ph:hover img { transform: scale(1.05); filter: saturate(1.08); }
-.ph:active { transform: scale(0.98); }
-.ph:focus-visible { outline-offset: 3px; }
-.tile__private { margin-top: 18px; font-size: 15px; color: var(--ink-2); }
-
-.lightbox { width: 100%; height: 100%; max-width: none; max-height: none; margin: 0; padding: 64px 84px 48px; border: 0; background: rgba(2, 6, 15, 0.86); -webkit-backdrop-filter: blur(18px); backdrop-filter: blur(18px); color: var(--on-dark); }
-.lightbox[open] { display: grid; place-items: center; }
-.lightbox::backdrop { background: transparent; }
-.lightbox__fig { margin: 0; display: grid; justify-items: center; max-width: 100%; }
-.lightbox__img.is-loading { opacity: 0.25; }
-.lightbox__img { transition: opacity 0.3s var(--ease-apple); width: auto; height: auto; max-width: 100%; max-height: calc(100vh - 170px); max-height: calc(100svh - 170px); border-radius: 18px; background: var(--navy-850); }
-.lightbox__cap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 6px 16px; width: 100%; margin-top: 14px; font-size: 15px; }
-.lightbox__place { display: inline-flex; align-items: center; gap: 6px; font-weight: 600; }
-.lightbox__place svg { width: 18px; height: 18px; flex: none; fill: none; stroke: var(--blue-on-dark); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
-.lightbox__count { color: var(--on-dark-2); font-variant-numeric: tabular-nums; }
-.lb-btn { position: fixed; display: grid; place-items: center; width: 44px; height: 44px; padding: 0; border: 0; border-radius: 50%; background: rgba(255, 255, 255, 0.12); color: #fff; transition: background-color 0.2s var(--ease-apple), transform 0.1s ease-out; }
-.lb-btn:hover { background: rgba(255, 255, 255, 0.24); }
-.lb-btn:active { transform: scale(0.92); }
-.lb-btn svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
-.lb-btn:focus-visible { outline-color: var(--blue-on-dark); }
-.lb-close { top: 16px; right: 16px; }
-.lb-prev, .lb-next { top: 50%; margin-top: -22px; }
-.lb-prev { left: 20px; }
-.lb-next { right: 20px; }
-@media (prefers-reduced-motion: no-preference) {
-  .lightbox[open] .lightbox__fig { animation: lb-in 0.4s var(--ease); }
-  .lightbox__img.is-swapping { animation: lb-swap 0.35s var(--ease); }
-}
-@keyframes lb-in { from { opacity: 0; transform: scale(0.96); } }
-@keyframes lb-swap { from { opacity: 0.2; } }
-
-@media (max-width: 1068px) {
-  .services { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-}
-@media (max-width: 833px) {
-  .stage__img { left: 0; width: 100%; height: 100%; aspect-ratio: auto; object-position: 62% 30%; -webkit-mask-image: none; mask-image: none; }
-  .stage__shade { background: linear-gradient(180deg, rgba(2, 6, 15, 0.1) 0%, rgba(2, 6, 15, 0.3) 24%, rgba(2, 6, 15, 0.86) 44%, rgba(2, 6, 15, 0.94) 100%); }
-  .hero { justify-content: flex-end; padding-top: max(140px, calc(100vh - 560px)); padding-top: max(140px, calc(100svh - 560px)); padding-bottom: 40px; }
-  .hero__credit { position: static; width: fit-content; max-width: 100%; margin: 32px auto 0; }
-  .lightbox { padding: 60px 12px 84px; }
-  .lb-prev, .lb-next { top: auto; bottom: 20px; margin-top: 0; }
-  .lb-prev { left: calc(50% - 56px); }
-  .lb-next { right: calc(50% - 56px); }
-}
-@media (max-width: 833px) and (max-height: 760px) {
-  /* short phones: the title sits over the tower, so the shade starts higher */
-  .stage__shade { background: linear-gradient(180deg, rgba(2, 6, 15, 0.25) 0%, rgba(2, 6, 15, 0.72) 16%, rgba(2, 6, 15, 0.9) 34%, rgba(2, 6, 15, 0.95) 100%); }
-}
-@media (max-width: 734px) {
-  /* phones: intro and section titles centred, long text stays left */
-  .hero__in, .head, .head--left, .glass .head { text-align: center; margin-inline: auto; }
-  .head--left p, .head p { margin-inline: auto; }
-  .hero__in > * { margin-inline: auto; }
-  .hero__cta { justify-content: center; }
-  .tools__h { text-align: center; }
-  .hero__credit { justify-content: center; }
-  .teaser > div:first-child { text-align: center; }
-  .teaser p { margin-inline: auto; }
-  .teaser .cta-row { justify-content: center; }
-  .services { grid-template-columns: 1fr; }
-  .svc { padding: 18px; }
-  .glass { border-radius: 24px; }
-  .gallery { gap: 3px; margin-inline: calc(var(--pad) * -1); }
-  .ph { border-radius: 0; }
-}
-@media (prefers-reduced-transparency: reduce) {
-  .glass { background: rgba(7, 21, 48, 0.86); -webkit-backdrop-filter: none; backdrop-filter: none; }
-  .lightbox { background: #02060f; -webkit-backdrop-filter: none; backdrop-filter: none; }
-}
-@media (prefers-contrast: more) {
-  .glass { background: rgba(4, 12, 29, 0.92); }
-  .hero__lead, .tool { color: var(--on-dark); }
 }

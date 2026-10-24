@@ -1,29 +1,71 @@
-// Pablo Targa — portfolio behaviour. No dependencies.
+/* =============================================================================
+   PT Solutions · Pablo Targa — comportamento do site (todas as páginas usam este arquivo)
+
+   O que este arquivo faz, na ordem em que aparece:
+    1. Configuração (e-mail e LinkedIn)  ← o que você talvez queira trocar
+    2. Ferramentas pequenas usadas pelo resto
+    3. Idioma: troca entre EN / PT / ES e lembra a escolha
+    4. Links que abrem outra aba avisam isso a leitores de tela
+    5. Menu do celular (botão ≡)
+    6. Ao rolar: cor da barra do topo, zoom da foto do A'DAM, crédito da foto
+    7. Link da barra do topo marcado conforme a seção visível
+    8. Botão "Contact me" com as opções LinkedIn ou formulário
+    9. Gavetas "More skills" e "Curiosities" abrindo devagar
+   10. Fotos ampliadas (galeria)
+   11. Vídeo do Iron (página de Apps)
+   12. Abas dos agentes de IA (página de Apps)
+   13. Cartão de serviço → formulário com o assunto já escolhido
+   14. Formulário de contato (abre o app de e-mail de quem escreve)
+
+   Não usa nenhuma biblioteca. Mudou este arquivo? Suba o "?v=" nas páginas
+   (ou rode FERRAMENTAS/nova-versao.py).
+   Por segurança (CSP), nunca use innerHTML: crie elementos como em spans3() abaixo.
+   ============================================================================= */
 (() => {
   'use strict';
-  const root = document.documentElement;
-  const $ = (s, c = document) => c.querySelector(s);
-  const $$ = (s, c = document) => [...c.querySelectorAll(s)];
-  const reduce = matchMedia('(prefers-reduced-motion: reduce)');
-  const onChange = (mq, fn) => (mq.addEventListener ? mq.addEventListener('change', fn) : mq.addListener(fn));
-  const store = {
-    get(k) { try { return localStorage.getItem('ptp:' + k); } catch (e) { return null; } },
-    set(k, v) { try { localStorage.setItem('ptp:' + k, v); } catch (e) { /* private mode */ } }
+
+  /* == 1. Configuração ========================================================= */
+  const CONFIG = {
+    // e-mail que recebe o formulário. Fica em duas partes de propósito: assim o
+    // endereço completo nunca aparece escrito no código, e robôs de spam não o acham.
+    emailUser: 'pablomtarga',
+    emailDomain: 'icloud.com',
+    linkedIn: 'https://www.linkedin.com/in/pablomtarga',
+    // prefixo das informações guardadas no navegador (hoje só o idioma: "ptp:lang")
+    storagePrefix: 'ptp:'
   };
 
-  /* ---------- language: English, Portuguese, Spanish ---------- */
+  /* == 2. Ferramentas pequenas usadas pelo resto =============================== */
+  const root = document.documentElement;
+  const $ = (s, c = document) => c.querySelector(s);            // acha um elemento
+  const $$ = (s, c = document) => [...c.querySelectorAll(s)];   // acha todos
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)'); // visitante pediu menos animação?
+  const onChange = (mq, fn) => (mq.addEventListener ? mq.addEventListener('change', fn) : mq.addListener(fn));
+  // guarda e lê do navegador sem quebrar no modo anônimo (que às vezes bloqueia)
+  const store = {
+    get(k) { try { return localStorage.getItem(CONFIG.storagePrefix + k); } catch (e) { return null; } },
+    set(k, v) { try { localStorage.setItem(CONFIG.storagePrefix + k, v); } catch (e) { /* modo anônimo */ } }
+  };
+
+  /* == 3. Idioma: EN / PT / ES ================================================= */
+  // O boot.js já escolheu o idioma antes da página aparecer. Aqui ficam a troca
+  // pelos botões e os textos que não estão em <span class="en/pt/es">.
   const TAG = { en: 'en', pt: 'pt-BR', es: 'es' };
   const lang = () => ({ 'pt-BR': 'pt', es: 'es' }[root.lang] || 'en');
+  // escolhe o texto do idioma atual: say3({ en: 'Hi', pt: 'Oi', es: 'Hola' })
   const say3 = (o) => o[lang()];
   const cap = (l) => l[0].toUpperCase() + l.slice(1);
   function setLang(l, save) {
     root.lang = TAG[l] || 'en';
-    // each page carries its own title and description in every language on <body>
+    // título da aba e descrição para o Google: cada página guarda os três no <body>
+    // (data-title-en, data-title-pt, data-title-es e o mesmo para data-desc-...)
     const title = document.body.dataset['title' + cap(l)];
     const desc = document.body.dataset['desc' + cap(l)];
     if (title) document.title = title;
     const d = $('meta[name="description"]');
     if (d && desc) d.setAttribute('content', desc);
+    // elementos com data-en / data-pt / data-es: opções da lista, rótulos para leitor
+    // de tela (aria-label) e descrições de imagens (alt)
     $$('[data-en]').forEach((el) => {
       const v = el.dataset[l] || el.dataset.en;
       const attr = el.dataset.attr;
@@ -33,15 +75,17 @@
     $$('.lang button').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.lang === l)));
     if (save) {
       store.set('lang', l);
-      // a ?lang= in the address would override the choice on the next visit
+      // um ?lang= no endereço passaria por cima da escolha na próxima visita
       if (location.search.includes('lang=')) history.replaceState(null, '', location.pathname + location.hash);
     }
+    // avisa as outras partes (ex.: a foto ampliada atualiza o local no novo idioma)
     document.dispatchEvent(new Event('langchange'));
   }
   setLang(lang());
   $$('.lang button').forEach((b) => b.addEventListener('click', () => setLang(b.dataset.lang, true)));
 
-  // builds <span class="en">…</span><span class="pt">…</span><span class="es">…</span> without innerHTML
+  // cria <span class="en">…</span><span class="pt">…</span><span class="es">…</span>
+  // sem innerHTML (a segurança do site, CSP, bloqueia innerHTML)
   const spans3 = (o, wrap) => {
     const box = wrap || document.createElement('span');
     Object.entries(o).forEach(([cls, text]) => {
@@ -53,7 +97,7 @@
     return box;
   };
 
-  /* ---------- links that open a new tab say so to screen readers ---------- */
+  /* == 4. Links que abrem outra aba avisam isso a leitores de tela ============= */
   $$('a[target="_blank"]').forEach((a) => {
     if ($('.newtab', a)) return;
     const note = spans3({ en: ' (opens in a new tab)', pt: ' (abre em outra aba)', es: ' (se abre en otra pestaña)' });
@@ -61,9 +105,10 @@
     a.append(note);
   });
 
-  /* ---------- mobile menu ---------- */
+  /* == 5. Menu do celular (botão ≡) ============================================ */
   const menuBtn = $('.menu-btn');
   const menu = $('#menu');
+  // com o menu aberto, o resto da página fica "inerte" (o teclado não sai do menu)
   const behind = $$('.skip, main, footer');
   function closeMenu(focusBtn) {
     if (!menu || menu.hidden) return;
@@ -85,10 +130,14 @@
     });
     menu.addEventListener('click', (e) => { if (e.target.closest('a')) closeMenu(); });
     document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeMenu(true); });
+    // se a tela ficar larga (ex.: girar o tablet), fecha o menu
     onChange(matchMedia('(min-width: 834px)'), (e) => { if (e.matches) closeMenu(); });
   }
 
-  /* ---------- on scroll: bar colour follows the section, the A'DAM photo zooms and softens ---------- */
+  /* == 6. Ao rolar a página ==================================================== */
+  // a) a barra do topo fica escura sobre seções escuras (class="dark") e clara nas outras
+  // b) a foto do A'DAM aproxima e escurece: o número --p vai de 0 (topo) a 1 (fim dos serviços)
+  // c) o crédito da foto some aos poucos (só no computador; no celular ele fica mais abaixo)
   const nav = $('.nav');
   const zones = $$('main > *, footer');
   const stage = $('.stage');
@@ -110,17 +159,16 @@
       const p = run > 0 ? Math.min(1, Math.max(0, -r.top / run)) : 0;
       stageBg.style.setProperty('--p', p.toFixed(3));
     }
-    // the photo credit fades out over the first part of the scroll
-    // on phones it sits below the fold, so it only fades on wider screens
     if (credit) credit.style.opacity = wide.matches ? Math.max(0, 1 - scrollY / 160).toFixed(2) : '';
   };
+  // no máximo uma atualização por quadro de tela, para a rolagem não travar
   const queue = () => { if (!queued) { queued = true; requestAnimationFrame(paint); } };
   addEventListener('scroll', queue, { passive: true });
   addEventListener('resize', queue);
   onChange(reduce, () => { if (stageBg) stageBg.style.removeProperty('--p'); queue(); });
   paint();
 
-  /* ---------- current section in the nav ---------- */
+  /* == 7. Link da barra do topo marcado conforme a seção visível =============== */
   const navLinks = $$('.nav__link');
   if ('IntersectionObserver' in window && navLinks.length) {
     const byId = new Map(navLinks.filter((a) => a.getAttribute('href').startsWith('#')).map((a) => [a.getAttribute('href').slice(1), a]));
@@ -135,7 +183,9 @@
     $$('main section[id]').forEach((s) => spy.observe(s));
   }
 
-  /* ---------- Contact me: LinkedIn or the form, shown on hover or focus; Esc or a choice closes it ---------- */
+  /* == 8. "Contact me" com as opções LinkedIn ou formulário ==================== */
+  // O menu abre pelo CSS (mouse em cima ou foco do teclado). Aqui: Esc fecha, e
+  // escolher uma opção fecha também.
   $$('.cta-menu').forEach((m) => {
     const reopen = () => m.classList.remove('is-closed');
     m.addEventListener('keydown', (e) => { if (e.key === 'Escape') m.classList.add('is-closed'); });
@@ -149,7 +199,9 @@
     m.addEventListener('focusout', (e) => { if (!m.contains(e.relatedTarget)) reopen(); });
   });
 
-  /* ---------- drawers slide open and closed; a second click mid-way reverses from where it is ---------- */
+  /* == 9. Gavetas abrindo e fechando devagar =================================== */
+  // Sem este código as gavetas (<details>) abririam de uma vez. Clicar de novo no
+  // meio do movimento inverte a partir de onde está, sem pulo.
   $$('details.drawer').forEach((d) => {
     const sum = $('summary', d);
     const body = sum.nextElementSibling;
@@ -164,6 +216,7 @@
       if (opening) d.open = true;
       const end = opening ? sum.offsetHeight + body.offsetHeight : sum.offsetHeight;
       d.style.overflow = 'hidden';
+      // 520 e 380 = duração em milissegundos para abrir e para fechar
       anim = d.animate({ height: [`${start}px`, `${end}px`] }, { duration: opening ? 520 : 380, easing: 'cubic-bezier(0.32, 0.72, 0, 1)' });
       if (opening) body.animate({ opacity: [0, 1], transform: ['translateY(-10px)', 'none'] }, { duration: 420, delay: 80, easing: 'cubic-bezier(0.22, 1, 0.36, 1)', fill: 'backwards' });
       anim.onfinish = () => {
@@ -174,7 +227,9 @@
     });
   });
 
-  /* ---------- photos open bigger, with the place they were taken ---------- */
+  /* == 10. Fotos ampliadas (galeria) =========================================== */
+  // Cada foto da grade é um botão com data-full (endereço da foto grande) e
+  // data-place-en / -pt / -es (o local). A foto grande só baixa quando é aberta.
   const box = $('#lightbox');
   const shots = $$('.ph');
   if (box && shots.length && typeof box.showModal === 'function') {
@@ -185,7 +240,6 @@
     const show = (i, swap) => {
       at = (i + shots.length) % shots.length;
       const thumb = $('img', shots[at]);
-      // the large file only downloads when a photo is opened
       img.classList.add('is-loading');
       img.src = shots[at].dataset.full || thumb.currentSrc || thumb.src;
       img.alt = thumb.alt;
@@ -198,13 +252,14 @@
     $('.lb-prev', box).addEventListener('click', () => show(at - 1, true));
     $('.lb-next', box).addEventListener('click', () => show(at + 1, true));
     $('.lb-close', box).addEventListener('click', () => box.close());
-    // a click on the dark area around the photo closes it
+    // clicar na área escura em volta da foto fecha
     box.addEventListener('click', (e) => { if (e.target === box) box.close(); });
+    // setas do teclado passam as fotos (Esc fecha sozinho, é do próprio <dialog>)
     box.addEventListener('keydown', (e) => {
       if (e.key === 'ArrowLeft') { e.preventDefault(); show(at - 1, true); }
       else if (e.key === 'ArrowRight') { e.preventDefault(); show(at + 1, true); }
     });
-    // swipe left or right on a phone
+    // no celular, arrastar para o lado passa a foto
     let startX = null;
     box.addEventListener('pointerdown', (e) => { if (e.pointerType !== 'mouse') startX = e.clientX; });
     box.addEventListener('pointerup', (e) => {
@@ -213,11 +268,14 @@
       startX = null;
       if (Math.abs(dx) > 50) show(at + (dx < 0 ? 1 : -1), true);
     });
+    // ao fechar, o foco volta para a foto que estava aberta
     box.addEventListener('close', () => { shots[at].focus({ preventScroll: true }); });
     document.addEventListener('langchange', () => { if (box.open) show(at); });
   }
 
-  /* ---------- app clip: plays while visible; pause button; respects reduced motion and data saver ---------- */
+  /* == 11. Vídeo do Iron (página de Apps) ====================================== */
+  // Toca só enquanto aparece na tela. Não toca sozinho para quem pediu menos
+  // animação ou está economizando dados. O botão pausa e retoma.
   $$('.clip').forEach((clipBox) => {
     const clip = $('video', clipBox);
     const clipBtn = $('.clip-btn', clipBox);
@@ -236,7 +294,7 @@
     };
     const sync = () => {
       if (userPaused || !visible) clip.pause();
-      else clip.play().catch(() => { /* autoplay blocked: the poster stays */ });
+      else clip.play().catch(() => { /* navegador bloqueou: fica a imagem de capa */ });
     };
     clip.addEventListener('play', label);
     clip.addEventListener('pause', label);
@@ -248,7 +306,8 @@
     label();
   });
 
-  /* ---------- agent tickets (tabs) ---------- */
+  /* == 12. Abas dos agentes de IA (página de Apps) ============================= */
+  // Clique ou setas ← → / Home / End trocam a aba.
   const chips = $$('.chip');
   function pick(chip, focus) {
     chips.forEach((c) => {
@@ -270,25 +329,29 @@
     });
   });
 
-  /* ---------- a service card takes you to the form with its topic already picked ---------- */
+  /* == 13. Cartão de serviço → formulário com o assunto já escolhido =========== */
+  // data-topic no cartão precisa ser igual a um value da lista <select id="f-topic">
   $$('.svc__link[data-topic]').forEach((a) => a.addEventListener('click', () => {
     const topic = $('#f-topic');
     if (topic) topic.value = a.dataset.topic;
   }));
 
-  /* ---------- contact form opens the visitor's email app ---------- */
+  /* == 14. Formulário de contato =============================================== */
+  // O site não envia nada sozinho: monta a mensagem e abre o app de e-mail de quem
+  // escreve (mailto:). Nada do que a pessoa digita fica guardado no site.
   const form = $('#contact-form');
   if (form) {
     const note = $('.form__note', form);
     const noteStart = [...note.childNodes].map((n) => n.cloneNode(true));
     const linkedIn = () => {
       const a = document.createElement('a');
-      a.href = 'https://www.linkedin.com/in/pablomtarga';
+      a.href = CONFIG.linkedIn;
       a.target = '_blank';
       a.rel = 'noopener noreferrer';
       a.textContent = 'LinkedIn';
       return a;
     };
+    // aviso mostrado depois de clicar em enviar
     const opened = () => {
       note.replaceChildren();
       spans3({
@@ -303,12 +366,13 @@
     ['name', 'message', 'consent'].forEach((n) => form.elements[n].addEventListener('input', (e) => e.target.setCustomValidity('')));
     form.addEventListener('submit', (e) => {
       e.preventDefault();
-      // spaces alone do not count as an answer
+      // só espaços não contam como resposta
       [form.elements.name, form.elements.message].forEach((f) => {
         f.setCustomValidity(f.value.trim() ? '' : say3({ en: 'Please fill in this field.', pt: 'Preencha este campo.', es: 'Rellena este campo.' }));
       });
       consent.setCustomValidity(consent.checked ? '' : say3({ en: 'Tick this box to send your message.', pt: 'Marque esta caixa para enviar.', es: 'Marca esta casilla para enviar el mensaje.' }));
       if (!form.reportValidity()) { resetNote(); return; }
+      // limpa caracteres invisíveis e corta no tamanho máximo de cada campo
       const clean = (s, max) => String(s).replace(/[\u0000-\u0008\u000B\u000C\u000E-\u001F\u007F]/g, '').trim().slice(0, max);
       const oneLine = (s, max) => clean(s, max).replace(/[\r\n]+/g, ' ');
       const name = oneLine(form.elements.name.value, 80);
@@ -322,8 +386,8 @@
         msg
       ].join('\n');
       opened();
-      // the address is assembled here so it never appears in the page or its source
-      const to = ['pablomtarga', 'icloud.com'].join('@');
+      // o endereço é montado só aqui, na hora do envio (ver CONFIG no topo)
+      const to = [CONFIG.emailUser, CONFIG.emailDomain].join('@');
       window.location.href = `mailto:${to}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
     });
   }
