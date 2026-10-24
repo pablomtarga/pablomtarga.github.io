@@ -38,10 +38,24 @@
   setLang(lang());
   $$('.lang button').forEach((b) => b.addEventListener('click', () => setLang(b.dataset.lang, true)));
 
+  /* ---------- links that open a new tab say so to screen readers ---------- */
+  $$('a[target="_blank"]').forEach((a) => {
+    if ($('.newtab', a)) return;
+    const note = document.createElement('span');
+    note.className = 'sr-only newtab';
+    [['en', ' (opens in a new tab)'], ['pt', ' (abre em outra aba)']].forEach(([cls, text]) => {
+      const s = document.createElement('span');
+      s.className = cls;
+      s.textContent = text;
+      note.append(s);
+    });
+    a.append(note);
+  });
+
   /* ---------- mobile menu ---------- */
   const menuBtn = $('.menu-btn');
   const menu = $('#menu');
-  const behind = $$('main, footer');
+  const behind = $$('.skip, main, footer');
   function closeMenu(focusBtn) {
     if (!menu || menu.hidden) return;
     menuBtn.setAttribute('aria-expanded', 'false');
