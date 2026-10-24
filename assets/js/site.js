@@ -94,6 +94,7 @@
   const stage = $('.stage');
   const stageBg = $('.stage__bg');
   const credit = $('.hero__credit');
+  const wide = matchMedia('(min-width: 834px)');
   let queued = false;
   const paint = () => {
     queued = false;
@@ -110,7 +111,8 @@
       stageBg.style.setProperty('--p', p.toFixed(3));
     }
     // the photo credit fades out over the first part of the scroll
-    if (credit) credit.style.opacity = Math.max(0, 1 - scrollY / 160).toFixed(2);
+    // on phones it sits below the fold, so it only fades on wider screens
+    if (credit) credit.style.opacity = wide.matches ? Math.max(0, 1 - scrollY / 160).toFixed(2) : '';
   };
   const queue = () => { if (!queued) { queued = true; requestAnimationFrame(paint); } };
   addEventListener('scroll', queue, { passive: true });
@@ -183,12 +185,15 @@
     const show = (i, swap) => {
       at = (i + shots.length) % shots.length;
       const thumb = $('img', shots[at]);
-      img.src = thumb.currentSrc || thumb.src;
+      // the large file only downloads when a photo is opened
+      img.classList.add('is-loading');
+      img.src = shots[at].dataset.full || thumb.currentSrc || thumb.src;
       img.alt = thumb.alt;
       where.textContent = shots[at].dataset['place' + cap(lang())] || shots[at].dataset.placeEn;
       count.textContent = `${at + 1} / ${shots.length}`;
       if (swap) { img.classList.remove('is-swapping'); void img.offsetWidth; img.classList.add('is-swapping'); }
     };
+    img.addEventListener('load', () => img.classList.remove('is-loading'));
     shots.forEach((b, i) => b.addEventListener('click', () => { show(i); box.showModal(); }));
     $('.lb-prev', box).addEventListener('click', () => show(at - 1, true));
     $('.lb-next', box).addEventListener('click', () => show(at + 1, true));
@@ -264,6 +269,12 @@
       else if (e.key === 'End') { e.preventDefault(); pick(chips[chips.length - 1], true); }
     });
   });
+
+  /* ---------- a service card takes you to the form with its topic already picked ---------- */
+  $$('.svc__link[data-topic]').forEach((a) => a.addEventListener('click', () => {
+    const topic = $('#f-topic');
+    if (topic) topic.value = a.dataset.topic;
+  }));
 
   /* ---------- contact form opens the visitor's email app ---------- */
   const form = $('#contact-form');
