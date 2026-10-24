@@ -147,21 +147,30 @@
     m.addEventListener('focusout', (e) => { if (!m.contains(e.relatedTarget)) reopen(); });
   });
 
-  /* ---------- logo strip: pause button (it also stops on hover) ---------- */
-  const tools = $('.tools');
-  const strip = tools && $('.marquee-btn', tools);
-  if (strip) {
-    const label = () => {
-      const paused = tools.classList.contains('is-paused');
-      strip.setAttribute('aria-pressed', String(paused));
-      strip.setAttribute('aria-label', say3(paused
-        ? { en: 'Play the logo strip', pt: 'Retomar a faixa de logos', es: 'Reanudar la franja de logos' }
-        : { en: 'Pause the logo strip', pt: 'Pausar a faixa de logos', es: 'Pausar la franja de logos' }));
-    };
-    strip.addEventListener('click', () => { tools.classList.toggle('is-paused'); label(); });
-    document.addEventListener('langchange', label);
-    label();
-  }
+  /* ---------- drawers slide open and closed; a second click mid-way reverses from where it is ---------- */
+  $$('details.drawer').forEach((d) => {
+    const sum = $('summary', d);
+    const body = sum.nextElementSibling;
+    let anim = null;
+    sum.addEventListener('click', (e) => {
+      if (reduce.matches || typeof d.animate !== 'function') return;
+      e.preventDefault();
+      const opening = !d.open || d.classList.contains('is-closing');
+      const start = d.getBoundingClientRect().height;
+      if (anim) anim.cancel();
+      d.classList.toggle('is-closing', !opening);
+      if (opening) d.open = true;
+      const end = opening ? sum.offsetHeight + body.offsetHeight : sum.offsetHeight;
+      d.style.overflow = 'hidden';
+      anim = d.animate({ height: [`${start}px`, `${end}px`] }, { duration: opening ? 520 : 380, easing: 'cubic-bezier(0.32, 0.72, 0, 1)' });
+      if (opening) body.animate({ opacity: [0, 1], transform: ['translateY(-10px)', 'none'] }, { duration: 420, delay: 80, easing: 'cubic-bezier(0.22, 1, 0.36, 1)', fill: 'backwards' });
+      anim.onfinish = () => {
+        anim = null;
+        d.style.overflow = '';
+        if (!opening) { d.open = false; d.classList.remove('is-closing'); }
+      };
+    });
+  });
 
   /* ---------- photos open bigger, with the place they were taken ---------- */
   const box = $('#lightbox');
