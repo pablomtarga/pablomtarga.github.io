@@ -29,9 +29,9 @@
 <link rel="me" href="https://github.com/pablomtarga">
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
-<link rel="stylesheet" href="assets/css/site.css?v=11">
-<script src="assets/js/boot.js?v=11"></script>
-<script src="assets/js/site.js?v=11" defer></script>
+<link rel="stylesheet" href="assets/css/site.css?v=14">
+<script src="assets/js/boot.js?v=14"></script>
+<script src="assets/js/site.js?v=14" defer></script>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -44,6 +44,7 @@
       "name": "Pablo Targa",
       "url": "https://pablomtarga.github.io/",
       "jobTitle": "IT Support Technician",
+      "brand": { "@type": "Brand", "name": "PT Solutions" },
       "description": "IT support technician and photographer in Amsterdam who builds his own tools with AI.",
       "address": { "@type": "PostalAddress", "addressLocality": "Amsterdam", "addressCountry": "NL" },
       "hasOccupation": [
@@ -137,7 +138,7 @@
 
 <header class="nav">
   <div class="nav__in">
-    <a class="brand" href="#top">Pablo Targa</a>
+    <a class="brand" href="#top" aria-label="PT Solutions · Pablo Targa"><svg class="brand__mark" viewBox="0 0 32 32" aria-hidden="true"><defs><linearGradient id="pt-grad" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2997ff"/><stop offset="1" stop-color="#0044b8"/></linearGradient></defs><rect width="32" height="32" rx="9" fill="url(#pt-grad)"/><rect x="6.6" y="7.6" width="3.4" height="16.8" rx="1.7" fill="#fff"/><path d="M8.3 9.3h3.9a3.75 3.75 0 0 1 0 7.5H8.3" fill="none" stroke="#fff" stroke-width="3.4" stroke-linejoin="round"/><rect x="15.2" y="7.6" width="10.4" height="3.4" rx="1.7" fill="#fff"/><rect x="18.7" y="7.6" width="3.4" height="16.8" rx="1.7" fill="#fff"/></svg><span class="brand__text"><span class="brand__name">PT Solutions</span><span class="brand__by">Pablo Targa</span></span></a>
     <nav class="nav__links" aria-label="Sections" data-attr="aria-label" data-en="Sections" data-pt="Seções" data-es="Secciones">
       <a class="nav__link" href="#services"><span class="en">Services</span><span class="pt">Serviços</span><span class="es">Servicios</span></a>
       <a class="nav__link" href="#experience"><span class="en">Experience</span><span class="pt">Experiência</span><span class="es">Experiencia</span></a>
@@ -184,7 +185,13 @@
     <h1 class="rise"><span class="en">Hi, I’m Pablo.</span><span class="pt">Oi, eu sou o Pablo.</span><span class="es">Hola, soy Pablo.</span></h1>
     <p class="hero__lead rise d1"><span class="en"><b>I work in IT support in Amsterdam.</b> More than seven years in Brazil, Ireland and Malta, specialised in customer support and problem solving, from a broken laptop to a whole office network. I also build my own tools with AI, and I’m a photographer.</span><span class="pt"><b>Trabalho com suporte de TI em Amsterdam.</b> São mais de sete anos no Brasil, na Irlanda e em Malta, especializado em atendimento ao cliente e resolução de problemas, do notebook quebrado à rede de um escritório inteiro. Também crio minhas ferramentas com IA e sou fotógrafo.</span><span class="es"><b>Trabajo en soporte de TI en Ámsterdam.</b> Más de siete años en Brasil, Irlanda y Malta, especializado en atención al cliente y resolución de problemas, desde un portátil roto hasta la red de una oficina entera. También creo mis propias herramientas con IA y soy fotógrafo.</span></p>
     <div class="hero__cta rise d2">
-      <a class="btn" href="#contact"><span class="en">Contact me</span><span class="pt">Fale comigo</span><span class="es">Contáctame</span></a>
+      <div class="cta-menu">
+        <a class="btn" href="#contact"><span class="en">Contact me</span><span class="pt">Fale comigo</span><span class="es">Contáctame</span></a>
+        <ul class="cta-menu__pop">
+          <li><a href="https://www.linkedin.com/in/pablomtarga" target="_blank" rel="noopener noreferrer"><svg class="cta-menu__ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="4.5" fill="#0a66c2"/><rect x="6" y="10" width="2.7" height="8" rx=".4" fill="#fff"/><circle cx="7.35" cy="6.9" r="1.55" fill="#fff"/><path d="M10.7 10h2.6v1.2c.5-.8 1.5-1.45 2.8-1.45 2.05 0 3.1 1.3 3.1 3.65V18h-2.7v-4.2c0-1.15-.45-1.85-1.45-1.85s-1.75.75-1.75 2V18h-2.6z" fill="#fff"/></svg><span><span class="en">Message me on LinkedIn</span><span class="pt">Me chame no LinkedIn</span><span class="es">Escríbeme por LinkedIn</span></span></a></li>
+          <li><a href="#contact"><svg class="cta-menu__ic cta-menu__ic--line" viewBox="0 0 24 24" aria-hidden="true"><use href="#lu-mail"/></svg><span><span class="en">Use the form below</span><span class="pt">Usar o formulário abaixo</span><span class="es">Usar el formulario de abajo</span></span></a></li>
+        </ul>
+      </div>
       <a class="btn btn--ghost" href="apps.html"><span class="en">See my apps</span><span class="pt">Ver meus apps</span><span class="es">Ver mis apps</span></a>
     </div>
     <div class="tools rise d3">
@@ -342,13 +349,31 @@
               <h3><span class="en">Languages</span><span class="pt">Idiomas</span><span class="es">Idiomas</span></h3>
               <ul><li><span><span class="en">Portuguese</span><span class="pt">Português</span><span class="es">Portugués</span></span><span><span class="en">native</span><span class="pt">nativo</span><span class="es">nativo</span></span></li><li><span><span class="en">English</span><span class="pt">Inglês</span><span class="es">Inglés</span></span><span><span class="en">fluent</span><span class="pt">fluente</span><span class="es">fluido</span></span></li><li><span><span class="en">Spanish</span><span class="pt">Espanhol</span><span class="es">Español</span></span><span><span class="en">intermediate</span><span class="pt">intermediário</span><span class="es">intermedio</span></span></li><li><span><span class="en">Italian</span><span class="pt">Italiano</span><span class="es">Italiano</span></span><span><span class="en">basic</span><span class="pt">básico</span><span class="es">básico</span></span></li></ul>
             </div>
-            <div class="ms-block ms-curious">
-              <h3><span class="en">Curiosities</span><span class="pt">Curiosidades</span><span class="es">Curiosidades</span></h3>
-              <ul><li><span class="en">I’ve worked as a barista and a bartender, with good reviews from customers on Google.</span><span class="pt">Já trabalhei como barista e bartender, com boas avaliações de clientes no Google.</span><span class="es">He trabajado como barista y bartender, con buenas reseñas de clientes en Google.</span></li><li><span class="en">I was a waiter on a Real Housewives shoot in Amsterdam.</span><span class="pt">Fui garçom numa gravação do Real Housewives em Amsterdam.</span><span class="es">Fui camarero en una grabación de Real Housewives en Ámsterdam.</span></li><li><span class="en">I do parkour, and I trained taekwondo.</span><span class="pt">Faço parkour e já treinei taekwondo.</span><span class="es">Hago parkour y entrené taekwondo.</span></li></ul>
-            </div>
           </div>
         </div>
       </details>
+      <div class="curious-wrap">
+        <details class="curious">
+          <summary><span><span class="en">Curiosities</span><span class="pt">Curiosidades</span><span class="es">Curiosidades</span></span><span class="plus" aria-hidden="true"></span></summary>
+          <ul class="curious__list">
+            <li class="cur cur--cup">
+              <span class="cur__ic" aria-hidden="true"><span class="emo">☕</span></span>
+              <h3><span class="en">Barista and bartender</span><span class="pt">Barista e bartender</span><span class="es">Barista y bartender</span></h3>
+              <p><span class="en">I’ve worked as a barista and a bartender, with good reviews from customers on Google.</span><span class="pt">Já trabalhei como barista e bartender, com boas avaliações de clientes no Google.</span><span class="es">He trabajado como barista y bartender, con buenas reseñas de clientes en Google.</span></p>
+            </li>
+            <li class="cur cur--clap">
+              <span class="cur__ic" aria-hidden="true"><span class="emo">🎬</span></span>
+              <h3><span class="en">On a TV set</span><span class="pt">Num set de TV</span><span class="es">En un rodaje de TV</span></h3>
+              <p><span class="en">I was a waiter on a Real Housewives shoot in Amsterdam.</span><span class="pt">Fui garçom numa gravação do Real Housewives em Amsterdam.</span><span class="es">Fui camarero en una grabación de Real Housewives en Ámsterdam.</span></p>
+            </li>
+            <li class="cur cur--flip">
+              <span class="cur__ic" aria-hidden="true"><span class="emo">🤸</span></span>
+              <h3><span class="en">Sports</span><span class="pt">Esportes</span><span class="es">Deportes</span></h3>
+              <p><span class="en">I do parkour, and I trained taekwondo.</span><span class="pt">Faço parkour e já treinei taekwondo.</span><span class="es">Hago parkour y entrené taekwondo.</span></p>
+            </li>
+          </ul>
+        </details>
+      </div>
     </div>
   </section>
 
