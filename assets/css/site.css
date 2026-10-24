@@ -299,26 +299,31 @@ html[lang='es'] .lang::before { transform: translateX(200%); }
 .app-groups { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 24px 36px; margin-top: 18px; }
 .app-group h4 { margin-bottom: 10px; font-weight: 500; }
 .apps-list { display: flex; flex-wrap: wrap; gap: 8px; }
-.app { display: inline-flex; align-items: center; gap: 8px; min-height: 40px; padding: 6px 12px 6px 8px; border-radius: 12px; background: var(--bg-2); color: var(--ink-2); font-size: 15px; font-weight: 500; transition: background-color 0.4s var(--ease-apple), color 0.4s var(--ease-apple), box-shadow 0.4s var(--ease-apple), transform 0.4s var(--ease-apple); }
+.app { position: relative; display: inline-flex; align-items: center; gap: 8px; min-height: 40px; padding: 6px 12px 6px 8px; border-radius: 12px; background: var(--bg-2); color: var(--ink-2); font-size: 15px; font-weight: 500; transition: background-color 0.4s var(--ease-apple), color 0.4s var(--ease-apple), box-shadow 0.4s var(--ease-apple), transform 0.4s var(--ease-apple); }
 .app svg { width: 22px; height: 22px; flex: none; filter: grayscale(1); opacity: 0.5; transition: filter 0.4s var(--ease-apple), opacity 0.4s var(--ease-apple), color 0.4s var(--ease-apple); }
 .app .lu { fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
 .app:focus-visible { outline-offset: 2px; }
-.lvl { display: inline-flex; align-items: center; gap: 6px; max-width: 0; overflow: hidden; opacity: 0; white-space: nowrap; font-size: 12px; font-weight: 600; color: var(--blue-link); transition: max-width 0.45s var(--ease-apple), opacity 0.3s var(--ease-apple); }
+/* the level floats above the chip, so hovering never changes its size or makes the row wrap */
+.lvl { position: absolute; z-index: 3; bottom: calc(100% + 8px); left: 50%; display: inline-flex; align-items: center; gap: 6px; padding: 5px 9px; border-radius: 8px; background: var(--ink); color: #fff; font-size: 12px; font-weight: 600; white-space: nowrap; pointer-events: none; opacity: 0; transform: translate(-50%, 4px); transition: opacity 0.2s var(--ease-apple), transform 0.25s var(--ease-apple); }
+.lvl::after { content: ''; position: absolute; top: 100%; left: 50%; margin-left: -5px; border: 5px solid transparent; border-top-color: var(--ink); }
 .meter { display: inline-flex; align-items: flex-end; gap: 2px; margin-left: 2px; }
-.meter i { width: 4px; border-radius: 2px; background: var(--line); }
+.meter i { width: 4px; border-radius: 2px; background: rgba(255, 255, 255, 0.28); }
 .meter i:nth-child(1) { height: 6px; }
 .meter i:nth-child(2) { height: 9px; }
 .meter i:nth-child(3) { height: 12px; }
-.m1 i:nth-child(1), .m2 i:nth-child(-n+2), .m3 i { background: var(--blue); }
+.m1 i:nth-child(1), .m2 i:nth-child(-n+2), .m3 i { background: var(--blue-on-dark); }
 /* hover: the chip switches on, like a light */
 .app:hover, .app:focus-visible { background: #fff; color: var(--ink); box-shadow: 0 0 0 1px rgba(0, 113, 227, 0.3), 0 8px 24px -8px rgba(0, 113, 227, 0.5), 0 0 22px rgba(0, 113, 227, 0.16); transform: translateY(-1px); }
 .app:hover svg, .app:focus-visible svg { filter: none; opacity: 1; }
 .app:hover .lu, .app:focus-visible .lu { color: var(--blue); }
-.app:hover .lvl, .app:focus-visible .lvl { max-width: 170px; opacity: 1; }
+.app:hover .lvl, .app:focus-visible .lvl { opacity: 1; transform: translate(-50%, 0); }
 @media (hover: none) {
   .ms-hint { display: none; }
   .app svg { filter: none; opacity: 1; }
-  .lvl { max-width: 170px; opacity: 1; }
+  .lvl { position: static; padding: 0; background: none; color: var(--blue-link); opacity: 1; transform: none; }
+  .lvl::after { display: none; }
+  .meter i { background: var(--line); }
+  .m1 i:nth-child(1), .m2 i:nth-child(-n+2), .m3 i { background: var(--blue); }
 }
 .ms-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px 48px; margin-top: 36px; }
 .ms-block h3 { margin-bottom: 8px; }
