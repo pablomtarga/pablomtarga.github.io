@@ -1,15 +1,26 @@
 <!doctype html>
+<!-- PÁGINA DE APPS (apps.html). Ordem: barra do topo, cabeçalho, cartões dos apps, agentes de IA, rodapé.
+     REGRAS PARA EDITAR
+     - Todo texto aparece 3 vezes: <span class="en">, <span class="pt"> e <span class="es">. Mude os três.
+     - Textos dentro de atributos usam data-en / data-pt / data-es (ex.: descrição de imagem).
+     - Não use style="..." nem <script> com código aqui: a segurança do site (CSP) bloqueia.
+     - Guia completo: PORTFOLIO/COMO EDITAR O SITE.md (fora desta pasta, não vai para a internet). -->
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- SEGURANÇA (CSP): diz ao navegador o que o site pode carregar. Bloqueia scripts, estilos e
+     imagens de outros sites. Não mexa sem saber o que está fazendo. -->
 <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; media-src 'self'; font-src 'self'; connect-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'; require-trusted-types-for 'script'; trusted-types 'none'; upgrade-insecure-requests">
 <meta name="referrer" content="strict-origin-when-cross-origin">
+<!-- Título da aba e descrição para o Google, em inglês. As versões em PT e ES ficam no <body>,
+     em data-title-pt / data-title-es e data-desc-pt / data-desc-es. -->
 <title>Apps · Pablo Targa</title>
 <meta name="description" content="Apps and AI agents Pablo Targa built with Claude: a gym app, a Dutch pay calculator, a shift roster, a tarot reader and a print-file checker.">
 <meta name="theme-color" content="#071530">
 <meta name="color-scheme" content="light">
 <link rel="canonical" href="https://pablomtarga.github.io/apps.html">
+<!-- Prévia que aparece quando alguém compartilha o link (LinkedIn, WhatsApp). Imagem: assets/og-image.jpg -->
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Pablo Targa">
 <meta property="og:locale" content="en_GB">
@@ -28,13 +39,19 @@
 <link rel="me" href="https://github.com/pablomtarga">
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
-<link rel="stylesheet" href="assets/css/site.css?v=19">
-<script src="assets/js/boot.js?v=19"></script>
-<script src="assets/js/site.js?v=19" defer></script>
+<!-- Estilo (site.css) e comportamento (boot.js e site.js). O ?v=N obriga o navegador a baixar a
+     versão nova: suba o N em TODAS as páginas quando mudar um desses arquivos
+     (ou rode FERRAMENTAS/nova-versao.py). -->
+<link rel="stylesheet" href="assets/css/site.css?v=22">
+<script src="assets/js/boot.js?v=22"></script>
+<script src="assets/js/site.js?v=22" defer></script>
 </head>
 <body data-title-en="Apps · Pablo Targa" data-title-pt="Apps · Pablo Targa" data-desc-en="Apps and AI agents Pablo Targa built with Claude: a gym app, a Dutch pay calculator, a shift roster, a tarot reader and a print-file checker." data-desc-pt="Apps e agentes de IA que o Pablo Targa criou com o Claude: app de treino, calculadora de salário líquido na Holanda, escala de turnos, app de tarô e conferência de arte-final." data-title-es="Apps · Pablo Targa" data-desc-es="Apps y agentes de IA que Pablo Targa creó con Claude: una app de entrenamiento, una calculadora de sueldo neerlandés, turnos de equipo, una app de tarot y un revisor de archivos de impresión.">
 <a class="skip" href="#main"><span class="en">Skip to content</span><span class="pt">Pular para o conteúdo</span><span class="es">Saltar al contenido</span></a>
 
+
+<!-- ===== BARRA DO TOPO ===== igual nas 5 páginas: mudou aqui, mude nas outras também.
+     Os links levam às seções da página inicial pelo id (ex.: #services). -->
 <header class="nav">
   <div class="nav__in">
     <a class="brand" href="index.html" aria-label="PT Solutions · Pablo Targa"><svg class="brand__mark" viewBox="0 0 32 32" aria-hidden="true"><defs><linearGradient id="pt-grad" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2997ff"/><stop offset="1" stop-color="#0044b8"/></linearGradient></defs><rect width="32" height="32" rx="9" fill="url(#pt-grad)"/><rect x="6.6" y="7.6" width="3.4" height="16.8" rx="1.7" fill="#fff"/><path d="M8.3 9.3h3.9a3.75 3.75 0 0 1 0 7.5H8.3" fill="none" stroke="#fff" stroke-width="3.4" stroke-linejoin="round"/><rect x="15.2" y="7.6" width="10.4" height="3.4" rx="1.7" fill="#fff"/><rect x="18.7" y="7.6" width="3.4" height="16.8" rx="1.7" fill="#fff"/></svg><span class="brand__text"><span class="brand__name">PT Solutions</span><span class="brand__by">Pablo Targa</span></span></a>
@@ -55,6 +72,7 @@
     </div>
   </div>
 </header>
+<!-- Menu de tela cheia do celular (abre no botão ≡) -->
 <nav class="menu" id="menu" aria-label="Menu" hidden>
   <ul class="menu__main">
     <li><a href="index.html#services"><span class="en">Services</span><span class="pt">Serviços</span><span class="es">Servicios</span></a></li>
@@ -70,6 +88,7 @@
 
 <main id="main">
 
+<!-- ===== CABEÇALHO ===== título e texto de abertura da página -->
 <section class="page-head dark">
   <div class="wrap">
   <h1 class="rise"><span class="en">Apps I’ve built</span><span class="pt">Apps que criei</span><span class="es">Apps que he creado</span></h1>
@@ -77,6 +96,8 @@
   </div>
 </section>
 
+<!-- ===== CARTÕES DOS APPS ===== grade "bento": tile--4 ocupa 4 de 6 colunas, tile--2 ocupa 2.
+     Cada cartão tem id (#iron, #loonstrook...) para poder ser linkado direto. -->
 <section class="section section--alt" id="work">
   <div class="wrap">
     <div class="bento">
@@ -142,6 +163,8 @@
   </div>
 </section>
 
+<!-- ===== AGENTES DE IA ===== cada botão .chip abre o painel .agent com o mesmo id em
+     aria-controls (ex.: tab-print → ag-print). -->
 <section class="section dark" id="agents">
   <div class="wrap">
     <div class="head head--left">
@@ -306,6 +329,7 @@
 
 </main>
 
+<!-- ===== RODAPÉ ===== igual nas 5 páginas -->
 <footer class="footer">
   <div class="wrap">
     <p class="footer__copy">© 2026 Pablo Targa · Amsterdam</p>
