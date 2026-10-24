@@ -27,9 +27,9 @@
 <link rel="me" href="https://github.com/pablomtarga">
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
-<link rel="stylesheet" href="assets/css/site.css">
-<script src="assets/js/boot.js"></script>
-<script src="assets/js/site.js" defer></script>
+<link rel="stylesheet" href="assets/css/site.css?v=4">
+<script src="assets/js/boot.js?v=4"></script>
+<script src="assets/js/site.js?v=4" defer></script>
 </head>
 <body data-title-en="Apps · Pablo Targa" data-title-pt="Apps · Pablo Targa" data-desc-en="Apps and AI agents Pablo Targa built with Claude: a gym app, a Dutch pay calculator, a shift roster, a tarot reader and a print-file checker." data-desc-pt="Apps e agentes de IA que o Pablo Targa criou com o Claude: app de treino, calculadora de salário líquido na Holanda, escala de turnos, app de tarô e conferência de arte-final.">
 <a class="skip" href="#main"><span class="en">Skip to content</span><span class="pt">Pular para o conteúdo</span></a>
@@ -38,27 +38,83 @@
   <div class="nav__in">
     <a class="brand" href="index.html">Pablo Targa</a>
     <nav class="nav__links" aria-label="Sections" data-attr="aria-label" data-en="Sections" data-pt="Seções">
-      <a href="index.html#services"><span class="en">Services</span><span class="pt">Serviços</span></a>
-      <a href="index.html#experience"><span class="en">Experience</span><span class="pt">Experiência</span></a>
-      <a href="apps.html" aria-current="page">Apps</a>
-      <a href="index.html#photos"><span class="en">Photos</span><span class="pt">Fotos</span></a>
+      <div class="nav__item">
+        <span class="nav__trig"><a class="nav__link" href="index.html#services"><span class="en">Services</span><span class="pt">Serviços</span></a><button class="nav__chev" type="button" aria-expanded="false" aria-controls="fly-services" aria-label="Show services" data-attr="aria-label" data-en="Show services" data-pt="Mostrar serviços"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button></span>
+        <div class="fly" id="fly-services">
+          <div class="fly__in">
+            <div class="fly__col fly__col--main">
+              <p class="fly__h" id="fly-services-a"><span class="en">How I can help</span><span class="pt">Como posso ajudar</span></p>
+              <ul aria-labelledby="fly-services-a">
+                <li><a href="index.html#svc-it"><span class="en">IT support for small businesses</span><span class="pt">Suporte de TI para pequenas empresas</span></a></li>
+                <li><a href="index.html#svc-home"><span class="en">Smart home setup</span><span class="pt">Casa inteligente</span></a></li>
+                <li><a href="index.html#svc-repair"><span class="en">Repairs and device setup</span><span class="pt">Reparos e configuração</span></a></li>
+                <li><a href="index.html#svc-ai"><span class="en">AI automation</span><span class="pt">Automação com IA</span></a></li>
+                <li><a href="index.html#svc-web"><span class="en">Websites and small apps</span><span class="pt">Sites e apps pequenos</span></a></li>
+                <li><a href="index.html#svc-av"><span class="en">AV, streaming and CCTV</span><span class="pt">Áudio e vídeo, streaming e CFTV</span></a></li>
+              </ul>
+            </div>
+            <div class="fly__col">
+              <p class="fly__h" id="fly-services-b"><span class="en">Get started</span><span class="pt">Comece por aqui</span></p>
+              <ul aria-labelledby="fly-services-b">
+                <li><a href="index.html#contact"><span class="en">Ask for a quote</span><span class="pt">Pedir orçamento</span></a></li>
+                <li><a href="index.html#experience"><span class="en">My experience</span><span class="pt">Minha experiência</span></a></li>
+                <li><a href="https://www.linkedin.com/in/pablomtarga" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <a class="nav__link" href="index.html#experience"><span class="en">Experience</span><span class="pt">Experiência</span></a>
+      <div class="nav__item">
+        <span class="nav__trig"><a class="nav__link" href="apps.html" aria-current="page">Apps</a><button class="nav__chev" type="button" aria-expanded="false" aria-controls="fly-apps" aria-label="Show apps" data-attr="aria-label" data-en="Show apps" data-pt="Mostrar apps"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button></span>
+        <div class="fly" id="fly-apps">
+          <div class="fly__in">
+            <div class="fly__col fly__col--main">
+              <p class="fly__h" id="fly-apps-a"><span class="en">Apps I’ve built</span><span class="pt">Apps que criei</span></p>
+              <ul aria-labelledby="fly-apps-a">
+                <li><a href="apps.html#iron">Iron</a></li>
+                <li><a href="apps.html#loonstrook">Loonstrook</a></li>
+                <li><a href="apps.html#my-shift">My Shift</a></li>
+                <li><a href="apps.html#arcanvm">Arcanvm</a></li>
+                <li><a href="apps.html#preflight">Preflight</a></li>
+              </ul>
+            </div>
+            <div class="fly__col">
+              <p class="fly__h" id="fly-apps-b"><span class="en">More</span><span class="pt">Mais</span></p>
+              <ul aria-labelledby="fly-apps-b">
+                <li><a href="apps.html#agents"><span class="en">My AI agents</span><span class="pt">Meus agentes de IA</span></a></li>
+                <li><a href="apps.html#how"><span class="en">How I build them</span><span class="pt">Como eu crio</span></a></li>
+                <li><a href="https://github.com/pablomtarga" target="_blank" rel="noopener noreferrer"><span class="en">Code on GitHub</span><span class="pt">Código no GitHub</span></a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <a class="nav__link" href="index.html#photos"><span class="en">Photos</span><span class="pt">Fotos</span></a>
     </nav>
-    <div class="lang" role="group" aria-label="Language" data-attr="aria-label" data-en="Language" data-pt="Idioma">
-      <button type="button" data-lang="en" aria-pressed="true" lang="en" aria-label="English">EN</button>
-      <button type="button" data-lang="pt" aria-pressed="false" lang="pt-BR" aria-label="Português">PT</button>
+    <div class="nav__end">
+      <div class="lang" role="group" aria-label="Language" data-attr="aria-label" data-en="Language" data-pt="Idioma">
+        <button type="button" data-lang="en" aria-pressed="true" lang="en" aria-label="English">EN</button>
+        <button type="button" data-lang="pt" aria-pressed="false" lang="pt-BR" aria-label="Português">PT</button>
+      </div>
+      <a class="btn btn--sm" href="index.html#contact"><span class="en">Contact me</span><span class="pt">Fale comigo</span></a>
+      <button class="menu-btn" type="button" aria-expanded="false" aria-controls="menu" aria-label="Menu"><span></span><span></span></button>
     </div>
-    <a class="btn btn--sm" href="index.html#contact"><span class="en">Contact me</span><span class="pt">Fale comigo</span></a>
-    <button class="menu-btn" type="button" aria-expanded="false" aria-controls="menu" aria-label="Menu"><span></span><span></span></button>
   </div>
 </header>
+<div class="nav-curtain" aria-hidden="true"></div>
 <nav class="menu" id="menu" aria-label="Menu" hidden>
-  <ul>
+  <ul class="menu__main">
     <li><a href="index.html#services"><span class="en">Services</span><span class="pt">Serviços</span></a></li>
     <li><a href="index.html#experience"><span class="en">Experience</span><span class="pt">Experiência</span></a></li>
-    <li><a href="apps.html">Apps</a></li>
+    <li><a href="apps.html" aria-current="page">Apps</a></li>
     <li><a href="index.html#photos"><span class="en">Photos</span><span class="pt">Fotos</span></a></li>
   </ul>
   <a class="btn" href="index.html#contact"><span class="en">Contact me</span><span class="pt">Fale comigo</span></a>
+  <ul class="menu__more">
+    <li><a href="https://www.linkedin.com/in/pablomtarga" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
+    <li><a href="https://github.com/pablomtarga" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+  </ul>
 </nav>
 
 <main id="main">
@@ -73,7 +129,7 @@
 <section class="section section--alt" id="work">
   <div class="wrap">
     <div class="bento">
-      <article class="tile tile--4 tile--dark tile--split">
+      <article class="tile tile--4 tile--dark tile--split" id="iron">
         <p class="tile__kind"><span class="en">Gym app</span><span class="pt">App de treino</span></p>
         <h2>Iron</h2>
         <p><span class="en">My Push/Pull/Legs training plan as an app. It installs on the iPhone and works offline. My workout history syncs through Supabase.</span><span class="pt">Meu treino Push/Pull/Legs virou app. Instala no iPhone e funciona sem internet, e o histórico fica salvo no Supabase.</span></p>
@@ -86,7 +142,7 @@
         </div>
       </article>
 
-      <article class="tile tile--2">
+      <article class="tile tile--2" id="loonstrook">
         <p class="tile__kind"><span class="en">Dutch pay calculator</span><span class="pt">Calculadora de salário holandês</span></p>
         <h2>Loonstrook</h2>
         <p><span class="en">I wanted to know my net pay before payday. You enter your hours and it applies the 2026 Dutch tax table.</span><span class="pt">Eu queria saber o salário líquido antes do dia do pagamento. Você coloca as horas e ele aplica a tabela fiscal holandesa de 2026.</span></p>
@@ -97,7 +153,7 @@
         <div class="tile__media"><div class="phone"><div class="phone__screen"><img src="assets/shots/nlsalary-mobile.jpg" width="600" height="1298" loading="lazy" alt="Loonstrook: weekly net pay for 24 hours" data-attr="alt" data-en="Loonstrook: weekly net pay for 24 hours" data-pt="Loonstrook: salário líquido semanal para 24 horas"></div></div></div>
       </article>
 
-      <article class="tile tile--2">
+      <article class="tile tile--2" id="my-shift">
         <p class="tile__kind"><span class="en">Shift roster</span><span class="pt">Escala de turnos</span></p>
         <h2>My Shift</h2>
         <p><span class="en">My team in Malta worked a 24/7 roster. The app shows who is on shift today, in English or Portuguese.</span><span class="pt">Minha equipe em Malta trabalhava numa escala 24/7. O app mostra quem está escalado hoje, em inglês ou português.</span></p>
@@ -107,7 +163,7 @@
         <div class="tile__media"><div class="phone"><div class="phone__screen"><img src="assets/shots/religashifts-mobile.jpg" width="600" height="1298" loading="lazy" alt="My Shift: roster app start screen" data-attr="alt" data-en="My Shift: roster app start screen" data-pt="My Shift: tela inicial do app de escala"></div></div></div>
       </article>
 
-      <article class="tile tile--2">
+      <article class="tile tile--2" id="arcanvm">
         <p class="tile__kind"><span class="en">Tarot app</span><span class="pt">App de tarô</span></p>
         <h2>Arcanvm</h2>
         <p><span class="en">A bilingual tarot app with all 78 cards and eight spreads, built in React.</span><span class="pt">Um app de tarô bilíngue com as 78 cartas e oito tiragens, feito em React.</span></p>
@@ -118,7 +174,7 @@
         <div class="tile__media"><div class="phone"><div class="phone__screen"><img src="assets/shots/arcano-mobile.jpg" width="600" height="1341" loading="lazy" alt="Arcanvm: Three Cards spread and its method" data-attr="alt" data-en="Arcanvm: Three Cards spread and its method" data-pt="Arcanvm: tiragem de Três Cartas e o método"></div></div></div>
       </article>
 
-      <article class="tile tile--2">
+      <article class="tile tile--2" id="preflight">
         <p class="tile__kind"><span class="en">Print-file checker</span><span class="pt">Conferência de arte-final</span></p>
         <h2>Preflight</h2>
         <p><span class="en">Before artwork goes to the printer, it reads the client’s details with OCR and checks bleed, margins and colour.</span><span class="pt">Antes da arte ir para a gráfica, ele lê os dados do cliente com OCR e confere sangria, margens e cor.</span></p>
@@ -129,7 +185,7 @@
       </article>
     </div>
 
-    <div class="proof">
+    <div class="proof" id="how">
       <div>
         <h2><span class="en">How I build them</span><span class="pt">Como eu crio</span></h2>
         <p><span class="en">I start with a short brief: who uses the app and what must never break. Claude writes the code, and I review it and test it on my phone before anything goes live. Iron took 15 weeks and 31 commits to reach version 16.</span><span class="pt">Começo com um briefing curto: quem usa o app e o que nunca pode quebrar. O Claude escreve o código, e eu reviso e testo no meu celular antes de publicar. O Iron levou 15 semanas e 31 commits até a versão 16.</span></p>

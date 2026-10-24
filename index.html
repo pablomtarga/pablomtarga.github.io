@@ -28,9 +28,9 @@
 <link rel="me" href="https://github.com/pablomtarga">
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
-<link rel="stylesheet" href="assets/css/site.css">
-<script src="assets/js/boot.js"></script>
-<script src="assets/js/site.js" defer></script>
+<link rel="stylesheet" href="assets/css/site.css?v=4">
+<script src="assets/js/boot.js?v=4"></script>
+<script src="assets/js/site.js?v=4" defer></script>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -122,27 +122,83 @@
   <div class="nav__in">
     <a class="brand" href="#top">Pablo Targa</a>
     <nav class="nav__links" aria-label="Sections" data-attr="aria-label" data-en="Sections" data-pt="Seções">
-      <a href="#services"><span class="en">Services</span><span class="pt">Serviços</span></a>
-      <a href="#experience"><span class="en">Experience</span><span class="pt">Experiência</span></a>
-      <a href="apps.html">Apps</a>
-      <a href="#photos"><span class="en">Photos</span><span class="pt">Fotos</span></a>
+      <div class="nav__item">
+        <span class="nav__trig"><a class="nav__link" href="#services"><span class="en">Services</span><span class="pt">Serviços</span></a><button class="nav__chev" type="button" aria-expanded="false" aria-controls="fly-services" aria-label="Show services" data-attr="aria-label" data-en="Show services" data-pt="Mostrar serviços"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button></span>
+        <div class="fly" id="fly-services">
+          <div class="fly__in">
+            <div class="fly__col fly__col--main">
+              <p class="fly__h" id="fly-services-a"><span class="en">How I can help</span><span class="pt">Como posso ajudar</span></p>
+              <ul aria-labelledby="fly-services-a">
+                <li><a href="#svc-it"><span class="en">IT support for small businesses</span><span class="pt">Suporte de TI para pequenas empresas</span></a></li>
+                <li><a href="#svc-home"><span class="en">Smart home setup</span><span class="pt">Casa inteligente</span></a></li>
+                <li><a href="#svc-repair"><span class="en">Repairs and device setup</span><span class="pt">Reparos e configuração</span></a></li>
+                <li><a href="#svc-ai"><span class="en">AI automation</span><span class="pt">Automação com IA</span></a></li>
+                <li><a href="#svc-web"><span class="en">Websites and small apps</span><span class="pt">Sites e apps pequenos</span></a></li>
+                <li><a href="#svc-av"><span class="en">AV, streaming and CCTV</span><span class="pt">Áudio e vídeo, streaming e CFTV</span></a></li>
+              </ul>
+            </div>
+            <div class="fly__col">
+              <p class="fly__h" id="fly-services-b"><span class="en">Get started</span><span class="pt">Comece por aqui</span></p>
+              <ul aria-labelledby="fly-services-b">
+                <li><a href="#contact"><span class="en">Ask for a quote</span><span class="pt">Pedir orçamento</span></a></li>
+                <li><a href="#experience"><span class="en">My experience</span><span class="pt">Minha experiência</span></a></li>
+                <li><a href="https://www.linkedin.com/in/pablomtarga" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <a class="nav__link" href="#experience"><span class="en">Experience</span><span class="pt">Experiência</span></a>
+      <div class="nav__item">
+        <span class="nav__trig"><a class="nav__link" href="apps.html">Apps</a><button class="nav__chev" type="button" aria-expanded="false" aria-controls="fly-apps" aria-label="Show apps" data-attr="aria-label" data-en="Show apps" data-pt="Mostrar apps"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button></span>
+        <div class="fly" id="fly-apps">
+          <div class="fly__in">
+            <div class="fly__col fly__col--main">
+              <p class="fly__h" id="fly-apps-a"><span class="en">Apps I’ve built</span><span class="pt">Apps que criei</span></p>
+              <ul aria-labelledby="fly-apps-a">
+                <li><a href="apps.html#iron">Iron</a></li>
+                <li><a href="apps.html#loonstrook">Loonstrook</a></li>
+                <li><a href="apps.html#my-shift">My Shift</a></li>
+                <li><a href="apps.html#arcanvm">Arcanvm</a></li>
+                <li><a href="apps.html#preflight">Preflight</a></li>
+              </ul>
+            </div>
+            <div class="fly__col">
+              <p class="fly__h" id="fly-apps-b"><span class="en">More</span><span class="pt">Mais</span></p>
+              <ul aria-labelledby="fly-apps-b">
+                <li><a href="apps.html#agents"><span class="en">My AI agents</span><span class="pt">Meus agentes de IA</span></a></li>
+                <li><a href="apps.html#how"><span class="en">How I build them</span><span class="pt">Como eu crio</span></a></li>
+                <li><a href="https://github.com/pablomtarga" target="_blank" rel="noopener noreferrer"><span class="en">Code on GitHub</span><span class="pt">Código no GitHub</span></a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <a class="nav__link" href="#photos"><span class="en">Photos</span><span class="pt">Fotos</span></a>
     </nav>
-    <div class="lang" role="group" aria-label="Language" data-attr="aria-label" data-en="Language" data-pt="Idioma">
-      <button type="button" data-lang="en" aria-pressed="true" lang="en" aria-label="English">EN</button>
-      <button type="button" data-lang="pt" aria-pressed="false" lang="pt-BR" aria-label="Português">PT</button>
+    <div class="nav__end">
+      <div class="lang" role="group" aria-label="Language" data-attr="aria-label" data-en="Language" data-pt="Idioma">
+        <button type="button" data-lang="en" aria-pressed="true" lang="en" aria-label="English">EN</button>
+        <button type="button" data-lang="pt" aria-pressed="false" lang="pt-BR" aria-label="Português">PT</button>
+      </div>
+      <a class="btn btn--sm" href="#contact"><span class="en">Contact me</span><span class="pt">Fale comigo</span></a>
+      <button class="menu-btn" type="button" aria-expanded="false" aria-controls="menu" aria-label="Menu"><span></span><span></span></button>
     </div>
-    <a class="btn btn--sm" href="#contact"><span class="en">Contact me</span><span class="pt">Fale comigo</span></a>
-    <button class="menu-btn" type="button" aria-expanded="false" aria-controls="menu" aria-label="Menu"><span></span><span></span></button>
   </div>
 </header>
+<div class="nav-curtain" aria-hidden="true"></div>
 <nav class="menu" id="menu" aria-label="Menu" hidden>
-  <ul>
+  <ul class="menu__main">
     <li><a href="#services"><span class="en">Services</span><span class="pt">Serviços</span></a></li>
     <li><a href="#experience"><span class="en">Experience</span><span class="pt">Experiência</span></a></li>
     <li><a href="apps.html">Apps</a></li>
     <li><a href="#photos"><span class="en">Photos</span><span class="pt">Fotos</span></a></li>
   </ul>
   <a class="btn" href="#contact"><span class="en">Contact me</span><span class="pt">Fale comigo</span></a>
+  <ul class="menu__more">
+    <li><a href="https://www.linkedin.com/in/pablomtarga" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
+    <li><a href="https://github.com/pablomtarga" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+  </ul>
 </nav>
 
 <main id="main">
@@ -155,7 +211,7 @@
       <p class="hero__lead rise d1"><span class="en"><b>I work in IT support in Amsterdam.</b> I’ve spent more than seven years keeping computers and networks running in São Paulo, Dublin and Malta. I also build my own tools with AI, and I’m a photographer.</span><span class="pt"><b>Trabalho com suporte de TI em Amsterdam.</b> Passei mais de sete anos cuidando de computadores e redes em São Paulo, Dublin e Malta. Também crio minhas ferramentas com IA e sou fotógrafo.</span></p>
       <div class="hero__cta rise d2">
         <a class="btn" href="#contact"><span class="en">Contact me</span><span class="pt">Fale comigo</span></a>
-        <a class="more" href="apps.html"><span class="en">See my apps</span><span class="pt">Ver meus apps</span></a>
+        <a class="btn btn--ghost" href="apps.html"><span class="en">See my apps</span><span class="pt">Ver meus apps</span></a>
       </div>
       <div class="tools rise d3">
         <h2><span class="en">What I work with</span><span class="pt">Com o que eu trabalho</span></h2>
@@ -184,37 +240,37 @@
       <p><span class="en">For homes and small businesses in Amsterdam, in English or Portuguese. I come over when the job needs hands and work remotely when it doesn’t. Quotes are free.</span><span class="pt">Atendo em casa e em pequenas empresas em Amsterdam, em inglês ou português. Vou até você quando o serviço pede presença e resolvo a distância quando dá. O orçamento é grátis.</span></p>
     </div>
     <ul class="services">
-      <li class="svc">
+      <li class="svc" id="svc-it">
         <span class="svc__ic"><svg class="lu" aria-hidden="true"><use href="#lu-laptop"/></svg></span>
         <h3><span class="en">IT support for small businesses</span><span class="pt">Suporte de TI para pequenas empresas</span></h3>
         <p><span class="en">I set up laptops and Microsoft 365 for your team and step in when something breaks.</span><span class="pt">Configuro notebooks e Microsoft 365 para a sua equipe e resolvo quando algo para de funcionar.</span></p>
         <span class="svc__mode"><span class="en">On-site or remote</span><span class="pt">Presencial ou remoto</span></span>
       </li>
-      <li class="svc">
+      <li class="svc" id="svc-home">
         <span class="svc__ic"><svg class="lu" aria-hidden="true"><use href="#lu-house-wifi"/></svg></span>
         <h3><span class="en">Smart home setup</span><span class="pt">Casa inteligente</span></h3>
         <p><span class="en">I connect Alexa or Google Home to your lights and set up a routine for when you leave the house.</span><span class="pt">Conecto a Alexa ou o Google Home às suas luzes e crio uma rotina para quando você sai de casa.</span></p>
         <span class="svc__mode"><span class="en">On-site</span><span class="pt">Presencial</span></span>
       </li>
-      <li class="svc">
+      <li class="svc" id="svc-repair">
         <span class="svc__ic"><svg class="lu" aria-hidden="true"><use href="#lu-wrench"/></svg></span>
         <h3><span class="en">Repairs and device setup</span><span class="pt">Reparos e configuração</span></h3>
         <p><span class="en">I speed up slow computers and move everything to your new phone or Mac.</span><span class="pt">Deixo computador lento rápido de novo e passo tudo para o seu celular ou Mac novo.</span></p>
         <span class="svc__mode"><span class="en">On-site or remote</span><span class="pt">Presencial ou remoto</span></span>
       </li>
-      <li class="svc">
+      <li class="svc" id="svc-ai">
         <span class="svc__ic"><svg class="lu" aria-hidden="true"><use href="#lu-bot"/></svg></span>
         <h3><span class="en">AI automation</span><span class="pt">Automação com IA</span></h3>
         <p><span class="en">I hand one repetitive task to an AI agent and write the rules it has to follow.</span><span class="pt">Passo uma tarefa repetitiva para um agente de IA e escrevo as regras que ele tem que seguir.</span></p>
         <span class="svc__mode"><span class="en">Remote</span><span class="pt">Remoto</span></span>
       </li>
-      <li class="svc">
+      <li class="svc" id="svc-web">
         <span class="svc__ic"><svg class="lu" aria-hidden="true"><use href="#lu-app-window"/></svg></span>
         <h3><span class="en">Websites and small apps</span><span class="pt">Sites e apps pequenos</span></h3>
         <p><span class="en">A one-page site for your shop, or a small tool your team opens every day.</span><span class="pt">Um site de uma página para o seu negócio, ou uma ferramenta simples que a equipe usa todo dia.</span></p>
         <span class="svc__mode"><span class="en">Remote</span><span class="pt">Remoto</span></span>
       </li>
-      <li class="svc">
+      <li class="svc" id="svc-av">
         <span class="svc__ic"><svg class="lu" aria-hidden="true"><use href="#lu-cctv"/></svg></span>
         <h3><span class="en">AV, streaming and CCTV</span><span class="pt">Áudio e vídeo, streaming e CFTV</span></h3>
         <p><span class="en">I install and calibrate cameras and audio, and check that your CCTV records.</span><span class="pt">Instalo e calibro câmeras e áudio, e confiro se o CFTV está gravando.</span></p>
@@ -327,8 +383,8 @@
         <h2><span class="en">Apps I’ve built</span><span class="pt">Apps que criei</span></h2>
         <p><span class="en">When something at work or at home bugs me, I build a small app for it with Claude. Three of them are open to everyone, with the code on GitHub.</span><span class="pt">Quando algo no trabalho ou em casa me incomoda, crio um app pequeno com o Claude. Três estão abertos para qualquer pessoa, com o código no GitHub.</span></p>
         <div class="cta-row">
-          <a class="more" href="apps.html"><span class="en">See the apps</span><span class="pt">Ver os apps</span></a>
-          <a class="more" href="https://github.com/pablomtarga" target="_blank" rel="noopener noreferrer">GitHub</a>
+          <a class="btn" href="apps.html"><span class="en">See the apps</span><span class="pt">Ver os apps</span></a>
+          <a class="btn btn--ghost" href="https://github.com/pablomtarga" target="_blank" rel="noopener noreferrer">GitHub</a>
         </div>
       </div>
       <div class="teaser__phones" aria-hidden="true">
