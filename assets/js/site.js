@@ -93,6 +93,7 @@
   const zones = $$('main > *, footer');
   const stage = $('.stage');
   const stageBg = $('.stage__bg');
+  const credit = $('.hero__credit');
   let queued = false;
   const paint = () => {
     queued = false;
@@ -108,6 +109,8 @@
       const p = run > 0 ? Math.min(1, Math.max(0, -r.top / run)) : 0;
       stageBg.style.setProperty('--p', p.toFixed(3));
     }
+    // the photo credit fades out over the first part of the scroll
+    if (credit) credit.style.opacity = Math.max(0, 1 - scrollY / 160).toFixed(2);
   };
   const queue = () => { if (!queued) { queued = true; requestAnimationFrame(paint); } };
   addEventListener('scroll', queue, { passive: true });
@@ -129,6 +132,20 @@
     }, { rootMargin: '-45% 0px -50% 0px' });
     $$('main section[id]').forEach((s) => spy.observe(s));
   }
+
+  /* ---------- Contact me: LinkedIn or the form, shown on hover or focus; Esc or a choice closes it ---------- */
+  $$('.cta-menu').forEach((m) => {
+    const reopen = () => m.classList.remove('is-closed');
+    m.addEventListener('keydown', (e) => { if (e.key === 'Escape') m.classList.add('is-closed'); });
+    m.addEventListener('click', (e) => {
+      const choice = e.target.closest('.cta-menu__pop a');
+      if (!choice) return;
+      m.classList.add('is-closed');
+      choice.blur();
+    });
+    m.addEventListener('pointerleave', reopen);
+    m.addEventListener('focusout', (e) => { if (!m.contains(e.relatedTarget)) reopen(); });
+  });
 
   /* ---------- logo strip: pause button (it also stops on hover) ---------- */
   const tools = $('.tools');
