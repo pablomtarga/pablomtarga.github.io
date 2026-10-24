@@ -216,29 +216,29 @@
       note.dataset.state = 'ok';
     };
     const resetNote = () => { if (note.dataset.state) { note.replaceChildren(...noteStart.map((n) => n.cloneNode(true))); delete note.dataset.state; } };
-    ['name', 'message'].forEach((n) => form.elements[n].addEventListener('input', (e) => e.target.setCustomValidity('')));
+    const consent = form.elements.consent;
+    ['name', 'message', 'consent'].forEach((n) => form.elements[n].addEventListener('input', (e) => e.target.setCustomValidity('')));
     form.addEventListener('submit', (e) => {
       e.preventDefault();
       // spaces alone do not count as an answer
       [form.elements.name, form.elements.message].forEach((f) => {
         f.setCustomValidity(f.value.trim() ? '' : (lang() === 'pt' ? 'Preencha este campo.' : 'Please fill in this field.'));
       });
+      consent.setCustomValidity(consent.checked ? '' : (lang() === 'pt' ? 'Marque esta caixa para enviar.' : 'Tick this box to send your message.'));
       if (!form.reportValidity()) { resetNote(); return; }
       const l = lang();
       const clean = (s, max) => String(s).replace(/[\u0000-\u0008\u000B\u000C\u000E-\u001F\u007F]/g, '').trim().slice(0, max);
       const oneLine = (s, max) => clean(s, max).replace(/[\r\n]+/g, ' ');
       const name = oneLine(form.elements.name.value, 80);
-      const org = oneLine(form.elements.company.value, 120);
       const topic = form.elements.topic.options[form.elements.topic.selectedIndex].text;
       const msg = clean(form.elements.message.value, 600);
       const subject = (l === 'pt' ? 'Contato pelo portfólio: ' : 'Portfolio enquiry: ') + topic + ' · ' + name;
       const body = [
         (l === 'pt' ? 'Nome: ' : 'Name: ') + name,
-        org ? (l === 'pt' ? 'Empresa ou bairro: ' : 'Company or area: ') + org : null,
         (l === 'pt' ? 'Assunto: ' : 'Topic: ') + topic,
         '',
         msg
-      ].filter((x) => x !== null).join('\n');
+      ].join('\n');
       say('Opening your email app. If nothing opens, message me on ', 'Abrindo o seu app de e-mail. Se nada abrir, me chame no ');
       // the address is assembled here so it never appears in the page or its source
       const to = ['pablomtarga', 'icloud.com'].join('@');

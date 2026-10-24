@@ -28,9 +28,9 @@
 <link rel="me" href="https://github.com/pablomtarga">
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
-<link rel="stylesheet" href="assets/css/site.css?v=5">
-<script src="assets/js/boot.js?v=5"></script>
-<script src="assets/js/site.js?v=5" defer></script>
+<link rel="stylesheet" href="assets/css/site.css?v=6">
+<script src="assets/js/boot.js?v=6"></script>
+<script src="assets/js/site.js?v=6" defer></script>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -432,29 +432,29 @@
             <input id="f-name" name="name" autocomplete="name" required maxlength="80">
           </div>
           <div class="field">
-            <label for="f-org"><span class="en">Company or area (optional)</span><span class="pt">Empresa ou bairro (opcional)</span></label>
-            <input id="f-org" name="company" autocomplete="organization" maxlength="120">
+            <label for="f-topic"><span class="en">What is it about?</span><span class="pt">Sobre o quê?</span></label>
+            <select id="f-topic" name="topic">
+              <option value="job" data-en="A job offer" data-pt="Uma vaga de emprego">A job offer</option>
+              <option value="it" data-en="IT support" data-pt="Suporte de TI">IT support</option>
+              <option value="home" data-en="Smart home setup" data-pt="Casa inteligente">Smart home setup</option>
+              <option value="repair" data-en="Repair or device setup" data-pt="Reparo ou configuração">Repair or device setup</option>
+              <option value="ai" data-en="AI automation" data-pt="Automação com IA">AI automation</option>
+              <option value="web" data-en="Website or app" data-pt="Site ou app">Website or app</option>
+              <option value="av" data-en="AV, streaming or CCTV" data-pt="Áudio e vídeo, streaming ou CFTV">AV, streaming or CCTV</option>
+              <option value="photo" data-en="Photography" data-pt="Fotografia">Photography</option>
+            </select>
           </div>
-        </div>
-        <div class="field">
-          <label for="f-topic"><span class="en">What is it about?</span><span class="pt">Sobre o quê?</span></label>
-          <select id="f-topic" name="topic">
-            <option value="job" data-en="A job offer" data-pt="Uma vaga de emprego">A job offer</option>
-            <option value="it" data-en="IT support" data-pt="Suporte de TI">IT support</option>
-            <option value="home" data-en="Smart home setup" data-pt="Casa inteligente">Smart home setup</option>
-            <option value="repair" data-en="Repair or device setup" data-pt="Reparo ou configuração">Repair or device setup</option>
-            <option value="ai" data-en="AI automation" data-pt="Automação com IA">AI automation</option>
-            <option value="web" data-en="Website or app" data-pt="Site ou app">Website or app</option>
-            <option value="av" data-en="AV, streaming or CCTV" data-pt="Áudio e vídeo, streaming ou CFTV">AV, streaming or CCTV</option>
-            <option value="photo" data-en="Photography" data-pt="Fotografia">Photography</option>
-          </select>
         </div>
         <div class="field">
           <label for="f-msg"><span class="en">Message</span><span class="pt">Mensagem</span></label>
           <textarea id="f-msg" name="message" required maxlength="600"></textarea>
         </div>
+        <div class="check">
+          <input type="checkbox" id="f-consent" name="consent" required>
+          <label for="f-consent"><span class="en">I’ve read the <a href="privacy.html" target="_blank" rel="noopener">privacy notice<span class="sr-only"> (opens in a new tab)</span></a> and agree that Pablo uses these details to reply to me.</span><span class="pt">Li o <a href="privacy.html" target="_blank" rel="noopener">aviso de privacidade<span class="sr-only"> (abre em outra aba)</span></a> e concordo que o Pablo use esses dados para me responder.</span></label>
+        </div>
         <button class="btn" type="submit"><span class="en">Send by email</span><span class="pt">Enviar por e-mail</span></button>
-        <p class="form__note" role="status"><span class="en">Nothing you type is stored on this site. <a href="privacy.html">Privacy</a></span><span class="pt">Nada do que você digita fica guardado neste site. <a href="privacy.html">Privacidade</a></span></p>
+        <p class="form__note" role="status"><span class="en">Nothing you type is stored on this site. Your email app sends the message.</span><span class="pt">Nada do que você digita fica guardado neste site. Quem envia a mensagem é o seu app de e-mail.</span></p>
       </form>
       <div class="nojs-note"><span class="en">The form needs JavaScript. You can reach me on LinkedIn.</span><span class="pt">O formulário precisa de JavaScript. Você pode falar comigo pelo LinkedIn.</span></div>
 
