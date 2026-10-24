@@ -61,12 +61,75 @@
       if (first) first.focus({ preventScroll: true });
     });
     menu.addEventListener('click', (e) => { if (e.target.closest('a')) closeMenu(); });
-    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeMenu(true); });
     onChange(matchMedia('(min-width: 834px)'), (e) => { if (e.matches) closeMenu(); });
   }
 
+  /* ---------- flyouts: open on mouse hover, or with the chevron button from the keyboard ---------- */
+  const flyItems = $$('.nav__item');
+  const fine = matchMedia('(hover: hover) and (pointer: fine)');
+  let openItem = null;
+  let flyTimer = 0;
+  function setFly(item) {
+    clearTimeout(flyTimer);
+    if (openItem === item) return;
+    // moving from one flyout to the next swaps the content without dropping the panel again
+    root.classList.toggle('fly-swap', !!(openItem && item));
+    if (openItem) {
+      openItem.classList.remove('is-open');
+      $('.nav__chev', openItem).setAttribute('aria-expanded', 'false');
+    }
+    openItem = item;
+    if (item) {
+      item.classList.add('is-open');
+      $('.nav__chev', item).setAttribute('aria-expanded', 'true');
+    }
+    root.classList.toggle('fly-open', !!item);
+  }
+  const later = (fn, ms) => { clearTimeout(flyTimer); flyTimer = setTimeout(fn, ms); };
+  flyItems.forEach((item) => {
+    $('.nav__chev', item).addEventListener('click', () => setFly(openItem === item ? null : item));
+    item.addEventListener('pointerenter', (e) => {
+      if (e.pointerType === 'mouse' && fine.matches) later(() => setFly(item), openItem ? 0 : 180);
+    });
+    item.addEventListener('pointerleave', (e) => { if (e.pointerType === 'mouse') later(() => setFly(null), 220); });
+    item.addEventListener('focusout', (e) => { if (openItem === item && !item.contains(e.relatedTarget)) setFly(null); });
+    item.addEventListener('click', (e) => { if (e.target.closest('a')) setFly(null); });
+  });
+  const curtain = $('.nav-curtain');
+  if (curtain) curtain.addEventListener('click', () => setFly(null));
+  onChange(matchMedia('(max-width: 833px)'), (e) => { if (e.matches) setFly(null); });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key !== 'Escape') return;
+    if (openItem) {
+      const item = openItem;
+      const inside = item.contains(document.activeElement);
+      setFly(null);
+      if (inside) $('.nav__chev', item).focus();
+    }
+    closeMenu(true);
+  });
+
+  /* ---------- the bar takes the colour of the section under it ---------- */
+  const nav = $('.nav');
+  const zones = $$('main > *, footer');
+  if (nav && zones.length) {
+    let queued = false;
+    const paint = () => {
+      queued = false;
+      const y = nav.offsetHeight / 2;
+      const under = zones.find((z) => { const r = z.getBoundingClientRect(); return r.top <= y && r.bottom > y; });
+      const theme = under && !under.matches('.dark') ? 'light' : 'dark';
+      if (root.dataset.nav !== theme) root.dataset.nav = theme;
+    };
+    const queue = () => { if (!queued) { queued = true; requestAnimationFrame(paint); } };
+    addEventListener('scroll', queue, { passive: true });
+    addEventListener('resize', queue);
+    paint();
+  }
+
   /* ---------- current section in the nav ---------- */
-  const navLinks = $$('.nav__links a');
+  const navLinks = $$('.nav__link');
   if ('IntersectionObserver' in window && navLinks.length) {
     const byId = new Map(navLinks.filter((a) => a.getAttribute('href').startsWith('#')).map((a) => [a.getAttribute('href').slice(1), a]));
     const spy = new IntersectionObserver((entries) => {
