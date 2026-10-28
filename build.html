@@ -1,0 +1,231 @@
+<!doctype html>
+<!-- PÁGINA DE SITES, APPS E DESIGN (build.html): o que eu crio para pequenos negócios e como
+     funciona. Ligada pelo cartão "Websites, apps and design" da página inicial.
+     REGRAS PARA EDITAR
+     - Todo texto aparece 3 vezes: <span class="en">, <span class="pt"> e <span class="es">. Mude os três.
+     - Textos dentro de atributos usam data-en / data-pt / data-es (ex.: descrição de imagem).
+     - Não use style="..." nem <script> com código aqui: a segurança do site (CSP) bloqueia.
+     - Guia completo: PORTFOLIO/COMO EDITAR O SITE.md (fora desta pasta, não vai para a internet). -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- SEGURANÇA (CSP): diz ao navegador o que o site pode carregar. Bloqueia scripts, estilos e
+     imagens de outros sites. Não mexa sem saber o que está fazendo. -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; media-src 'self'; font-src 'self'; connect-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'; require-trusted-types-for 'script'; trusted-types 'none'; upgrade-insecure-requests">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<!-- Título da aba e descrição para o Google, em inglês. As versões em PT e ES ficam no <body>,
+     em data-title-pt / data-title-es e data-desc-pt / data-desc-es. -->
+<title>Websites, apps and design · Pablo Targa</title>
+<meta name="description" content="Websites, small apps, staff schedules with shift swaps, and logos and flyers, by Pablo Targa in Amsterdam.">
+<meta name="theme-color" content="#071530">
+<meta name="color-scheme" content="light">
+<link rel="canonical" href="https://pablomtarga.github.io/build.html">
+<!-- Prévia que aparece quando alguém compartilha o link (LinkedIn, WhatsApp). Imagem: assets/og-image.jpg -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Pablo Targa">
+<meta property="og:locale" content="en_GB">
+<meta property="og:locale:alternate" content="pt_BR">
+<meta property="og:locale:alternate" content="es_ES">
+<meta property="og:title" content="Websites, apps and design · Pablo Targa">
+<meta property="og:description" content="Websites, small apps, staff schedules with shift swaps, and logos and flyers, by Pablo Targa in Amsterdam.">
+<meta property="og:url" content="https://pablomtarga.github.io/build.html">
+<meta property="og:image" content="https://pablomtarga.github.io/assets/og-image.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Pablo Targa · IT support in Amsterdam">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://pablomtarga.github.io/assets/og-image.jpg">
+<link rel="me" href="https://www.linkedin.com/in/pablomtarga">
+<link rel="me" href="https://github.com/pablomtarga">
+<link rel="icon" href="assets/favicon.svg?v=2" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<!-- Estilo (site.css) e comportamento (boot.js e site.js). O ?v=N obriga o navegador a baixar a
+     versão nova: suba o N em TODAS as páginas quando mudar um desses arquivos
+     (ou rode FERRAMENTAS/nova-versao.py). -->
+<link rel="stylesheet" href="assets/css/site.css?v=23">
+<script src="assets/js/boot.js?v=23"></script>
+<script src="assets/js/site.js?v=23" defer></script>
+</head>
+<body data-title-en="Websites, apps and design · Pablo Targa" data-title-pt="Sites, apps e design · Pablo Targa" data-title-es="Webs, apps y diseño · Pablo Targa" data-desc-en="Websites, small apps, staff schedules with shift swaps, and logos and flyers, by Pablo Targa in Amsterdam." data-desc-pt="Sites, apps simples, escalas de equipe com troca de turno, e logos e flyers, por Pablo Targa em Amsterdam." data-desc-es="Webs, apps sencillas, cuadrantes con cambios de turno, y logos y flyers, por Pablo Targa en Ámsterdam.">
+<a class="skip" href="#main"><span class="en">Skip to content</span><span class="pt">Pular para o conteúdo</span><span class="es">Saltar al contenido</span></a>
+
+
+<!-- ===== BARRA DO TOPO ===== igual em todas as páginas: mudou aqui, mude nas outras também.
+     Os links levam às seções da página inicial pelo id (ex.: #services). -->
+<header class="nav">
+  <div class="nav__in">
+    <a class="brand" href="index.html" aria-label="PT Solutions · Pablo Targa"><svg class="brand__mark" viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" rx="14" fill="#071530"/><rect x="1" y="1" width="62" height="62" rx="13" fill="none" stroke="#ffffff" stroke-opacity="0.16" stroke-width="2"/><text x="32" y="42" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, Helvetica, Arial, sans-serif" font-size="26" font-weight="700" fill="#4ea3ff">PT</text></svg><span class="brand__text"><span class="brand__name">PT Solutions</span><span class="brand__by">Pablo Targa</span></span></a>
+    <nav class="nav__links" aria-label="Sections" data-attr="aria-label" data-en="Sections" data-pt="Seções" data-es="Secciones">
+      <a class="nav__link" href="index.html#services"><span class="en">Services</span><span class="pt">Serviços</span><span class="es">Servicios</span></a>
+      <a class="nav__link" href="index.html#experience"><span class="en">Experience</span><span class="pt">Experiência</span><span class="es">Experiencia</span></a>
+      <a class="nav__link" href="index.html#apps">Apps</a>
+      <a class="nav__link" href="index.html#photos"><span class="en">Photos</span><span class="pt">Fotos</span><span class="es">Fotos</span></a>
+    </nav>
+    <div class="nav__end">
+      <div class="lang" role="group" aria-label="Language" data-attr="aria-label" data-en="Language" data-pt="Idioma" data-es="Idioma">
+        <button type="button" data-lang="en" aria-pressed="true" lang="en" aria-label="EN, English">EN</button>
+        <button type="button" data-lang="pt" aria-pressed="false" lang="pt-BR" aria-label="Português"><svg class="flag" viewBox="0 0 20 14" preserveAspectRatio="none" aria-hidden="true"><rect width="20" height="14" fill="#009c3b"/><path d="M10 1.6 18.3 7 10 12.4 1.7 7z" fill="#ffdf00"/><circle cx="10" cy="7" r="3.4" fill="#002776"/><path d="M6.75 6.3a8 8 0 0 1 6.55 2" fill="none" stroke="#fff" stroke-width=".75"/></svg></button>
+        <button type="button" data-lang="es" aria-pressed="false" lang="es" aria-label="Español"><svg class="flag" viewBox="0 0 30 20" preserveAspectRatio="none" aria-hidden="true"><rect width="30" height="20" fill="#c60b1e"/><rect y="5" width="30" height="10" fill="#ffc400"/></svg></button>
+      </div>
+      <a class="btn btn--sm" href="index.html#contact"><span class="en">Contact me</span><span class="pt">Fale comigo</span><span class="es">Contáctame</span></a>
+      <button class="menu-btn" type="button" aria-expanded="false" aria-controls="menu" aria-label="Menu"><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+<!-- Menu de tela cheia do celular (abre no botão ≡) -->
+<nav class="menu" id="menu" aria-label="Menu" hidden>
+  <ul class="menu__main">
+    <li><a href="index.html#services"><span class="en">Services</span><span class="pt">Serviços</span><span class="es">Servicios</span></a></li>
+    <li><a href="index.html#experience"><span class="en">Experience</span><span class="pt">Experiência</span><span class="es">Experiencia</span></a></li>
+    <li><a href="index.html#apps">Apps</a></li>
+    <li><a href="index.html#photos"><span class="en">Photos</span><span class="pt">Fotos</span><span class="es">Fotos</span></a></li>
+  </ul>
+  <a class="btn" href="index.html#contact"><span class="en">Contact me</span><span class="pt">Fale comigo</span><span class="es">Contáctame</span></a>
+  <ul class="menu__more">
+    <li><a href="https://www.linkedin.com/in/pablomtarga" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
+  </ul>
+</nav>
+
+<main id="main">
+
+<!-- Cabeçalho azul com o título da página e os dois botões -->
+<section class="page-head dark">
+  <div class="wrap">
+  <h1 class="rise"><span class="en">Websites, apps and design</span><span class="pt">Sites, apps e design</span><span class="es">Webs, apps y diseño</span></h1>
+  <p class="rise d1"><span class="en">I build what a small business needs: a website, a small app for the team, or the logo and flyers that go with them. You deal with one person from the first idea to the day it goes live.</span><span class="pt">Crio o que um pequeno negócio precisa: um site, um app simples para a equipe ou o logo e os flyers que combinam com eles. Você fala com uma pessoa só, da primeira ideia até o dia em que tudo vai ao ar.</span><span class="es">Creo lo que necesita un pequeño negocio: una web, una app sencilla para el equipo o el logo y los flyers que la acompañan. Hablas con una sola persona, desde la primera idea hasta el día en que todo se publica.</span></p>
+  <div class="cta-row rise d2">
+    <a class="btn" href="index.html?topic=web#contact"><span class="en">Ask for a quote</span><span class="pt">Pedir orçamento</span><span class="es">Pedir presupuesto</span></a>
+    <a class="btn btn--ghost" href="apps.html"><span class="en">See the apps I built</span><span class="pt">Ver os apps que criei</span><span class="es">Ver las apps que he creado</span></a>
+  </div>
+  </div>
+</section>
+
+<!-- ===== O QUE EU CRIO ===== quatro cartões. O link "Ask for a quote" de cada um abre o formulário
+     da página inicial já com o assunto escolhido (?topic=web, hr ou design: precisa existir na lista
+     <select id="f-topic"> do index.html). -->
+<section class="section section--alt" id="offers">
+  <div class="wrap">
+    <div class="head head--left">
+      <h2><span class="en">What I can make for you</span><span class="pt">O que posso criar para você</span><span class="es">Qué puedo crear para ti</span></h2>
+    </div>
+    <div class="offer-grid">
+      <article class="offer" id="websites">
+        <span class="offer__ic"><svg class="lu" aria-hidden="true"><use href="#lu-app-window"/></svg></span>
+        <h3><span class="en">Websites</span><span class="pt">Sites</span><span class="es">Webs</span></h3>
+        <p><span class="en">A site for your shop, studio or service that opens fast on a phone and can come in more than one language.</span><span class="pt">Um site para a sua loja, estúdio ou serviço, que abre rápido no celular e pode ter mais de um idioma.</span><span class="es">Una web para tu tienda, estudio o servicio, que se abre rápido en el móvil y puede tener más de un idioma.</span></p>
+        <ul class="ticks">
+          <li><span class="en">Domain and hosting set up for you</span><span class="pt">Domínio e hospedagem configurados por mim</span><span class="es">Dominio y alojamiento configurados por mí</span></li>
+          <li><span class="en">Contact form and the privacy page EU rules ask for</span><span class="pt">Formulário de contato e a página de privacidade que as regras da UE pedem</span><span class="es">Formulario de contacto y la página de privacidad que piden las normas de la UE</span></li>
+          <li><span class="en">In English, Portuguese or Spanish</span><span class="pt">Em inglês, português ou espanhol</span><span class="es">En inglés, portugués o español</span></li>
+        </ul>
+        <a class="more" href="index.html?topic=web#contact"><span class="en">Ask for a quote</span><span class="pt">Pedir orçamento</span><span class="es">Pedir presupuesto</span><span class="sr-only"><span class="en">: Websites</span><span class="pt">: Sites</span><span class="es">: Webs</span></span></a>
+      </article>
+      <article class="offer" id="team-apps">
+        <span class="offer__ic"><svg class="lu" aria-hidden="true"><use href="#lu-smartphone"/></svg></span>
+        <h3><span class="en">Apps for your team</span><span class="pt">Apps para a sua equipe</span><span class="es">Apps para tu equipo</span></h3>
+        <p><span class="en">A small web app your team opens on the phone, with no app store: checklists, stock counts, bookings or a price calculator.</span><span class="pt">Um app web simples que a equipe abre no celular, sem loja de apps: checklists, controle de estoque, agendamentos ou calculadora de preços.</span><span class="es">Una app web sencilla que tu equipo abre en el móvil, sin tienda de apps: checklists, control de stock, reservas o una calculadora de precios.</span></p>
+        <ul class="ticks">
+          <li><span class="en">Works on iPhone and Android</span><span class="pt">Funciona no iPhone e no Android</span><span class="es">Funciona en iPhone y Android</span></li>
+          <li><span class="en">Login for your team when the data is private</span><span class="pt">Login para a equipe quando os dados são privados</span><span class="es">Acceso con contraseña cuando los datos son privados</span></li>
+          <li><span class="en">Built with you and tested on your phones before launch</span><span class="pt">Feito junto com você e testado nos seus celulares antes de publicar</span><span class="es">Hecha contigo y probada en vuestros móviles antes de publicarla</span></li>
+        </ul>
+        <a class="more" href="index.html?topic=web#contact"><span class="en">Ask for a quote</span><span class="pt">Pedir orçamento</span><span class="es">Pedir presupuesto</span><span class="sr-only"><span class="en">: Apps for your team</span><span class="pt">: Apps para a sua equipe</span><span class="es">: Apps para tu equipo</span></span></a>
+      </article>
+      <article class="offer" id="schedules">
+        <span class="offer__ic"><svg class="lu" aria-hidden="true"><use href="#lu-calendar-clock"/></svg></span>
+        <h3><span class="en">Staff schedules and shift swaps</span><span class="pt">Escalas e trocas de turno</span><span class="es">Turnos y cambios de turno</span></h3>
+        <p><span class="en">One place for the roster: everyone sees who works today, asks for a swap from the phone, and you approve it. I built My Shift for my own team in Malta, so I know where rosters go wrong.</span><span class="pt">Um lugar só para a escala: todo mundo vê quem trabalha hoje, pede troca de turno pelo celular e você aprova. Criei o My Shift para a minha equipe em Malta, então sei onde as escalas dão problema.</span><span class="es">Un solo lugar para el cuadrante: todos ven quién trabaja hoy, piden un cambio de turno desde el móvil y tú lo apruebas. Creé My Shift para mi equipo en Malta, así que sé dónde fallan los cuadrantes.</span></p>
+        <ul class="ticks">
+          <li><span class="en">Weekly roster for the whole team</span><span class="pt">Escala semanal da equipe inteira</span><span class="es">Cuadrante semanal de todo el equipo</span></li>
+          <li><span class="en">Shift swap requests with your approval</span><span class="pt">Pedidos de troca de turno com a sua aprovação</span><span class="es">Solicitudes de cambio de turno con tu aprobación</span></li>
+          <li><span class="en">Days off and availability in the same place</span><span class="pt">Folgas e disponibilidade no mesmo lugar</span><span class="es">Días libres y disponibilidad en el mismo lugar</span></li>
+        </ul>
+        <a class="more" href="index.html?topic=hr#contact"><span class="en">Ask for a quote</span><span class="pt">Pedir orçamento</span><span class="es">Pedir presupuesto</span><span class="sr-only"><span class="en">: Staff schedules and shift swaps</span><span class="pt">: Escalas e trocas de turno</span><span class="es">: Turnos y cambios de turno</span></span></a>
+      </article>
+      <article class="offer" id="design">
+        <span class="offer__ic"><svg class="lu" aria-hidden="true"><use href="#lu-palette"/></svg></span>
+        <h3><span class="en">Logos, flyers and print</span><span class="pt">Logos, flyers e impressos</span><span class="es">Logos, flyers e impresos</span></h3>
+        <p><span class="en">A logo and the pieces that carry it: business cards, flyers, menus and posts for Instagram. I check print files for bleed, margins and colour before they go to the printer.</span><span class="pt">Um logo e as peças que levam ele: cartões de visita, flyers, cardápios e posts para o Instagram. Confiro os arquivos de impressão (sangria, margens e cor) antes de irem para a gráfica.</span><span class="es">Un logo y las piezas que lo llevan: tarjetas de visita, flyers, cartas de menú y posts para Instagram. Reviso los archivos de impresión (sangrado, márgenes y color) antes de enviarlos a la imprenta.</span></p>
+        <ul class="ticks">
+          <li><span class="en">Logo in versions for print, web and social media</span><span class="pt">Logo em versões para impressão, site e redes sociais</span><span class="es">Logo en versiones para imprenta, web y redes sociales</span></li>
+          <li><span class="en">Flyers, cards and menus ready for the printer</span><span class="pt">Flyers, cartões e cardápios prontos para a gráfica</span><span class="es">Flyers, tarjetas y cartas listos para la imprenta</span></li>
+          <li><span class="en">Matching posts and stories for Instagram</span><span class="pt">Posts e stories para o Instagram no mesmo estilo</span><span class="es">Posts y stories para Instagram con el mismo estilo</span></li>
+        </ul>
+        <a class="more" href="index.html?topic=design#contact"><span class="en">Ask for a quote</span><span class="pt">Pedir orçamento</span><span class="es">Pedir presupuesto</span><span class="sr-only"><span class="en">: Logos, flyers and print</span><span class="pt">: Logos, flyers e impressos</span><span class="es">: Logos, flyers e impresos</span></span></a>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ===== COMO FUNCIONA ===== os quatro passos, numerados pelo CSS -->
+<section class="section" id="how-it-works">
+  <div class="wrap">
+    <div class="head head--left">
+      <h2><span class="en">How it works</span><span class="pt">Como funciona</span><span class="es">Cómo funciona</span></h2>
+    </div>
+    <ol class="steps">
+      <li class="step">
+        <h3><span class="en">Tell me what you need</span><span class="pt">Me conte o que precisa</span><span class="es">Cuéntame qué necesitas</span></h3>
+        <p><span class="en">A short message or call: what it is for, who will use it and when you need it.</span><span class="pt">Uma mensagem curta ou uma ligação: para que serve, quem vai usar e para quando você precisa.</span><span class="es">Un mensaje corto o una llamada: para qué sirve, quién lo va a usar y para cuándo lo necesitas.</span></p>
+      </li>
+      <li class="step">
+        <h3><span class="en">Get a written quote</span><span class="pt">Receba um orçamento por escrito</span><span class="es">Recibe un presupuesto por escrito</span></h3>
+        <p><span class="en">Price, what is included and the date, before any work starts. The quote is free.</span><span class="pt">Preço, o que está incluído e o prazo, antes de começar. O orçamento é grátis.</span><span class="es">Precio, qué incluye y la fecha, antes de empezar. El presupuesto es gratis.</span></p>
+      </li>
+      <li class="step">
+        <h3><span class="en">Try the first version</span><span class="pt">Teste a primeira versão</span><span class="es">Prueba la primera versión</span></h3>
+        <p><span class="en">You test it on your own phone and tell me what to change until it fits.</span><span class="pt">Você testa no seu próprio celular e me diz o que mudar até ficar do jeito certo.</span><span class="es">La pruebas en tu propio móvil y me dices qué cambiar hasta que encaje.</span></p>
+      </li>
+      <li class="step">
+        <h3><span class="en">Go live</span><span class="pt">No ar</span><span class="es">Publicado</span></h3>
+        <p><span class="en">I publish it, check it on different phones and show you how it works.</span><span class="pt">Eu publico, confiro em celulares diferentes e mostro como tudo funciona.</span><span class="es">Lo publico, lo compruebo en distintos móviles y te enseño cómo funciona.</span></p>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<!-- ===== CHAMADA FINAL ===== -->
+<section class="section section--alt">
+  <div class="wrap">
+    <div class="cta-band dark">
+      <h2><span class="en">Have a project in mind?</span><span class="pt">Tem um projeto em mente?</span><span class="es">¿Tienes un proyecto en mente?</span></h2>
+      <p><span class="en">Send me a few lines about it. I reply with questions or a quote.</span><span class="pt">Me mande algumas linhas sobre ele. Eu respondo com perguntas ou com um orçamento.</span><span class="es">Escríbeme unas líneas sobre él. Te respondo con preguntas o con un presupuesto.</span></p>
+      <div class="cta-row">
+        <a class="btn" href="index.html?topic=web#contact"><span class="en">Ask for a quote</span><span class="pt">Pedir orçamento</span><span class="es">Pedir presupuesto</span></a>
+        <a class="more" href="https://www.linkedin.com/in/pablomtarga" target="_blank" rel="noopener noreferrer"><span class="en">Message me on LinkedIn</span><span class="pt">Me chame no LinkedIn</span><span class="es">Escríbeme por LinkedIn</span></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ===== RODAPÉ ===== igual em todas as páginas -->
+<footer class="footer">
+  <div class="wrap">
+    <p class="footer__copy">© 2026 Pablo Targa · Amsterdam</p>
+    <div class="footer__row">
+      <nav aria-label="Footer" data-attr="aria-label" data-en="Footer" data-pt="Rodapé" data-es="Pie de página">
+        <a href="apps.html">Apps</a>
+        <a href="https://www.linkedin.com/in/pablomtarga" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        <a href="https://github.com/pablomtarga" target="_blank" rel="noopener noreferrer">GitHub</a>
+      </nav>
+      <nav class="footer__legal" aria-label="Legal" data-attr="aria-label" data-en="Legal" data-pt="Informações legais" data-es="Información legal">
+        <a href="privacy.html"><span class="en">Privacy</span><span class="pt">Privacidade</span><span class="es">Privacidad</span></a>
+        <a href="terms.html"><span class="en">Terms of use</span><span class="pt">Termos de uso</span><span class="es">Términos de uso</span></a>
+        <a href="cookies.html">Cookies</a>
+      </nav>
+    </div>
+  </div>
+</footer>
+<!-- ===== DESENHOS DOS ÍCONES ===== usados nesta página com <svg><use href="#id"/></svg>.
+     lu- = Lucide (licença ISC, lucide.dev). -->
+<svg width="0" height="0" class="sr-only" aria-hidden="true" focusable="false">
+  <symbol id="lu-app-window" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M10 4v4"/><path d="M2 8h20"/><path d="M6 4v4"/></symbol>
+  <symbol id="lu-smartphone" viewBox="0 0 24 24"><rect width="14" height="20" x="5" y="2" rx="2" ry="2"/><path d="M12 18h.01"/></symbol>
+  <symbol id="lu-calendar-clock" viewBox="0 0 24 24"><path d="M16 14v2.2l1.6 1"/><path d="M16 2v3"/><path d="M21 7.338V5a2 2 0 00-2-2H5a2 2 0 00-2 2v14a2 2 0 002 2h2.338"/><path d="M3 9h5.859"/><path d="M8 2v3"/><circle cx="16" cy="16" r="6"/></symbol>
+  <symbol id="lu-palette" viewBox="0 0 24 24"><path d="M12 22a1 1 0 0 1 0-20 10 9 0 0 1 10 9 5 5 0 0 1-5 5h-2.25a1.75 1.75 0 0 0-1.4 2.8l.3.4a1.75 1.75 0 0 1-1.4 2.8z"/><circle cx="13.5" cy="6.5" r=".5"/><circle cx="17.5" cy="10.5" r=".5"/><circle cx="6.5" cy="12.5" r=".5"/><circle cx="8.5" cy="7.5" r=".5"/></symbol>
+</svg>
+</body>
+</html>

@@ -14,7 +14,7 @@
    10. Fotos ampliadas (galeria)
    11. Vídeo do Iron (página de Apps)
    12. Abas dos agentes de IA (página de Apps)
-   13. Cartão de serviço → formulário com o assunto já escolhido
+   13. Cartão de serviço ou link ?topic= → formulário com o assunto já escolhido
    14. Formulário de contato (abre o app de e-mail de quem escreve)
 
    Não usa nenhuma biblioteca. Mudou este arquivo? Suba o "?v=" nas páginas
@@ -329,12 +329,16 @@
     });
   });
 
-  /* == 13. Cartão de serviço → formulário com o assunto já escolhido =========== */
+  /* == 13. Cartão de serviço ou link ?topic= → formulário com o assunto escolhido = */
   // data-topic no cartão precisa ser igual a um value da lista <select id="f-topic">
   $$('.svc__link[data-topic]').forEach((a) => a.addEventListener('click', () => {
     const topic = $('#f-topic');
     if (topic) topic.value = a.dataset.topic;
   }));
+  // links de outras páginas fazem o mesmo pelo endereço: index.html?topic=design#contact
+  const topicSelect = $('#f-topic');
+  const topicAsked = new URLSearchParams(location.search).get('topic');
+  if (topicSelect && topicAsked && [...topicSelect.options].some((o) => o.value === topicAsked)) topicSelect.value = topicAsked;
 
   /* == 14. Formulário de contato =============================================== */
   // O site não envia nada sozinho: monta a mensagem e abre o app de e-mail de quem

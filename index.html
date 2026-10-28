@@ -45,9 +45,9 @@
 <!-- Estilo (site.css) e comportamento (boot.js e site.js). O ?v=N obriga o navegador a baixar a
      versão nova: suba o N em TODAS as páginas quando mudar um desses arquivos
      (ou rode FERRAMENTAS/nova-versao.py). -->
-<link rel="stylesheet" href="assets/css/site.css?v=22">
-<script src="assets/js/boot.js?v=22"></script>
-<script src="assets/js/site.js?v=22" defer></script>
+<link rel="stylesheet" href="assets/css/site.css?v=23">
+<script src="assets/js/boot.js?v=23"></script>
+<script src="assets/js/site.js?v=23" defer></script>
 <!-- Dados para o Google (JSON-LD): quem você é, cargo, serviços e perfis. Não aparece na tela. -->
 <script type="application/ld+json">
 {
@@ -81,7 +81,7 @@
         { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Smart home setup", "areaServed": { "@type": "City", "name": "Amsterdam" } } },
         { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Repairs and device setup", "areaServed": { "@type": "City", "name": "Amsterdam" } } },
         { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "AI automation", "areaServed": { "@type": "City", "name": "Amsterdam" } } },
-        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Websites and small apps", "areaServed": { "@type": "City", "name": "Amsterdam" } } },
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Websites, apps and design", "areaServed": { "@type": "City", "name": "Amsterdam" } } },
         { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "AV, streaming and CCTV", "areaServed": { "@type": "City", "name": "Amsterdam" } } }
       ],
       "sameAs": ["https://www.linkedin.com/in/pablomtarga", "https://github.com/pablomtarga"]
@@ -96,7 +96,7 @@
 <a class="skip" href="#main"><span class="en">Skip to content</span><span class="pt">Pular para o conteúdo</span><span class="es">Saltar al contenido</span></a>
 
 
-<!-- ===== BARRA DO TOPO ===== igual nas 5 páginas: mudou aqui, mude nas outras também.
+<!-- ===== BARRA DO TOPO ===== igual em todas as páginas: mudou aqui, mude nas outras também.
      Os links levam às seções da página inicial pelo id (ex.: #services). -->
 <header class="nav">
   <div class="nav__in">
@@ -173,6 +173,7 @@
 
 <!-- ===== SERVIÇOS ===== cada <li class="svc"> é um cartão clicável.
      data-topic="..." escolhe o assunto no formulário: precisa ser igual a um value da lista
+     (o cartão "Websites, apps and design" é diferente: leva para a página build.html)
      <select id="f-topic"> lá no contato. Ícone: <use href="#lu-..."> (desenhos no fim do arquivo). -->
 <section class="section svc-section" id="services">
   <div class="wrap">
@@ -208,8 +209,8 @@
         </li>
         <li class="svc" id="svc-web">
           <span class="svc__ic"><svg class="lu" aria-hidden="true"><use href="#lu-app-window"/></svg></span>
-          <h3><a class="svc__link" href="#contact" data-topic="web"><span class="en">Websites and small apps</span><span class="pt">Sites e apps pequenos</span><span class="es">Webs y apps pequeñas</span><span class="sr-only"><span class="en">: ask for a quote</span><span class="pt">: pedir orçamento</span><span class="es">: pedir presupuesto</span></span></a></h3>
-          <p><span class="en">A one-page site for your shop, or a small tool your team opens every day.</span><span class="pt">Um site de uma página para o seu negócio, ou uma ferramenta simples que a equipe usa todo dia.</span><span class="es">Una web de una página para tu negocio, o una herramienta sencilla que tu equipo abre cada día.</span></p>
+          <h3><a class="svc__link" href="build.html"><span class="en">Websites, apps and design</span><span class="pt">Sites, apps e design</span><span class="es">Webs, apps y diseño</span><span class="sr-only"><span class="en">: see what I make</span><span class="pt">: ver o que eu crio</span><span class="es">: ver qué creo</span></span></a></h3>
+          <p><span class="en">Websites, small apps for your team, staff schedules with shift swaps, and logos and flyers.</span><span class="pt">Sites, apps simples para a equipe, escalas com troca de turno, e logos e flyers.</span><span class="es">Webs, apps sencillas para tu equipo, cuadrantes con cambios de turno, y logos y flyers.</span></p>
           <span class="svc__mode"><span class="en">Remote</span><span class="pt">Remoto</span><span class="es">Remoto</span></span>
         </li>
         <li class="svc" id="svc-av">
@@ -425,6 +426,8 @@
               <option value="repair" data-en="Repair or device setup" data-pt="Reparo ou configuração" data-es="Reparación o configuración">Repair or device setup</option>
               <option value="ai" data-en="AI automation" data-pt="Automação com IA" data-es="Automatización con IA">AI automation</option>
               <option value="web" data-en="Website or app" data-pt="Site ou app" data-es="Web o app">Website or app</option>
+              <option value="hr" data-en="Staff schedule app" data-pt="App de escala da equipe" data-es="App de turnos del equipo">Staff schedule app</option>
+              <option value="design" data-en="Logo, flyer or design" data-pt="Logo, flyer ou design" data-es="Logo, flyer o diseño">Logo, flyer or design</option>
               <option value="av" data-en="AV, streaming or CCTV" data-pt="Áudio e vídeo, streaming ou CFTV" data-es="Audio y vídeo, streaming o CCTV">AV, streaming or CCTV</option>
               <option value="photo" data-en="Photography" data-pt="Fotografia" data-es="Fotografía">Photography</option>
             </select>
@@ -453,7 +456,7 @@
 
 </main>
 
-<!-- ===== RODAPÉ ===== igual nas 5 páginas -->
+<!-- ===== RODAPÉ ===== igual em todas as páginas -->
 <footer class="footer">
   <div class="wrap">
     <p class="footer__copy">© 2026 Pablo Targa · Amsterdam</p>
