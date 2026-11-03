@@ -45,9 +45,9 @@
 <!-- Estilo (site.css) e comportamento (boot.js e site.js). O ?v=N obriga o navegador a baixar a
      versão nova: suba o N em TODAS as páginas quando mudar um desses arquivos
      (ou rode FERRAMENTAS/nova-versao.py). -->
-<link rel="stylesheet" href="assets/css/site.css?v=23">
-<script src="assets/js/boot.js?v=23"></script>
-<script src="assets/js/site.js?v=23" defer></script>
+<link rel="stylesheet" href="assets/css/site.css?v=24">
+<script src="assets/js/boot.js?v=24"></script>
+<script src="assets/js/site.js?v=24" defer></script>
 <!-- Dados para o Google (JSON-LD): quem você é, cargo, serviços e perfis. Não aparece na tela. -->
 <script type="application/ld+json">
 {
@@ -73,7 +73,7 @@
         { "@type": "EducationalOccupationalCredential", "name": "Google AI Essentials" },
         { "@type": "EducationalOccupationalCredential", "name": "Google Technical Support Fundamentals" }
       ],
-      "alumniOf": [{ "@type": "CollegeOrUniversity", "name": "UNIFAAT" }],
+      "alumniOf": [{ "@type": "CollegeOrUniversity", "name": "UNIFAAT" }, { "@type": "CollegeOrUniversity", "name": "Holmes Institute" }],
       "knowsLanguage": ["pt", "en", "es", "it"],
       "knowsAbout": ["IT support", "Customer support", "Problem solving", "Microsoft 365", "macOS", "Windows", "CCTV", "AI automation", "Claude Cowork", "AI agents", "Smart home setup", "Photography"],
       "makesOffer": [
@@ -229,7 +229,8 @@
 </div>
 
 <!-- ===== EXPERIÊNCIA ===== um <article class="job"> por emprego. Bandeira: <use href="#fl-mt">
-     (Malta), #fl-ie (Irlanda), #fl-br (Brasil). Logo abaixo ficam as gavetas:
+     (Malta), #fl-ie (Irlanda), #fl-br (Brasil). <ul class="job__tools">: as ferramentas usadas naquele
+     emprego (as mesmas da linha "Tools:" do CV). Logo abaixo ficam as gavetas:
      - "More skills": cada app é um <li class="app">. Nível: m1 = básico, m2 = intermediário,
        m3 = avançado (mude a classe "meter m3" e o texto Advanced/Avançado/Avanzado juntos).
      - "Curiosities": três cartões com emoji animado (cur--cup, cur--clap, cur--flip). -->
@@ -243,36 +244,43 @@
           <h3>Religa</h3>
           <p class="job__meta"><span class="en">IT Support Technician</span><span class="pt">Técnico de suporte de TI</span><span class="es">Técnico de soporte de TI</span> · <span class="job__place"><svg class="flag" aria-hidden="true"><use href="#fl-mt"/></svg>St Julian’s, Malta</span></p>
           <p><span class="en">I kept live video studios and offices running around the clock. I deployed workstations, calibrated cameras and audio, and closed incidents for every department through the ticket queue.</span><span class="pt">Mantive estúdios de vídeo ao vivo e escritórios funcionando 24 horas. Instalei estações de trabalho, calibrei câmeras e áudio e resolvi chamados de todos os setores pela fila de tickets.</span><span class="es">Mantuve en marcha estudios de vídeo en directo y oficinas las 24 horas. Instalé puestos de trabajo, calibré cámaras y audio, y cerré incidencias de todos los departamentos a través de la cola de tickets.</span></p>
+          <ul class="job__tools" aria-label="Tools I used" data-attr="aria-label" data-en="Tools I used" data-pt="Ferramentas que usei" data-es="Herramientas que usé"><li><span class="en">Service desk and ticketing</span><span class="pt">Service desk e chamados</span><span class="es">Service desk y tickets</span></li><li><span class="en">Incident response 24/7</span><span class="pt">Incidentes 24/7</span><span class="es">Incidencias 24/7</span></li><li><span class="en">Workstation deployment</span><span class="pt">Instalação de estações de trabalho</span><span class="es">Despliegue de puestos de trabajo</span></li><li><span class="en">Network cabling</span><span class="pt">Cabeamento de rede</span><span class="es">Cableado de red</span></li><li><span class="en">AV and camera calibration</span><span class="pt">Calibração de áudio, vídeo e câmeras</span><span class="es">Calibración de audio, vídeo y cámaras</span></li><li><span class="en">Live stream monitoring</span><span class="pt">Monitoramento de transmissão ao vivo</span><span class="es">Monitorización de streaming en directo</span></li><li><span class="en">CCTV</span><span class="pt">CFTV</span><span class="es">CCTV</span></li><li>Microsoft Teams</li><li>Slack</li><li>Discord</li><li>Telegram</li><li>WhatsApp</li></ul>
         </article>
         <article class="job">
           <h3>IT-FIX</h3>
           <p class="job__meta"><span class="en">Technical Support and Sales</span><span class="pt">Suporte técnico e vendas</span><span class="es">Soporte técnico y ventas</span> · <span class="job__place"><svg class="flag" aria-hidden="true"><use href="#fl-ie"/></svg>Dublin</span></p>
           <p><span class="en">I repaired Macs, iPhones and Windows PCs and became the team’s top seller, averaging more than €70,000 a month in Apple products. I also answered customers on Instagram and WhatsApp, which kept our Google reviews high.</span><span class="pt">Consertei Macs, iPhones e PCs com Windows e virei o maior vendedor da equipe, com média de mais de €70 mil por mês em produtos Apple. Também atendia clientes pelo Instagram e pelo WhatsApp, o que manteve as avaliações no Google lá em cima.</span><span class="es">Reparé Macs, iPhones y PCs con Windows y me convertí en el mejor vendedor del equipo, con una media de más de 70.000 € al mes en productos Apple. También atendía a clientes por Instagram y WhatsApp, lo que mantuvo altas nuestras reseñas en Google.</span></p>
+          <ul class="job__tools" aria-label="Tools I used" data-attr="aria-label" data-en="Tools I used" data-pt="Ferramentas que usei" data-es="Herramientas que usé"><li>macOS</li><li>iOS</li><li>Android</li><li>Windows</li><li><span class="en">Hardware repair</span><span class="pt">Conserto de hardware</span><span class="es">Reparación de hardware</span></li><li><span class="en">Data transfer and backups</span><span class="pt">Transferência de dados e backups</span><span class="es">Transferencia de datos y copias de seguridad</span></li><li>iCloud</li><li>Google Drive</li><li><span class="en">Instagram and WhatsApp support</span><span class="pt">Atendimento por Instagram e WhatsApp</span><span class="es">Atención por Instagram y WhatsApp</span></li></ul>
         </article>
         <article class="job">
           <h3>Three Ireland</h3>
           <p class="job__meta"><span class="en">Retail Sales Consultant</span><span class="pt">Consultor de vendas</span><span class="es">Asesor comercial</span> · <span class="job__place"><svg class="flag" aria-hidden="true"><use href="#fl-ie"/></svg>Dublin</span></p>
           <p><span class="en">I beat the monthly sales target four months in a row, 132% on average, by matching each customer to the right mobile plan.</span><span class="pt">Bati a meta mensal de vendas quatro meses seguidos, com média de 132%, indicando o plano de celular certo para cada cliente.</span><span class="es">Superé el objetivo mensual de ventas cuatro meses seguidos, con un 132 % de media, recomendando a cada cliente el plan móvil adecuado.</span></p>
+          <ul class="job__tools" aria-label="Tools I used" data-attr="aria-label" data-en="Tools I used" data-pt="Ferramentas que usei" data-es="Herramientas que usé"><li><span class="en">Consultative sales</span><span class="pt">Venda consultiva</span><span class="es">Venta consultiva</span></li><li><span class="en">Mobile and telecom plans</span><span class="pt">Planos de celular e telecom</span><span class="es">Planes móviles y de telecomunicaciones</span></li><li><span class="en">Customer service</span><span class="pt">Atendimento ao cliente</span><span class="es">Atención al cliente</span></li></ul>
         </article>
         <article class="job">
           <h3>GPO Soluções em Tecnologia</h3>
           <p class="job__meta"><span class="en">Technical Support Specialist</span><span class="pt">Especialista em suporte técnico</span><span class="es">Especialista en soporte técnico</span> · <span class="job__place"><svg class="flag" aria-hidden="true"><use href="#fl-br"/></svg>São Paulo</span></p>
           <p><span class="en">I supported users on Windows, macOS and Linux, ran the company’s Microsoft 365 and kept the weekly backups on schedule.</span><span class="pt">Dei suporte a usuários de Windows, macOS e Linux, administrei o Microsoft 365 da empresa e mantive os backups semanais em dia.</span><span class="es">Di soporte a usuarios de Windows, macOS y Linux, gestioné el Microsoft 365 de la empresa y mantuve al día las copias de seguridad semanales.</span></p>
+          <ul class="job__tools" aria-label="Tools I used" data-attr="aria-label" data-en="Tools I used" data-pt="Ferramentas que usei" data-es="Herramientas que usé"><li>Windows</li><li>macOS</li><li>Linux</li><li><span class="en">Microsoft 365 administration</span><span class="pt">Administração do Microsoft 365</span><span class="es">Administración de Microsoft 365</span></li><li><span class="en">Weekly backups</span><span class="pt">Backups semanais</span><span class="es">Copias de seguridad semanales</span></li><li><span class="en">Remote and on-site support</span><span class="pt">Suporte remoto e presencial</span><span class="es">Soporte remoto y presencial</span></li></ul>
         </article>
         <article class="job">
           <h3>Ideologica</h3>
           <p class="job__meta"><span class="en">Software Technical Support</span><span class="pt">Suporte técnico de software</span><span class="es">Soporte técnico de software</span> · <span class="job__place"><svg class="flag" aria-hidden="true"><use href="#fl-br"/></svg>São Paulo</span></p>
-          <p><span class="en">I handled first and second line for the company’s software and used SQL queries, views and stored procedures to solve customer issues.</span><span class="pt">Fiz o atendimento N1 e N2 do software da empresa e usei consultas SQL, views e stored procedures para resolver os problemas dos clientes.</span><span class="es">Atendí el primer y el segundo nivel del software de la empresa y usé consultas SQL, vistas y procedimientos almacenados para resolver los problemas de los clientes.</span></p>
+          <p><span class="en">I handled first and second line, through the ticket system, for the company’s software at Brazil’s largest laundry chains, such as 5àsec and Laundromat. I used SQL queries, views and stored procedures to solve their issues.</span><span class="pt">Fiz o atendimento N1 e N2, pelo sistema de tickets, do software da empresa nas maiores redes de lavanderia do Brasil, como 5àsec e Laundromat. Usei consultas SQL, views e stored procedures para resolver os problemas delas.</span><span class="es">Atendí el primer y segundo nivel, a través del sistema de tickets, del software de la empresa en las mayores cadenas de lavandería de Brasil, como 5àsec y Laundromat. Usé consultas SQL, vistas y procedimientos almacenados para resolver sus incidencias.</span></p>
+          <ul class="job__tools" aria-label="Tools I used" data-attr="aria-label" data-en="Tools I used" data-pt="Ferramentas que usei" data-es="Herramientas que usé"><li><span class="en">First and second-line support</span><span class="pt">Suporte N1 e N2</span><span class="es">Soporte de primer y segundo nivel</span></li><li><span class="en">Ticket system</span><span class="pt">Sistema de tickets</span><span class="es">Sistema de tickets</span></li><li><span class="en">SQL (queries, views, stored procedures)</span><span class="pt">SQL (consultas, views, stored procedures)</span><span class="es">SQL (consultas, vistas, procedimientos almacenados)</span></li></ul>
         </article>
         <article class="job">
           <h3>Kogut eBusiness</h3>
           <p class="job__meta"><span class="en">Support Analyst</span><span class="pt">Analista de suporte</span><span class="es">Analista de soporte</span> · <span class="job__place"><svg class="flag" aria-hidden="true"><use href="#fl-br"/></svg>São Paulo</span></p>
           <p><span class="en">I supported users, monitored the network and kept live video streams on air.</span><span class="pt">Dei suporte aos usuários, monitorei a rede e mantive transmissões de vídeo ao vivo no ar.</span><span class="es">Di soporte a los usuarios, monitoricé la red y mantuve en el aire las retransmisiones de vídeo en directo.</span></p>
+          <ul class="job__tools" aria-label="Tools I used" data-attr="aria-label" data-en="Tools I used" data-pt="Ferramentas que usei" data-es="Herramientas que usé"><li><span class="en">User support</span><span class="pt">Suporte ao usuário</span><span class="es">Soporte a usuarios</span></li><li><span class="en">Network monitoring</span><span class="pt">Monitoramento de rede</span><span class="es">Monitorización de red</span></li><li><span class="en">Live video streaming</span><span class="pt">Transmissão de vídeo ao vivo</span><span class="es">Streaming de vídeo en directo</span></li></ul>
         </article>
         <article class="job">
           <h3>Tauá Hotels &amp; Convention</h3>
           <p class="job__meta"><span class="en">IT Coordinator</span><span class="pt">Coordenador de TI</span><span class="es">Coordinador de TI</span> · <span class="job__place"><svg class="flag" aria-hidden="true"><use href="#fl-br"/></svg>São Paulo</span></p>
           <p><span class="en">I built the hotel’s IT department from scratch: the ERP, the VoIP phone system and the network cabling.</span><span class="pt">Montei do zero o departamento de TI do hotel: o ERP, a telefonia VoIP e o cabeamento de rede.</span><span class="es">Monté desde cero el departamento de TI del hotel: el ERP, la telefonía VoIP y el cableado de red.</span></p>
+          <ul class="job__tools" aria-label="Tools I used" data-attr="aria-label" data-en="Tools I used" data-pt="Ferramentas que usei" data-es="Herramientas que usé"><li>ERP</li><li><span class="en">VoIP/PBX</span><span class="pt">VoIP/PABX</span><span class="es">VoIP/centralita</span></li><li><span class="en">Network cabling</span><span class="pt">Cabeamento de rede</span><span class="es">Cableado de red</span></li><li><span class="en">IT department setup</span><span class="pt">Montagem do departamento de TI</span><span class="es">Montaje del departamento de TI</span></li><li><span class="en">Onboarding process</span><span class="pt">Processo de onboarding</span><span class="es">Proceso de onboarding</span></li></ul>
         </article>
       </div>
       <div class="drawers">
@@ -314,7 +322,7 @@
           <div class="ms-grid">
             <div class="ms-block">
               <h3><span class="en">Certificates and studies</span><span class="pt">Certificados e estudos</span><span class="es">Certificados y estudios</span></h3>
-              <ul><li><span>Microsoft IT Support Specialist</span><span>Microsoft · Coursera</span></li><li><span>Google AI Essentials</span><span>Google · Coursera</span></li><li><span>Google Technical Support Fundamentals</span><span>Google · Coursera</span></li><li><span><span class="en">Systems Analysis and Development</span><span class="pt">Análise e Desenvolvimento de Sistemas</span><span class="es">Análisis y Desarrollo de Sistemas</span></span><span>UNIFAAT</span></li></ul>
+              <ul><li><span>Microsoft IT Support Specialist</span><span>Microsoft · Coursera</span></li><li><span>Google AI Essentials</span><span>Google · Coursera</span></li><li><span>Google Technical Support Fundamentals</span><span>Google · Coursera</span></li><li><span><span class="en">Systems Analysis and Development</span><span class="pt">Análise e Desenvolvimento de Sistemas</span><span class="es">Análisis y Desarrollo de Sistemas</span></span><span>UNIFAAT</span></li><li><span><span class="en">Business Administration studies</span><span class="pt">Estudos em Administração de Empresas</span><span class="es">Estudios de Administración de Empresas</span></span><span>Holmes Institute</span></li></ul>
             </div>
             <div class="ms-block">
               <h3><span class="en">Languages</span><span class="pt">Idiomas</span><span class="es">Idiomas</span></h3>
