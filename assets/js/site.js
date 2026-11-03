@@ -201,8 +201,9 @@
 
   /* == 9. Gavetas abrindo e fechando devagar =================================== */
   // Sem este código as gavetas (<details>) abririam de uma vez. Clicar de novo no
-  // meio do movimento inverte a partir de onde está, sem pulo.
-  $$('details.drawer').forEach((d) => {
+  // meio do movimento inverte a partir de onde está, sem pulo. Vale também para o
+  // botão "Tools" de cada emprego (details.tools).
+  $$('details.drawer, details.tools').forEach((d) => {
     const sum = $('summary', d);
     const body = sum.nextElementSibling;
     let anim = null;
