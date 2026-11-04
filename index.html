@@ -45,9 +45,9 @@
 <!-- Estilo (site.css) e comportamento (boot.js e site.js). O ?v=N obriga o navegador a baixar a
      versão nova: suba o N em TODAS as páginas quando mudar um desses arquivos
      (ou rode FERRAMENTAS/nova-versao.py). -->
-<link rel="stylesheet" href="assets/css/site.css?v=26">
-<script src="assets/js/boot.js?v=26"></script>
-<script src="assets/js/site.js?v=26" defer></script>
+<link rel="stylesheet" href="assets/css/site.css?v=27">
+<script src="assets/js/boot.js?v=27"></script>
+<script src="assets/js/site.js?v=27" defer></script>
 <!-- Dados para o Google (JSON-LD): quem você é, cargo, serviços e perfis. Não aparece na tela. -->
 <script type="application/ld+json">
 {
@@ -229,12 +229,13 @@
 </div>
 
 <!-- ===== EXPERIÊNCIA ===== um <article class="job"> por emprego. Bandeira: <use href="#fl-mt">
-     (Malta), #fl-ie (Irlanda), #fl-br (Brasil). <details class="tools">: o botão "Tools" que abre as
+     (Malta), #fl-ie (Irlanda), #fl-br (Brasil). <details class="toolbox">: o botão "Tools" que abre as
      ferramentas usadas naquele emprego (as mesmas da linha "Tools:" do CV). O ícone dele (#lu-...) é a
-     ferramenta mais usada ali. Acrescentou ou tirou uma ferramenta? Mude também o número em <span class="tools__n">. Logo abaixo ficam as gavetas:
+     ferramenta mais usada ali. Acrescentou ou tirou uma ferramenta? Mude também o número em <span class="toolbox__n">. Logo abaixo ficam as gavetas:
      - "More skills": cada app é um <li class="app">. Nível: m1 = básico, m2 = intermediário,
        m3 = avançado (mude a classe "meter m3" e o texto Advanced/Avançado/Avanzado juntos).
-     - "Curiosities": três cartões com emoji animado (cur--cup, cur--clap, cur--flip). -->
+     - "Curiosities": seis cartões com emoji animado (cur--cup, cur--clap, cur--flip, cur--flash,
+       cur--code, cur--toss). -->
 <section class="section section--alt" id="experience">
   <div class="wrap">
     <div class="head head--left">
@@ -245,8 +246,8 @@
           <h3>Religa</h3>
           <p class="job__meta"><span class="en">IT Support Technician</span><span class="pt">Técnico de suporte de TI</span><span class="es">Técnico de soporte de TI</span> · <span class="job__place"><svg class="flag" aria-hidden="true"><use href="#fl-mt"/></svg>St Julian’s, Malta</span></p>
           <p><span class="en">I kept live video studios and offices running around the clock. I deployed workstations, calibrated cameras and audio, and closed incidents for every department through the ticket queue.</span><span class="pt">Mantive estúdios de vídeo ao vivo e escritórios funcionando 24 horas. Instalei estações de trabalho, calibrei câmeras e áudio e resolvi chamados de todos os setores pela fila de tickets.</span><span class="es">Mantuve en marcha estudios de vídeo en directo y oficinas las 24 horas. Instalé puestos de trabajo, calibré cámaras y audio, y cerré incidencias de todos los departamentos a través de la cola de tickets.</span></p>
-          <details class="tools">
-            <summary><svg class="tools__ic" aria-hidden="true"><use href="#lu-ticket"/></svg> <span class="tools__label"><span class="en">Tools</span><span class="pt">Ferramentas</span><span class="es">Herramientas</span></span> <span class="tools__n">12</span> <svg class="tools__chev" aria-hidden="true"><use href="#lu-chevron-down"/></svg></summary>
+          <details class="toolbox">
+            <summary><svg class="toolbox__ic" aria-hidden="true"><use href="#lu-ticket"/></svg> <span class="toolbox__label"><span class="en">Tools</span><span class="pt">Ferramentas</span><span class="es">Herramientas</span></span> <span class="toolbox__n">12</span> <svg class="toolbox__chev" aria-hidden="true"><use href="#lu-chevron-down"/></svg></summary>
             <ul class="job__tools" aria-label="Tools I used" data-attr="aria-label" data-en="Tools I used" data-pt="Ferramentas que usei" data-es="Herramientas que usé"><li><span class="en">Service desk and ticketing</span><span class="pt">Service desk e chamados</span><span class="es">Service desk y tickets</span></li><li><span class="en">Incident response 24/7</span><span class="pt">Incidentes 24/7</span><span class="es">Incidencias 24/7</span></li><li><span class="en">Workstation deployment</span><span class="pt">Instalação de estações de trabalho</span><span class="es">Despliegue de puestos de trabajo</span></li><li><span class="en">Network cabling</span><span class="pt">Cabeamento de rede</span><span class="es">Cableado de red</span></li><li><span class="en">AV and camera calibration</span><span class="pt">Calibração de áudio, vídeo e câmeras</span><span class="es">Calibración de audio, vídeo y cámaras</span></li><li><span class="en">Live stream monitoring</span><span class="pt">Monitoramento de transmissão ao vivo</span><span class="es">Monitorización de streaming en directo</span></li><li><span class="en">CCTV</span><span class="pt">CFTV</span><span class="es">CCTV</span></li><li>Microsoft Teams</li><li>Slack</li><li>Discord</li><li>Telegram</li><li>WhatsApp</li></ul>
           </details>
         </article>
@@ -254,8 +255,8 @@
           <h3>IT-FIX</h3>
           <p class="job__meta"><span class="en">Technical Support and Sales</span><span class="pt">Suporte técnico e vendas</span><span class="es">Soporte técnico y ventas</span> · <span class="job__place"><svg class="flag" aria-hidden="true"><use href="#fl-ie"/></svg>Dublin</span></p>
           <p><span class="en">I repaired Macs, iPhones and Windows PCs and became the team’s top seller, averaging more than €70,000 a month in Apple products. I also answered customers on Instagram and WhatsApp, which kept our Google reviews high.</span><span class="pt">Consertei Macs, iPhones e PCs com Windows e virei o maior vendedor da equipe, com média de mais de €70 mil por mês em produtos Apple. Também atendia clientes pelo Instagram e pelo WhatsApp, o que manteve as avaliações no Google lá em cima.</span><span class="es">Reparé Macs, iPhones y PCs con Windows y me convertí en el mejor vendedor del equipo, con una media de más de 70.000 € al mes en productos Apple. También atendía a clientes por Instagram y WhatsApp, lo que mantuvo altas nuestras reseñas en Google.</span></p>
-          <details class="tools">
-            <summary><svg class="tools__ic" aria-hidden="true"><use href="#lu-laptop"/></svg> <span class="tools__label"><span class="en">Tools</span><span class="pt">Ferramentas</span><span class="es">Herramientas</span></span> <span class="tools__n">9</span> <svg class="tools__chev" aria-hidden="true"><use href="#lu-chevron-down"/></svg></summary>
+          <details class="toolbox">
+            <summary><svg class="toolbox__ic" aria-hidden="true"><use href="#lu-laptop"/></svg> <span class="toolbox__label"><span class="en">Tools</span><span class="pt">Ferramentas</span><span class="es">Herramientas</span></span> <span class="toolbox__n">9</span> <svg class="toolbox__chev" aria-hidden="true"><use href="#lu-chevron-down"/></svg></summary>
             <ul class="job__tools" aria-label="Tools I used" data-attr="aria-label" data-en="Tools I used" data-pt="Ferramentas que usei" data-es="Herramientas que usé"><li>macOS</li><li>iOS</li><li>Android</li><li>Windows</li><li><span class="en">Hardware repair</span><span class="pt">Conserto de hardware</span><span class="es">Reparación de hardware</span></li><li><span class="en">Data transfer and backups</span><span class="pt">Transferência de dados e backups</span><span class="es">Transferencia de datos y copias de seguridad</span></li><li>iCloud</li><li>Google Drive</li><li><span class="en">Instagram and WhatsApp support</span><span class="pt">Atendimento por Instagram e WhatsApp</span><span class="es">Atención por Instagram y WhatsApp</span></li></ul>
           </details>
         </article>
@@ -263,8 +264,8 @@
           <h3>Three Ireland</h3>
           <p class="job__meta"><span class="en">Retail Sales Consultant</span><span class="pt">Consultor de vendas</span><span class="es">Asesor comercial</span> · <span class="job__place"><svg class="flag" aria-hidden="true"><use href="#fl-ie"/></svg>Dublin</span></p>
           <p><span class="en">I beat the monthly sales target four months in a row, 132% on average, by matching each customer to the right mobile plan.</span><span class="pt">Bati a meta mensal de vendas quatro meses seguidos, com média de 132%, indicando o plano de celular certo para cada cliente.</span><span class="es">Superé el objetivo mensual de ventas cuatro meses seguidos, con un 132 % de media, recomendando a cada cliente el plan móvil adecuado.</span></p>
-          <details class="tools">
-            <summary><svg class="tools__ic" aria-hidden="true"><use href="#lu-smartphone"/></svg> <span class="tools__label"><span class="en">Tools</span><span class="pt">Ferramentas</span><span class="es">Herramientas</span></span> <span class="tools__n">3</span> <svg class="tools__chev" aria-hidden="true"><use href="#lu-chevron-down"/></svg></summary>
+          <details class="toolbox">
+            <summary><svg class="toolbox__ic" aria-hidden="true"><use href="#lu-smartphone"/></svg> <span class="toolbox__label"><span class="en">Tools</span><span class="pt">Ferramentas</span><span class="es">Herramientas</span></span> <span class="toolbox__n">3</span> <svg class="toolbox__chev" aria-hidden="true"><use href="#lu-chevron-down"/></svg></summary>
             <ul class="job__tools" aria-label="Tools I used" data-attr="aria-label" data-en="Tools I used" data-pt="Ferramentas que usei" data-es="Herramientas que usé"><li><span class="en">Consultative sales</span><span class="pt">Venda consultiva</span><span class="es">Venta consultiva</span></li><li><span class="en">Mobile and telecom plans</span><span class="pt">Planos de celular e telecom</span><span class="es">Planes móviles y de telecomunicaciones</span></li><li><span class="en">Customer service</span><span class="pt">Atendimento ao cliente</span><span class="es">Atención al cliente</span></li></ul>
           </details>
         </article>
@@ -272,8 +273,8 @@
           <h3>GPO Soluções em Tecnologia</h3>
           <p class="job__meta"><span class="en">Technical Support Specialist</span><span class="pt">Especialista em suporte técnico</span><span class="es">Especialista en soporte técnico</span> · <span class="job__place"><svg class="flag" aria-hidden="true"><use href="#fl-br"/></svg>São Paulo</span></p>
           <p><span class="en">I supported users on Windows, macOS and Linux, ran the company’s Microsoft 365 and kept the weekly backups on schedule.</span><span class="pt">Dei suporte a usuários de Windows, macOS e Linux, administrei o Microsoft 365 da empresa e mantive os backups semanais em dia.</span><span class="es">Di soporte a usuarios de Windows, macOS y Linux, gestioné el Microsoft 365 de la empresa y mantuve al día las copias de seguridad semanales.</span></p>
-          <details class="tools">
-            <summary><svg class="tools__ic" aria-hidden="true"><use href="#lu-monitor"/></svg> <span class="tools__label"><span class="en">Tools</span><span class="pt">Ferramentas</span><span class="es">Herramientas</span></span> <span class="tools__n">6</span> <svg class="tools__chev" aria-hidden="true"><use href="#lu-chevron-down"/></svg></summary>
+          <details class="toolbox">
+            <summary><svg class="toolbox__ic" aria-hidden="true"><use href="#lu-monitor"/></svg> <span class="toolbox__label"><span class="en">Tools</span><span class="pt">Ferramentas</span><span class="es">Herramientas</span></span> <span class="toolbox__n">6</span> <svg class="toolbox__chev" aria-hidden="true"><use href="#lu-chevron-down"/></svg></summary>
             <ul class="job__tools" aria-label="Tools I used" data-attr="aria-label" data-en="Tools I used" data-pt="Ferramentas que usei" data-es="Herramientas que usé"><li>Windows</li><li>macOS</li><li>Linux</li><li><span class="en">Microsoft 365 administration</span><span class="pt">Administração do Microsoft 365</span><span class="es">Administración de Microsoft 365</span></li><li><span class="en">Weekly backups</span><span class="pt">Backups semanais</span><span class="es">Copias de seguridad semanales</span></li><li><span class="en">Remote and on-site support</span><span class="pt">Suporte remoto e presencial</span><span class="es">Soporte remoto y presencial</span></li></ul>
           </details>
         </article>
@@ -281,8 +282,8 @@
           <h3>Ideologica</h3>
           <p class="job__meta"><span class="en">Software Technical Support</span><span class="pt">Suporte técnico de software</span><span class="es">Soporte técnico de software</span> · <span class="job__place"><svg class="flag" aria-hidden="true"><use href="#fl-br"/></svg>São Paulo</span></p>
           <p><span class="en">I handled first and second line, through the ticket system, for the company’s software at Brazil’s largest laundry chains, such as 5àsec and Laundromat. I used SQL queries, views and stored procedures to solve their issues.</span><span class="pt">Fiz o atendimento N1 e N2, pelo sistema de tickets, do software da empresa nas maiores redes de lavanderia do Brasil, como 5àsec e Laundromat. Usei consultas SQL, views e stored procedures para resolver os problemas delas.</span><span class="es">Atendí el primer y segundo nivel, a través del sistema de tickets, del software de la empresa en las mayores cadenas de lavandería de Brasil, como 5àsec y Laundromat. Usé consultas SQL, vistas y procedimientos almacenados para resolver sus incidencias.</span></p>
-          <details class="tools">
-            <summary><svg class="tools__ic" aria-hidden="true"><use href="#lu-database"/></svg> <span class="tools__label"><span class="en">Tools</span><span class="pt">Ferramentas</span><span class="es">Herramientas</span></span> <span class="tools__n">3</span> <svg class="tools__chev" aria-hidden="true"><use href="#lu-chevron-down"/></svg></summary>
+          <details class="toolbox">
+            <summary><svg class="toolbox__ic" aria-hidden="true"><use href="#lu-database"/></svg> <span class="toolbox__label"><span class="en">Tools</span><span class="pt">Ferramentas</span><span class="es">Herramientas</span></span> <span class="toolbox__n">3</span> <svg class="toolbox__chev" aria-hidden="true"><use href="#lu-chevron-down"/></svg></summary>
             <ul class="job__tools" aria-label="Tools I used" data-attr="aria-label" data-en="Tools I used" data-pt="Ferramentas que usei" data-es="Herramientas que usé"><li><span class="en">First and second-line support</span><span class="pt">Suporte N1 e N2</span><span class="es">Soporte de primer y segundo nivel</span></li><li><span class="en">Ticket system</span><span class="pt">Sistema de tickets</span><span class="es">Sistema de tickets</span></li><li><span class="en">SQL (queries, views, stored procedures)</span><span class="pt">SQL (consultas, views, stored procedures)</span><span class="es">SQL (consultas, vistas, procedimientos almacenados)</span></li></ul>
           </details>
         </article>
@@ -290,8 +291,8 @@
           <h3>Kogut eBusiness</h3>
           <p class="job__meta"><span class="en">Support Analyst</span><span class="pt">Analista de suporte</span><span class="es">Analista de soporte</span> · <span class="job__place"><svg class="flag" aria-hidden="true"><use href="#fl-br"/></svg>São Paulo</span></p>
           <p><span class="en">I supported users, monitored the network and kept live video streams on air.</span><span class="pt">Dei suporte aos usuários, monitorei a rede e mantive transmissões de vídeo ao vivo no ar.</span><span class="es">Di soporte a los usuarios, monitoricé la red y mantuve en el aire las retransmisiones de vídeo en directo.</span></p>
-          <details class="tools">
-            <summary><svg class="tools__ic" aria-hidden="true"><use href="#lu-network"/></svg> <span class="tools__label"><span class="en">Tools</span><span class="pt">Ferramentas</span><span class="es">Herramientas</span></span> <span class="tools__n">3</span> <svg class="tools__chev" aria-hidden="true"><use href="#lu-chevron-down"/></svg></summary>
+          <details class="toolbox">
+            <summary><svg class="toolbox__ic" aria-hidden="true"><use href="#lu-network"/></svg> <span class="toolbox__label"><span class="en">Tools</span><span class="pt">Ferramentas</span><span class="es">Herramientas</span></span> <span class="toolbox__n">3</span> <svg class="toolbox__chev" aria-hidden="true"><use href="#lu-chevron-down"/></svg></summary>
             <ul class="job__tools" aria-label="Tools I used" data-attr="aria-label" data-en="Tools I used" data-pt="Ferramentas que usei" data-es="Herramientas que usé"><li><span class="en">User support</span><span class="pt">Suporte ao usuário</span><span class="es">Soporte a usuarios</span></li><li><span class="en">Network monitoring</span><span class="pt">Monitoramento de rede</span><span class="es">Monitorización de red</span></li><li><span class="en">Live video streaming</span><span class="pt">Transmissão de vídeo ao vivo</span><span class="es">Streaming de vídeo en directo</span></li></ul>
           </details>
         </article>
@@ -299,8 +300,8 @@
           <h3>Tauá Hotels &amp; Convention</h3>
           <p class="job__meta"><span class="en">IT Coordinator</span><span class="pt">Coordenador de TI</span><span class="es">Coordinador de TI</span> · <span class="job__place"><svg class="flag" aria-hidden="true"><use href="#fl-br"/></svg>São Paulo</span></p>
           <p><span class="en">I built the hotel’s IT department from scratch: the ERP, the VoIP phone system and the network cabling.</span><span class="pt">Montei do zero o departamento de TI do hotel: o ERP, a telefonia VoIP e o cabeamento de rede.</span><span class="es">Monté desde cero el departamento de TI del hotel: el ERP, la telefonía VoIP y el cableado de red.</span></p>
-          <details class="tools">
-            <summary><svg class="tools__ic" aria-hidden="true"><use href="#lu-server"/></svg> <span class="tools__label"><span class="en">Tools</span><span class="pt">Ferramentas</span><span class="es">Herramientas</span></span> <span class="tools__n">5</span> <svg class="tools__chev" aria-hidden="true"><use href="#lu-chevron-down"/></svg></summary>
+          <details class="toolbox">
+            <summary><svg class="toolbox__ic" aria-hidden="true"><use href="#lu-server"/></svg> <span class="toolbox__label"><span class="en">Tools</span><span class="pt">Ferramentas</span><span class="es">Herramientas</span></span> <span class="toolbox__n">5</span> <svg class="toolbox__chev" aria-hidden="true"><use href="#lu-chevron-down"/></svg></summary>
             <ul class="job__tools" aria-label="Tools I used" data-attr="aria-label" data-en="Tools I used" data-pt="Ferramentas que usei" data-es="Herramientas que usé"><li>ERP</li><li><span class="en">VoIP/PBX</span><span class="pt">VoIP/PABX</span><span class="es">VoIP/centralita</span></li><li><span class="en">Network cabling</span><span class="pt">Cabeamento de rede</span><span class="es">Cableado de red</span></li><li><span class="en">IT department setup</span><span class="pt">Montagem do departamento de TI</span><span class="es">Montaje del departamento de TI</span></li><li><span class="en">Onboarding process</span><span class="pt">Processo de onboarding</span><span class="es">Proceso de onboarding</span></li></ul>
           </details>
         </article>
@@ -370,6 +371,21 @@
               <span class="cur__ic" aria-hidden="true"><span class="emo">🤸</span></span>
               <h3><span class="en">Sports</span><span class="pt">Esportes</span><span class="es">Deportes</span></h3>
               <p><span class="en">I practise parkour and freerunning, and I trained taekwondo for 8 years, up to 2nd gup.</span><span class="pt">Pratico parkour e freerunning, e treinei taekwondo por 8 anos, até o 2º gub.</span><span class="es">Practico parkour y freerunning, y entrené taekwondo durante 8 años, hasta el 2.º gup.</span></p>
+            </li>
+            <li class="cur cur--flash">
+              <span class="cur__ic" aria-hidden="true"><span class="emo">📸</span></span>
+              <h3><span class="en">Photographer</span><span class="pt">Fotógrafo</span><span class="es">Fotógrafo</span></h3>
+              <p><span class="en">I’m also a photographer. Amsterdam is my favourite subject, and some of my shots are in the gallery below.</span><span class="pt">Também sou fotógrafo. Amsterdam é o que mais gosto de fotografar, e algumas fotos estão na galeria mais abaixo.</span><span class="es">También soy fotógrafo. Ámsterdam es lo que más me gusta fotografiar, y algunas fotos están en la galería más abajo.</span></p>
+            </li>
+            <li class="cur cur--code">
+              <span class="cur__ic" aria-hidden="true"><span class="emo">💻</span></span>
+              <h3><span class="en">Apps in my free time</span><span class="pt">Apps nas horas vagas</span><span class="es">Apps en mi tiempo libre</span></h3>
+              <p><span class="en">In my free time I build apps for small everyday problems, like a team’s shift schedule. A few of them are just below.</span><span class="pt">Nas horas vagas crio apps para pequenos problemas do dia a dia, como a escala de turnos de uma equipe. Alguns estão logo abaixo.</span><span class="es">En mi tiempo libre creo apps para pequeños problemas del día a día, como los turnos de un equipo. Algunas están justo debajo.</span></p>
+            </li>
+            <li class="cur cur--toss">
+              <span class="cur__ic" aria-hidden="true"><span class="emo">🥘</span></span>
+              <h3><span class="en">In the kitchen</span><span class="pt">Na cozinha</span><span class="es">En la cocina</span></h3>
+              <p><span class="en">I love cooking, and I have my own recipe book of Brazilian food.</span><span class="pt">Amo cozinhar e tenho meu próprio livro de receitas de culinária brasileira.</span><span class="es">Me encanta cocinar y tengo mi propio libro de recetas de cocina brasileña.</span></p>
             </li>
           </ul>
         </details>

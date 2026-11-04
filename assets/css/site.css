@@ -382,16 +382,17 @@ html[lang='es'] .lang::before { transform: translateX(200%); }
 .job__meta + p { margin-top: 10px; max-width: 52ch; }
 /* botão "Tools" de cada emprego: abre e fecha a lista de ferramentas. É um <details>;
    o movimento suave vem do site.js (seção 9, o mesmo das gavetas). Fica discreto, como
-   um link: ícone da ferramenta mais usada + "Tools" em azul + número em cinza + setinha */
-.tools { margin-top: 12px; }
-.tools summary { list-style: none; display: flex; align-items: center; gap: 6px; width: fit-content; min-height: 32px; border-radius: 6px; font-size: 14px; font-weight: 500; color: var(--blue-link); cursor: pointer; user-select: none; -webkit-user-select: none; -webkit-tap-highlight-color: transparent; }
-.tools summary::-webkit-details-marker { display: none; }
-.tools svg { width: 16px; height: 16px; flex: none; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
-.tools__n { color: var(--ink-2); font-variant-numeric: tabular-nums; }
+   um link: ícone da ferramenta mais usada + "Tools" em azul + número em cinza + setinha.
+   Chama "toolbox" porque ".tools" já é a faixa de logos do topo: não troque o nome. */
+.toolbox { margin-top: 12px; }
+.toolbox summary { list-style: none; display: flex; align-items: center; gap: 6px; width: fit-content; min-height: 32px; border-radius: 6px; font-size: 14px; font-weight: 500; color: var(--blue-link); cursor: pointer; user-select: none; -webkit-user-select: none; -webkit-tap-highlight-color: transparent; }
+.toolbox summary::-webkit-details-marker { display: none; }
+.toolbox svg { width: 16px; height: 16px; flex: none; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.toolbox__n { color: var(--ink-2); font-variant-numeric: tabular-nums; }
 /* a setinha vira para cima quando abre */
-.tools .tools__chev { width: 14px; height: 14px; stroke-width: 2; transition: transform 0.3s var(--ease); }
-.tools[open]:not(.is-closing) .tools__chev { transform: rotate(180deg); }
-@media (hover: hover) { .tools summary:hover .tools__label { text-decoration: underline; text-underline-offset: 3px; } }
+.toolbox .toolbox__chev { width: 14px; height: 14px; stroke-width: 2; transition: transform 0.3s var(--ease); }
+.toolbox[open]:not(.is-closing) .toolbox__chev { transform: rotate(180deg); }
+@media (hover: hover) { .toolbox summary:hover .toolbox__label { text-decoration: underline; text-underline-offset: 3px; } }
 /* as ferramentas (as mesmas da linha "Tools:" do CV). Espaço em padding, não margin:
    o site.js mede a altura para animar, e margin ficaria de fora da conta */
 .job__tools { display: flex; flex-wrap: wrap; gap: 6px; padding-top: 12px; }
@@ -462,7 +463,7 @@ html[lang='es'] .lang::before { transform: translateX(200%); }
 .ms-block li { display: flex; justify-content: space-between; gap: 14px; padding: 10px 0; border-top: 1px solid var(--line); font-size: 16px; }
 .ms-block li span:last-child { color: var(--ink-2); text-align: right; }
 
-/* --- "Curiosities": três cartões, cada um com um emoji animado --- */
+/* --- "Curiosities": seis cartões (três por linha), cada um com um emoji animado --- */
 .curious__list { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; padding: 4px 28px 28px; }
 .cur { padding: 22px; border-radius: 20px; background: rgba(255, 255, 255, 0.55); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.9); transition: transform 0.32s var(--ease-apple), box-shadow 0.32s var(--ease-apple); }
 .cur:hover { transform: translateY(-3px); box-shadow: inset 0 0 0 1px #fff, 0 16px 30px -18px rgba(11, 27, 51, 0.35); }
@@ -472,7 +473,8 @@ html[lang='es'] .lang::before { transform: translateX(200%); }
 .cur h3 { margin-top: 16px; font-size: 18px; font-weight: 600; letter-spacing: -0.015em; }
 .cur p { margin-top: 6px; font-size: 15px; line-height: 1.45; color: #48484d; }
 /* os emojis animam 2 vezes quando a gaveta abre, e de novo enquanto o mouse estiver em cima.
-   cup = xícara balançando com vapor; clap = claquete batendo; flip = cambalhota */
+   cup = xícara balançando com vapor; clap = claquete batendo; flip = cambalhota;
+   flash = câmera disparando o flash; code = notebook com o selo </>; toss = panela sacudida */
 @media (prefers-reduced-motion: no-preference) {
   .cur--cup .emo { animation: cup 3s ease-in-out 2; transform-origin: 50% 90%; }
   .cur--cup .cur__ic::before, .cur--cup .cur__ic::after { content: ''; position: absolute; top: 2px; width: 3px; height: 12px; border-radius: 3px; background: rgba(110, 110, 115, 0.5); opacity: 0; animation: steam 2.4s ease-out 3; }
@@ -484,6 +486,19 @@ html[lang='es'] .lang::before { transform: translateX(200%); }
   .cur--cup:hover .cur__ic::before, .cur--cup:hover .cur__ic::after { animation-name: steam-again; animation-iteration-count: infinite; }
   .cur--clap:hover .emo { animation: clap-again 1.4s ease-in-out infinite; }
   .cur--flip:hover .emo { animation: flip-again 2s cubic-bezier(0.5, 0, 0.3, 1) infinite; }
+  /* câmera: aperta o botão e o flash acende atrás dela */
+  .cur--flash .emo { position: relative; z-index: 1; animation: snap 2.8s ease-in-out 2; }
+  .cur--flash .cur__ic::before { content: ''; position: absolute; inset: 4px; border-radius: 16px; background: radial-gradient(circle at 60% 40%, rgba(255, 214, 10, 0.8), rgba(255, 214, 10, 0) 62%); opacity: 0; animation: flash 2.8s ease-out 2; }
+  .cur--flash:hover .emo { animation: snap-again 1.6s ease-in-out infinite; }
+  .cur--flash:hover .cur__ic::before { animation: flash-again 1.6s ease-out infinite; }
+  /* notebook: "digita" e aparece o selo </> no canto */
+  .cur--code .emo { animation: type 2.4s ease-in-out 2; }
+  .cur--code .cur__ic::after { content: '</>'; position: absolute; top: -6px; right: -8px; padding: 2px 6px; border-radius: 8px; background: var(--blue); color: #fff; font: 600 11px/1.3 var(--font); opacity: 0; animation: code 2.4s ease-out 2; }
+  .cur--code:hover .emo { animation: type-again 1.2s ease-in-out infinite; }
+  .cur--code:hover .cur__ic::after { animation: code-again 2.4s ease-out infinite; }
+  /* panela: inclina e joga a comida para cima, como quem salteia */
+  .cur--toss .emo { animation: toss 2.6s cubic-bezier(0.3, 0, 0.3, 1) 2; transform-origin: 30% 80%; }
+  .cur--toss:hover .emo { animation: toss-again 1.4s cubic-bezier(0.3, 0, 0.3, 1) infinite; }
 }
 @keyframes cup { 0%, 100% { transform: rotate(-4deg); } 50% { transform: rotate(4deg); } }
 @keyframes cup-again { 0%, 100% { transform: rotate(-6deg); } 50% { transform: rotate(6deg); } }
@@ -493,6 +508,16 @@ html[lang='es'] .lang::before { transform: translateX(200%); }
 @keyframes clap-again { 0%, 40%, 100% { transform: rotate(0); } 55% { transform: rotate(-14deg); } 70% { transform: rotate(5deg); } 85% { transform: rotate(0); } }
 @keyframes flip { 0%, 55% { transform: translateY(0) rotate(0); } 68% { transform: translateY(-12px) rotate(-180deg); } 80%, 100% { transform: translateY(0) rotate(-360deg); } }
 @keyframes flip-again { 0%, 30% { transform: translateY(0) rotate(0); } 55% { transform: translateY(-12px) rotate(-180deg); } 75%, 100% { transform: translateY(0) rotate(-360deg); } }
+@keyframes snap { 0%, 60%, 100% { transform: scale(1); } 66% { transform: scale(0.88); } 74% { transform: scale(1.06); } 82% { transform: scale(1); } }
+@keyframes snap-again { 0%, 30%, 100% { transform: scale(1); } 40% { transform: scale(0.88); } 52% { transform: scale(1.06); } 64% { transform: scale(1); } }
+@keyframes flash { 0%, 64% { opacity: 0; transform: scale(0.6); } 69% { opacity: 1; transform: scale(1.08); } 92%, 100% { opacity: 0; transform: scale(1.2); } }
+@keyframes flash-again { 0%, 38% { opacity: 0; transform: scale(0.6); } 46% { opacity: 1; transform: scale(1.08); } 80%, 100% { opacity: 0; transform: scale(1.2); } }
+@keyframes type { 0%, 50%, 100% { transform: translateY(0); } 12%, 32% { transform: translateY(-3px); } 22%, 42% { transform: translateY(0); } }
+@keyframes type-again { 0%, 100% { transform: translateY(0); } 25%, 75% { transform: translateY(-3px); } 50% { transform: translateY(0); } }
+@keyframes code { 0%, 12% { opacity: 0; transform: translateY(6px) scale(0.8); } 26%, 76% { opacity: 1; transform: none; } 100% { opacity: 0; transform: translateY(-4px); } }
+@keyframes code-again { 0%, 12% { opacity: 0; transform: translateY(6px) scale(0.8); } 26%, 76% { opacity: 1; transform: none; } 100% { opacity: 0; transform: translateY(-4px); } }
+@keyframes toss { 0%, 50%, 100% { transform: translateY(0) rotate(0); } 58% { transform: translateY(2px) rotate(-10deg); } 67% { transform: translateY(-10px) rotate(6deg); } 77% { transform: translateY(0) rotate(-2deg); } 85% { transform: rotate(0); } }
+@keyframes toss-again { 0%, 20%, 100% { transform: translateY(0) rotate(0); } 34% { transform: translateY(2px) rotate(-10deg); } 50% { transform: translateY(-10px) rotate(6deg); } 66% { transform: translateY(0) rotate(-2deg); } 80% { transform: rotate(0); } }
 
 
 /* == 12. Chamada de apps (cartão escuro) e celular desenhado ================== */
@@ -849,6 +874,13 @@ html:not(.js) .lang, html:not(.js) .menu-btn, html:not(.js) .clip-btn { display:
   .more-skills__body { padding: 4px 20px 24px; }
   .app-groups { grid-template-columns: 1fr; }
   .curious__list { grid-template-columns: 1fr; padding: 4px 16px 18px; }
+  /* no celular o cartão fica deitado: emoji à esquerda, título e texto à direita */
+  .cur { display: grid; grid-template-columns: 52px minmax(0, 1fr); column-gap: 14px; padding: 16px; }
+  .cur__ic { grid-row: span 2; width: 52px; height: 52px; border-radius: 15px; }
+  .cur .emo { font-size: 30px; }
+  .cur h3 { margin-top: 1px; }
+  .cur--cup .cur__ic::before { left: 21px; }
+  .cur--cup .cur__ic::after { left: 28px; }
 
   /* chamada de apps */
   .teaser { padding: 36px 24px 0; }
