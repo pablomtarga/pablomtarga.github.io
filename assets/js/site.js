@@ -2,7 +2,7 @@
    PT Solutions · Pablo Targa — comportamento do site (todas as páginas usam este arquivo)
 
    O que este arquivo faz, na ordem em que aparece:
-    1. Configuração (e-mail e LinkedIn)  ← o que você talvez queira trocar
+    1. Configuração (chave do formulário e LinkedIn)  ← o que você talvez queira trocar
     2. Ferramentas pequenas usadas pelo resto
     3. Idioma: troca entre EN / PT / ES e lembra a escolha
     4. Links que abrem outra aba avisam isso a leitores de tela
@@ -15,7 +15,7 @@
    11. Vídeo do Iron (página de Apps)
    12. Abas dos agentes de IA (página de Apps)
    13. Cartão de serviço ou link ?topic= → formulário com o assunto já escolhido
-   14. Formulário de contato (abre o app de e-mail de quem escreve)
+   14. Formulário de contato (envia pelo Web3Forms)
 
    Não usa nenhuma biblioteca. Mudou este arquivo? Suba o "?v=" nas páginas
    (ou rode FERRAMENTAS/nova-versao.py).
@@ -26,10 +26,12 @@
 
   /* == 1. Configuração ========================================================= */
   const CONFIG = {
-    // e-mail que recebe o formulário. Fica em duas partes de propósito: assim o
-    // endereço completo nunca aparece escrito no código, e robôs de spam não o acham.
-    emailUser: 'removed',
-    emailDomain: 'example.com',
+    // chave do Web3Forms, o serviço que entrega o formulário no e-mail do Pablo.
+    // Ela pode ficar à vista: não revela o e-mail, que fica guardado no Web3Forms.
+    // Para receber em outro e-mail, crie uma chave nova em web3forms.com e troque aqui.
+    formKey: '470607c5-9f63-4436-9844-d2914566b308',
+    // endereço do Web3Forms. Se mudar, mude também o connect-src do CSP no index.html.
+    formUrl: 'https://api.web3forms.com/submit',
     linkedIn: 'https://www.linkedin.com/in/pablomtarga',
     // prefixo das informações guardadas no navegador (hoje só o idioma: "ptp:lang")
     storagePrefix: 'ptp:'
@@ -342,12 +344,16 @@
   if (topicSelect && topicAsked && [...topicSelect.options].some((o) => o.value === topicAsked)) topicSelect.value = topicAsked;
 
   /* == 14. Formulário de contato =============================================== */
-  // O site não envia nada sozinho: monta a mensagem e abre o app de e-mail de quem
-  // escreve (mailto:). Nada do que a pessoa digita fica guardado no site.
+  // Envia a mensagem pelo Web3Forms (serviço de formulários), que repassa para o
+  // e-mail do Pablo. O endereço dele não aparece no site: fica guardado no Web3Forms,
+  // ligado à chave CONFIG.formKey. O e-mail de quem escreve vira o "Responder para"
+  // da mensagem, então basta clicar em Responder no app de e-mail.
   const form = $('#contact-form');
   if (form) {
     const note = $('.form__note', form);
+    const btn = $('button[type="submit"]', form);
     const noteStart = [...note.childNodes].map((n) => n.cloneNode(true));
+    const btnStart = [...btn.childNodes].map((n) => n.cloneNode(true));
     const linkedIn = () => {
       const a = document.createElement('a');
       a.href = CONFIG.linkedIn;
@@ -356,44 +362,90 @@
       a.textContent = 'LinkedIn';
       return a;
     };
-    // aviso mostrado depois de clicar em enviar
-    const opened = () => {
+    // troca o aviso embaixo do botão: 'ok' fica verde, 'err' fica vermelho
+    const show = (state, texts) => {
       note.replaceChildren();
-      spans3({
-        en: ['Opening your email app. If nothing opens, message me on ', linkedIn(), '.'],
-        pt: ['Abrindo o seu app de e-mail. Se nada abrir, me chame no ', linkedIn(), '.'],
-        es: ['Abriendo tu app de correo. Si no se abre nada, escríbeme por ', linkedIn(), '.']
-      }, note);
-      note.dataset.state = 'ok';
+      spans3(texts, note);
+      note.dataset.state = state;
     };
     const resetNote = () => { if (note.dataset.state) { note.replaceChildren(...noteStart.map((n) => n.cloneNode(true))); delete note.dataset.state; } };
-    const consent = form.elements.consent;
-    ['name', 'message', 'consent'].forEach((n) => form.elements[n].addEventListener('input', (e) => e.target.setCustomValidity('')));
-    form.addEventListener('submit', (e) => {
+    const sent = (name, email) => show('ok', {
+      en: [`Thanks, ${name}. Your message is on its way, and I’ll reply to ${email}.`],
+      pt: [`Obrigado, ${name}. Sua mensagem foi enviada, e eu respondo no ${email}.`],
+      es: [`Gracias, ${name}. Tu mensaje está enviado, y te respondo a ${email}.`]
+    });
+    const failed = (tooMany) => show('err', tooMany ? {
+      en: ['Too many tries in a row. Wait a minute and try again, or message me on ', linkedIn(), '.'],
+      pt: ['Muitas tentativas seguidas. Espere um minuto e tente de novo, ou me chame no ', linkedIn(), '.'],
+      es: ['Demasiados intentos seguidos. Espera un minuto y vuelve a intentarlo, o escríbeme por ', linkedIn(), '.']
+    } : {
+      en: ['Your message wasn’t sent. Check your connection and try again, or message me on ', linkedIn(), '.'],
+      pt: ['A mensagem não foi enviada. Confira a conexão e tente de novo, ou me chame no ', linkedIn(), '.'],
+      es: ['El mensaje no se ha enviado. Revisa tu conexión y vuelve a intentarlo, o escríbeme por ', linkedIn(), '.']
+    });
+    // enquanto envia: botão desligado e escrito "Sending…"
+    let sending = false;
+    const busy = (on) => {
+      sending = on;
+      btn.disabled = on;
+      form.setAttribute('aria-busy', String(on));
+      if (on) { btn.replaceChildren(); spans3({ en: 'Sending…', pt: 'Enviando…', es: 'Enviando…' }, btn); }
+      else btn.replaceChildren(...btnStart.map((n) => n.cloneNode(true)));
+    };
+    const { consent, email } = form.elements;
+    ['name', 'email', 'message', 'consent'].forEach((n) => form.elements[n].addEventListener('input', (e) => e.target.setCustomValidity('')));
+    form.addEventListener('submit', async (e) => {
       e.preventDefault();
+      if (sending) return;
       // só espaços não contam como resposta
-      [form.elements.name, form.elements.message].forEach((f) => {
+      [form.elements.name, email, form.elements.message].forEach((f) => {
         f.setCustomValidity(f.value.trim() ? '' : say3({ en: 'Please fill in this field.', pt: 'Preencha este campo.', es: 'Rellena este campo.' }));
       });
+      // e-mail precisa ter @ e um ponto depois dele (nome@exemplo.com)
+      if (email.value.trim() && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value.trim())) {
+        email.setCustomValidity(say3({ en: 'Enter a valid email, like name@example.com.', pt: 'Digite um e-mail válido, como nome@exemplo.com.', es: 'Escribe un correo válido, como nombre@ejemplo.com.' }));
+      }
       consent.setCustomValidity(consent.checked ? '' : say3({ en: 'Tick this box to send your message.', pt: 'Marque esta caixa para enviar.', es: 'Marca esta casilla para enviar el mensaje.' }));
       if (!form.reportValidity()) { resetNote(); return; }
       // limpa caracteres invisíveis e corta no tamanho máximo de cada campo
       const clean = (s, max) => String(s).replace(/[\u0000-\u0008\u000B\u000C\u000E-\u001F\u007F]/g, '').trim().slice(0, max);
       const oneLine = (s, max) => clean(s, max).replace(/[\r\n]+/g, ' ');
       const name = oneLine(form.elements.name.value, 80);
-      const topic = form.elements.topic.options[form.elements.topic.selectedIndex].text;
+      const from = oneLine(email.value, 120);
+      const topic = form.elements.topic.options[form.elements.topic.selectedIndex].dataset.en;
       const msg = clean(form.elements.message.value, 600);
-      const subject = say3({ en: 'Portfolio enquiry: ', pt: 'Contato pelo portfólio: ', es: 'Contacto desde el portfolio: ' }) + topic + ' · ' + name;
-      const body = [
-        say3({ en: 'Name: ', pt: 'Nome: ', es: 'Nombre: ' }) + name,
-        say3({ en: 'Topic: ', pt: 'Assunto: ', es: 'Asunto: ' }) + topic,
-        '',
-        msg
-      ].join('\n');
-      opened();
-      // o endereço é montado só aqui, na hora do envio (ver CONFIG no topo)
-      const to = [CONFIG.emailUser, CONFIG.emailDomain].join('@');
-      window.location.href = `mailto:${to}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      // robô que marcou a caixa escondida: parece que deu certo, mas nada é enviado
+      if (form.elements.botcheck.checked) { form.reset(); sent(name, from); return; }
+      if (!CONFIG.formKey) { failed(false); return; }
+      busy(true);
+      const stop = new AbortController();
+      const timer = setTimeout(() => stop.abort(), 15000);
+      try {
+        const res = await fetch(CONFIG.formUrl, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+          body: JSON.stringify({
+            access_key: CONFIG.formKey,
+            // assunto sempre em inglês, para achar fácil na caixa de entrada
+            subject: `Portfolio: ${topic} · ${name}`,
+            from_name: 'PT Solutions site',
+            name,
+            email: from,
+            topic,
+            message: msg,
+            // idioma em que a pessoa estava lendo o site: responda nele
+            language: lang().toUpperCase()
+          }),
+          signal: stop.signal
+        });
+        const data = await res.json().catch(() => ({}));
+        if (res.ok && data.success) { form.reset(); sent(name, from); } else failed(res.status === 429);
+      } catch {
+        failed(false);
+      } finally {
+        clearTimeout(timer);
+        busy(false);
+      }
     });
   }
 })();

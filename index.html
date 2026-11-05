@@ -12,7 +12,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- SEGURANÇA (CSP): diz ao navegador o que o site pode carregar. Bloqueia scripts, estilos e
      imagens de outros sites. Não mexa sem saber o que está fazendo. -->
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; media-src 'self'; font-src 'self'; connect-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'; require-trusted-types-for 'script'; trusted-types 'none'; upgrade-insecure-requests">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; media-src 'self'; font-src 'self'; connect-src https://api.web3forms.com; form-action 'none'; base-uri 'none'; object-src 'none'; require-trusted-types-for 'script'; trusted-types 'none'; upgrade-insecure-requests">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <!-- Título da aba e descrição para o Google, em inglês. As versões em PT e ES ficam no <body>,
      em data-title-pt / data-title-es e data-desc-pt / data-desc-es. -->
@@ -45,9 +45,9 @@
 <!-- Estilo (site.css) e comportamento (boot.js e site.js). O ?v=N obriga o navegador a baixar a
      versão nova: suba o N em TODAS as páginas quando mudar um desses arquivos
      (ou rode FERRAMENTAS/nova-versao.py). -->
-<link rel="stylesheet" href="assets/css/site.css?v=27">
-<script src="assets/js/boot.js?v=27"></script>
-<script src="assets/js/site.js?v=27" defer></script>
+<link rel="stylesheet" href="assets/css/site.css?v=28">
+<script src="assets/js/boot.js?v=28"></script>
+<script src="assets/js/site.js?v=28" defer></script>
 <!-- Dados para o Google (JSON-LD): quem você é, cargo, serviços e perfis. Não aparece na tela. -->
 <script type="application/ld+json">
 {
@@ -447,14 +447,17 @@
   </dialog>
 </section>
 
-<!-- ===== CONTATO ===== o formulário não envia nada sozinho: abre o app de e-mail de quem
-     escreve. O endereço que recebe fica no site.js (CONFIG, no topo do arquivo).
-     As opções da lista (value="it", "home"...) também são usadas pelos cartões de serviço. -->
+<!-- ===== CONTATO ===== o formulário envia pelo Web3Forms (serviço de formulários), que
+     repassa a mensagem para o e-mail do Pablo. O endereço dele não fica no site: fica guardado
+     no Web3Forms, ligado à chave CONFIG.formKey do site.js. O e-mail de quem escreve vira o
+     "Responder para" da mensagem.
+     As opções da lista (value="it", "home"...) também são usadas pelos cartões de serviço.
+     A caixa escondida "botcheck" é uma armadilha para robôs: gente não vê e não marca. -->
 <section class="section" id="contact">
   <div class="wrap">
     <div class="head">
       <h2><span class="en">Let’s talk</span><span class="pt">Vamos conversar</span><span class="es">Hablemos</span></h2>
-      <p><span class="en">Tell me about the role or the problem you want solved. The form opens your email app with the message ready to send.</span><span class="pt">Me conta sobre a vaga ou o problema que você quer resolver. O formulário abre o seu app de e-mail com a mensagem pronta para enviar.</span><span class="es">Cuéntame sobre el puesto o el problema que quieres resolver. El formulario abre tu app de correo con el mensaje listo para enviar.</span></p>
+      <p><span class="en">Tell me about the role or the problem you want solved. I’ll reply by email.</span><span class="pt">Me conta sobre a vaga ou o problema que você quer resolver. Eu respondo por e-mail.</span><span class="es">Cuéntame sobre el puesto o el problema que quieres resolver. Te respondo por correo.</span></p>
     </div>
     <div class="contact contact--center">
       <form class="form" id="contact-form" novalidate>
@@ -464,31 +467,36 @@
             <input id="f-name" name="name" autocomplete="name" required maxlength="80">
           </div>
           <div class="field">
-            <label for="f-topic"><span class="en">What is it about?</span><span class="pt">Sobre o quê?</span><span class="es">¿De qué se trata?</span></label>
-            <select id="f-topic" name="topic">
-              <option value="job" data-en="A job offer" data-pt="Uma vaga de emprego" data-es="Una oferta de empleo">A job offer</option>
-              <option value="it" data-en="IT support" data-pt="Suporte de TI" data-es="Soporte de TI">IT support</option>
-              <option value="home" data-en="Smart home setup" data-pt="Casa inteligente" data-es="Casa inteligente">Smart home setup</option>
-              <option value="repair" data-en="Repair or device setup" data-pt="Reparo ou configuração" data-es="Reparación o configuración">Repair or device setup</option>
-              <option value="ai" data-en="AI automation" data-pt="Automação com IA" data-es="Automatización con IA">AI automation</option>
-              <option value="web" data-en="Website or app" data-pt="Site ou app" data-es="Web o app">Website or app</option>
-              <option value="hr" data-en="Staff schedule app" data-pt="App de escala da equipe" data-es="App de turnos del equipo">Staff schedule app</option>
-              <option value="design" data-en="Logo, flyer or design" data-pt="Logo, flyer ou design" data-es="Logo, flyer o diseño">Logo, flyer or design</option>
-              <option value="av" data-en="AV, streaming or CCTV" data-pt="Áudio e vídeo, streaming ou CFTV" data-es="Audio y vídeo, streaming o CCTV">AV, streaming or CCTV</option>
-              <option value="photo" data-en="Photography" data-pt="Fotografia" data-es="Fotografía">Photography</option>
-            </select>
+            <label for="f-email"><span class="en">Your email</span><span class="pt">Seu e-mail</span><span class="es">Tu correo</span></label>
+            <input id="f-email" name="email" type="email" autocomplete="email" autocapitalize="off" spellcheck="false" required maxlength="120">
           </div>
+        </div>
+        <div class="field">
+          <label for="f-topic"><span class="en">What is it about?</span><span class="pt">Sobre o quê?</span><span class="es">¿De qué se trata?</span></label>
+          <select id="f-topic" name="topic">
+            <option value="job" data-en="A job offer" data-pt="Uma vaga de emprego" data-es="Una oferta de empleo">A job offer</option>
+            <option value="it" data-en="IT support" data-pt="Suporte de TI" data-es="Soporte de TI">IT support</option>
+            <option value="home" data-en="Smart home setup" data-pt="Casa inteligente" data-es="Casa inteligente">Smart home setup</option>
+            <option value="repair" data-en="Repair or device setup" data-pt="Reparo ou configuração" data-es="Reparación o configuración">Repair or device setup</option>
+            <option value="ai" data-en="AI automation" data-pt="Automação com IA" data-es="Automatización con IA">AI automation</option>
+            <option value="web" data-en="Website or app" data-pt="Site ou app" data-es="Web o app">Website or app</option>
+            <option value="hr" data-en="Staff schedule app" data-pt="App de escala da equipe" data-es="App de turnos del equipo">Staff schedule app</option>
+            <option value="design" data-en="Logo, flyer or design" data-pt="Logo, flyer ou design" data-es="Logo, flyer o diseño">Logo, flyer or design</option>
+            <option value="av" data-en="AV, streaming or CCTV" data-pt="Áudio e vídeo, streaming ou CFTV" data-es="Audio y vídeo, streaming o CCTV">AV, streaming or CCTV</option>
+            <option value="photo" data-en="Photography" data-pt="Fotografia" data-es="Fotografía">Photography</option>
+          </select>
         </div>
         <div class="field">
           <label for="f-msg"><span class="en">Message</span><span class="pt">Mensagem</span><span class="es">Mensaje</span></label>
           <textarea id="f-msg" name="message" required maxlength="600"></textarea>
         </div>
+        <input class="hp" type="checkbox" name="botcheck" tabindex="-1" autocomplete="off" aria-hidden="true">
         <div class="check">
           <input type="checkbox" id="f-consent" name="consent" required>
           <label for="f-consent"><span class="en">I’ve read the <a href="privacy.html" target="_blank" rel="noopener">privacy notice<span class="sr-only newtab"> (opens in a new tab)</span></a> and agree that Pablo uses these details to reply to me.</span><span class="pt">Li o <a href="privacy.html" target="_blank" rel="noopener">aviso de privacidade<span class="sr-only newtab"> (abre em outra aba)</span></a> e concordo que o Pablo use esses dados para me responder.</span><span class="es">He leído el <a href="privacy.html" target="_blank" rel="noopener">aviso de privacidad<span class="sr-only newtab"> (se abre en otra pestaña)</span></a> y acepto que Pablo use estos datos para responderme.</span></label>
         </div>
-        <button class="btn" type="submit"><span class="en">Send by email</span><span class="pt">Enviar por e-mail</span><span class="es">Enviar por correo</span></button>
-        <p class="form__note" role="status"><span class="en">Nothing you type is stored on this site. Your email app sends the message.</span><span class="pt">Nada do que você digita fica guardado neste site. Quem envia a mensagem é o seu app de e-mail.</span><span class="es">Nada de lo que escribes se guarda en este sitio. El mensaje lo envía tu app de correo.</span></p>
+        <button class="btn" type="submit"><span class="en">Send message</span><span class="pt">Enviar mensagem</span><span class="es">Enviar mensaje</span></button>
+        <p class="form__note" role="status"><span class="en">The form sends your message to my inbox through Web3Forms. I only use your email to reply.</span><span class="pt">O formulário envia sua mensagem para a minha caixa de entrada pelo Web3Forms. Só uso seu e-mail para responder.</span><span class="es">El formulario envía tu mensaje a mi bandeja de entrada a través de Web3Forms. Solo uso tu correo para responderte.</span></p>
       </form>
       <div class="nojs-note"><span class="en">The form needs JavaScript. You can reach me on LinkedIn.</span><span class="pt">O formulário precisa de JavaScript. Você pode falar comigo pelo LinkedIn.</span><span class="es">El formulario necesita JavaScript. Puedes escribirme por LinkedIn.</span></div>
 

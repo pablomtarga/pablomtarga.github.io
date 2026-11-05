@@ -610,6 +610,11 @@ html[lang='es'] .lang::before { transform: translateX(200%); }
 .form .btn { justify-self: start; margin-top: 4px; }
 .form__note { font-size: 14px; color: var(--ink-2); }
 .form__note[data-state='ok'] { color: #1a7f37; }
+.form__note[data-state='err'] { color: #d70015; }
+/* botão enquanto a mensagem está sendo enviada ("Sending…") */
+.form .btn:disabled { background: var(--blue); opacity: 0.55; cursor: progress; transform: none; }
+/* armadilha para robôs (campo "botcheck"): escondida de todo mundo */
+.form .hp { display: none; }
 .form__note a { color: var(--blue-link); }
 /* aviso que só aparece se o navegador estiver sem JavaScript */
 .nojs-note { display: none; padding: 24px; border-radius: var(--r-l); background: var(--bg-2); }
