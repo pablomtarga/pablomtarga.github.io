@@ -613,6 +613,10 @@ html[lang='es'] .lang::before { transform: translateX(200%); }
 .form__note[data-state='err'] { color: #d70015; }
 /* botão enquanto a mensagem está sendo enviada ("Sending…") */
 .form .btn:disabled { background: var(--blue); opacity: 0.55; cursor: progress; transform: none; }
+/* caixa do hCaptcha ("I am human"). A altura fica reservada para a página não pular
+   quando ela aparece; antes disso mostra um aviso em cinza */
+.form .captcha { display: flex; align-items: center; min-height: 78px; }
+.captcha__wait { font-size: 14px; color: var(--ink-2); }
 /* armadilha para robôs (campo "botcheck"): escondida de todo mundo */
 .form .hp { display: none; }
 .form__note a { color: var(--blue-link); }

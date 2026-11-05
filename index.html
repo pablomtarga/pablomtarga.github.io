@@ -12,7 +12,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- SEGURANÇA (CSP): diz ao navegador o que o site pode carregar. Bloqueia scripts, estilos e
      imagens de outros sites. Não mexa sem saber o que está fazendo. -->
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; media-src 'self'; font-src 'self'; connect-src https://api.web3forms.com; form-action 'none'; base-uri 'none'; object-src 'none'; require-trusted-types-for 'script'; trusted-types 'none'; upgrade-insecure-requests">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' https://hcaptcha.com https://*.hcaptcha.com; style-src 'self' https://hcaptcha.com https://*.hcaptcha.com; img-src 'self' data:; media-src 'self'; font-src 'self'; connect-src https://api.web3forms.com https://hcaptcha.com https://*.hcaptcha.com; frame-src https://hcaptcha.com https://*.hcaptcha.com; form-action 'none'; base-uri 'none'; object-src 'none'; require-trusted-types-for 'script'; trusted-types ptp-captcha; upgrade-insecure-requests">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <!-- Título da aba e descrição para o Google, em inglês. As versões em PT e ES ficam no <body>,
      em data-title-pt / data-title-es e data-desc-pt / data-desc-es. -->
@@ -45,9 +45,9 @@
 <!-- Estilo (site.css) e comportamento (boot.js e site.js). O ?v=N obriga o navegador a baixar a
      versão nova: suba o N em TODAS as páginas quando mudar um desses arquivos
      (ou rode FERRAMENTAS/nova-versao.py). -->
-<link rel="stylesheet" href="assets/css/site.css?v=28">
-<script src="assets/js/boot.js?v=28"></script>
-<script src="assets/js/site.js?v=28" defer></script>
+<link rel="stylesheet" href="assets/css/site.css?v=29">
+<script src="assets/js/boot.js?v=29"></script>
+<script src="assets/js/site.js?v=29" defer></script>
 <!-- Dados para o Google (JSON-LD): quem você é, cargo, serviços e perfis. Não aparece na tela. -->
 <script type="application/ld+json">
 {
@@ -452,7 +452,9 @@
      no Web3Forms, ligado à chave CONFIG.formKey do site.js. O e-mail de quem escreve vira o
      "Responder para" da mensagem.
      As opções da lista (value="it", "home"...) também são usadas pelos cartões de serviço.
-     A caixa escondida "botcheck" é uma armadilha para robôs: gente não vê e não marca. -->
+     A caixa escondida "botcheck" é uma armadilha para robôs: gente não vê e não marca.
+     .captcha: o Web3Forms exige o hCaptcha ("I am human"). O site.js só carrega o hCaptcha
+     quando a pessoa começa a preencher o formulário; até lá aparece o aviso abaixo. -->
 <section class="section" id="contact">
   <div class="wrap">
     <div class="head">
@@ -495,6 +497,7 @@
           <input type="checkbox" id="f-consent" name="consent" required>
           <label for="f-consent"><span class="en">I’ve read the <a href="privacy.html" target="_blank" rel="noopener">privacy notice<span class="sr-only newtab"> (opens in a new tab)</span></a> and agree that Pablo uses these details to reply to me.</span><span class="pt">Li o <a href="privacy.html" target="_blank" rel="noopener">aviso de privacidade<span class="sr-only newtab"> (abre em outra aba)</span></a> e concordo que o Pablo use esses dados para me responder.</span><span class="es">He leído el <a href="privacy.html" target="_blank" rel="noopener">aviso de privacidad<span class="sr-only newtab"> (se abre en otra pestaña)</span></a> y acepto que Pablo use estos datos para responderme.</span></label>
         </div>
+        <div class="captcha"><p class="captcha__wait"><span class="en">The anti-spam check appears here when you start typing.</span><span class="pt">A verificação contra spam aparece aqui quando você começar a digitar.</span><span class="es">La verificación contra spam aparece aquí cuando empieces a escribir.</span></p></div>
         <button class="btn" type="submit"><span class="en">Send message</span><span class="pt">Enviar mensagem</span><span class="es">Enviar mensaje</span></button>
         <p class="form__note" role="status"><span class="en">The form sends your message to my inbox through Web3Forms. I only use your email to reply.</span><span class="pt">O formulário envia sua mensagem para a minha caixa de entrada pelo Web3Forms. Só uso seu e-mail para responder.</span><span class="es">El formulario envía tu mensaje a mi bandeja de entrada a través de Web3Forms. Solo uso tu correo para responderte.</span></p>
       </form>

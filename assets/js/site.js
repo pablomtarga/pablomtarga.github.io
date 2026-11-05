@@ -32,6 +32,10 @@
     formKey: '470607c5-9f63-4436-9844-d2914566b308',
     // endereço do Web3Forms. Se mudar, mude também o connect-src do CSP no index.html.
     formUrl: 'https://api.web3forms.com/submit',
+    // hCaptcha ("I am human"), exigido pelo Web3Forms. Esta é a chave pública que o
+    // Web3Forms dá para o plano grátis (não é sua e não revela nada).
+    captchaKey: '50b2fe65-b00b-4b9e-ad62-3ba471098be2',
+    captchaUrl: 'https://js.hcaptcha.com/1/api.js?render=explicit&recaptchacompat=off',
     linkedIn: 'https://www.linkedin.com/in/pablomtarga',
     // prefixo das informações guardadas no navegador (hoje só o idioma: "ptp:lang")
     storagePrefix: 'ptp:'
@@ -392,6 +396,59 @@
       if (on) { btn.replaceChildren(); spans3({ en: 'Sending…', pt: 'Enviando…', es: 'Enviando…' }, btn); }
       else btn.replaceChildren(...btnStart.map((n) => n.cloneNode(true)));
     };
+    // --- hCaptcha ---
+    // Só carrega quando a pessoa começa a preencher o formulário: quem só visita o site
+    // não manda nada para o hCaptcha. A segurança do site (Trusted Types) só deixa o
+    // script entrar por esta "policy", e só com o endereço exato do hCaptcha.
+    const captchaBox = $('.captcha', form);
+    const captchaWait = [...captchaBox.childNodes].map((n) => n.cloneNode(true));
+    const ttPolicy = window.trustedTypes ? window.trustedTypes.createPolicy('ptp-captcha', {
+      createScriptURL: (u) => { if (u === CONFIG.captchaUrl) return u; throw new TypeError('script bloqueado: ' + u); }
+    }) : null;
+    let captchaId = null;
+    let captchaLoad = null;
+    const renderCaptcha = () => {
+      if (captchaId !== null) window.hcaptcha.remove(captchaId);
+      const slot = document.createElement('div');
+      captchaBox.replaceChildren(slot);
+      captchaId = window.hcaptcha.render(slot, {
+        sitekey: CONFIG.captchaKey,
+        hl: { en: 'en', pt: 'pt-BR', es: 'es' }[lang()],
+        // celular muito estreito: versão compacta (a normal tem 303px de largura)
+        size: captchaBox.clientWidth < 304 ? 'compact' : 'normal',
+        callback: () => { if (note.dataset.state === 'err') resetNote(); }
+      });
+    };
+    const loadCaptcha = () => {
+      if (!captchaLoad) {
+        captchaLoad = new Promise((ok, fail) => {
+          const s = document.createElement('script');
+          s.src = ttPolicy ? ttPolicy.createScriptURL(CONFIG.captchaUrl) : CONFIG.captchaUrl;
+          s.async = true;
+          s.addEventListener('load', ok);
+          s.addEventListener('error', fail);
+          document.head.append(s);
+        }).then(renderCaptcha).catch(() => { captchaLoad = null; captchaBox.replaceChildren(...captchaWait.map((n) => n.cloneNode(true))); });
+      }
+      return captchaLoad;
+    };
+    form.addEventListener('focusin', loadCaptcha);
+    form.addEventListener('pointerdown', loadCaptcha);
+    // trocou o idioma e o captcha ainda não foi marcado: desenha de novo no idioma novo
+    document.addEventListener('langchange', () => {
+      if (captchaId !== null && !window.hcaptcha.getResponse(captchaId)) renderCaptcha();
+    });
+    const captchaMissing = () => show('err', {
+      en: ['Tick the “I am human” check above the button, then send again.'],
+      pt: ['Marque a verificação “Sou humano” acima do botão e envie de novo.'],
+      es: ['Marca la verificación «Soy humano» encima del botón y vuelve a enviar.']
+    });
+    const captchaFailed = () => show('err', {
+      en: ['The anti-spam check didn’t load, so the form can’t send. Message me on ', linkedIn(), '.'],
+      pt: ['A verificação contra spam não carregou, então o formulário não consegue enviar. Me chame no ', linkedIn(), '.'],
+      es: ['La verificación contra spam no se cargó, así que el formulario no puede enviar. Escríbeme por ', linkedIn(), '.']
+    });
+
     const { consent, email } = form.elements;
     ['name', 'email', 'message', 'consent'].forEach((n) => form.elements[n].addEventListener('input', (e) => e.target.setCustomValidity('')));
     form.addEventListener('submit', async (e) => {
@@ -417,6 +474,11 @@
       // robô que marcou a caixa escondida: parece que deu certo, mas nada é enviado
       if (form.elements.botcheck.checked) { form.reset(); sent(name, from); return; }
       if (!CONFIG.formKey) { failed(false); return; }
+      // o hCaptcha precisa estar marcado; se ainda não carregou, carrega agora
+      await loadCaptcha();
+      if (captchaId === null) { captchaFailed(); return; }
+      const token = window.hcaptcha.getResponse(captchaId);
+      if (!token) { captchaMissing(); captchaBox.scrollIntoView({ block: 'center' }); return; }
       busy(true);
       const stop = new AbortController();
       const timer = setTimeout(() => stop.abort(), 15000);
@@ -434,7 +496,8 @@
             topic,
             message: msg,
             // idioma em que a pessoa estava lendo o site: responda nele
-            language: lang().toUpperCase()
+            language: lang().toUpperCase(),
+            'h-captcha-response': token
           }),
           signal: stop.signal
         });
@@ -445,6 +508,8 @@
       } finally {
         clearTimeout(timer);
         busy(false);
+        // cada marcação do captcha só vale para um envio
+        window.hcaptcha.reset(captchaId);
       }
     });
   }
