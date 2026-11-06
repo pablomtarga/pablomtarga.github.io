@@ -11,7 +11,7 @@
     7. Link da barra do topo marcado conforme a seção visível
     8. Botão "Contact me" com as opções LinkedIn ou formulário
     9. Gavetas "More skills" e "Curiosities" abrindo devagar
-   10. Fotos ampliadas (galeria)
+   10. Fotos: grade, álbum "Ver mais fotos" e foto ampliada
    11. Vídeo do Iron (página de Apps)
    12. Abas dos agentes de IA (página de Apps)
    13. Cartão de serviço ou link ?topic= → formulário com o assunto já escolhido
@@ -234,16 +234,24 @@
     });
   });
 
-  /* == 10. Fotos ampliadas (galeria) =========================================== */
-  // Cada foto da grade é um botão com data-full (endereço da foto grande) e
+  /* == 10. Fotos: grade, álbum e foto ampliada ================================= */
+  // Cada foto da grade é um botão .ph com data-full (endereço da foto grande) e
   // data-place-en / -pt / -es (o local). A foto grande só baixa quando é aberta.
+  // A página mostra só as primeiras fotos (quantas: site.css, seção 13). O botão
+  // "Ver mais fotos" abre o álbum com todas: ele copia as fotos da grade na hora,
+  // então uma foto nova colada na lista do index.html entra no álbum sozinha.
   const box = $('#lightbox');
-  const shots = $$('.ph');
+  const gallery = $('#gallery');
+  const shots = $$('#gallery .ph');
+  const album = $('#album');
+  // navegador antigo, sem janela <dialog>: sem álbum, então a grade mostra todas
+  if (gallery && typeof box?.showModal !== 'function') gallery.classList.add('is-all');
   if (box && shots.length && typeof box.showModal === 'function') {
     const img = $('.lightbox__img', box);
     const where = $('.lightbox__where', box);
     const count = $('.lightbox__count', box);
     let at = 0;
+    let opener = null; // botão que abriu a foto: o foco volta para ele ao fechar
     const show = (i, swap) => {
       at = (i + shots.length) % shots.length;
       const thumb = $('img', shots[at]);
@@ -254,8 +262,9 @@
       count.textContent = `${at + 1} / ${shots.length}`;
       if (swap) { img.classList.remove('is-swapping'); void img.offsetWidth; img.classList.add('is-swapping'); }
     };
+    const openShot = (i, from) => { opener = from; show(i); box.showModal(); };
     img.addEventListener('load', () => img.classList.remove('is-loading'));
-    shots.forEach((b, i) => b.addEventListener('click', () => { show(i); box.showModal(); }));
+    shots.forEach((b, i) => b.addEventListener('click', () => openShot(i, b)));
     $('.lb-prev', box).addEventListener('click', () => show(at - 1, true));
     $('.lb-next', box).addEventListener('click', () => show(at + 1, true));
     $('.lb-close', box).addEventListener('click', () => box.close());
@@ -275,9 +284,43 @@
       startX = null;
       if (Math.abs(dx) > 50) show(at + (dx < 0 ? 1 : -1), true);
     });
-    // ao fechar, o foco volta para a foto que estava aberta
-    box.addEventListener('close', () => { shots[at].focus({ preventScroll: true }); });
+    // ao fechar: com o álbum aberto, o foco vai para a miniatura da última foto vista
+    // (o álbum rola até ela); sem o álbum, volta para a foto que foi clicada
+    box.addEventListener('close', () => {
+      const inAlbum = album && album.open ? $$('.ph', album)[at] : null;
+      const back = inAlbum || opener;
+      if (!back) return;
+      back.focus({ preventScroll: true });
+      if (inAlbum) inAlbum.scrollIntoView({ block: 'nearest' });
+    });
     document.addEventListener('langchange', () => { if (box.open) show(at); });
+
+    // "Ver mais fotos" abre o álbum. O botão só aparece se o CSS escondeu alguma foto.
+    const moreBox = $('.gallery__more');
+    const hidden = shots.filter((b) => getComputedStyle(b.closest('li')).display === 'none').length;
+    if (!album || !moreBox) gallery.classList.add('is-all');
+    else if (hidden) {
+      const grid = $('.album__grid', album);
+      const moreBtn = $('button', moreBox);
+      $('.album__n', album).textContent = String(shots.length);
+      // copia as fotos para o álbum na primeira abertura (as miniaturas só baixam aí)
+      const fill = () => {
+        if (grid.children.length) return;
+        shots.forEach((b, i) => {
+          const li = document.createElement('li');
+          const copy = b.cloneNode(true);
+          $('img', copy).sizes = '(max-width: 734px) 34vw, (max-width: 1068px) 32vw, 290px';
+          copy.addEventListener('click', () => openShot(i, copy));
+          li.append(copy);
+          grid.append(li);
+        });
+      };
+      moreBox.hidden = false;
+      // abre sempre do começo (scrollTop só funciona depois do showModal)
+      moreBtn.addEventListener('click', () => { fill(); album.showModal(); album.scrollTop = 0; });
+      $('.album__close', album).addEventListener('click', () => album.close());
+      album.addEventListener('close', () => moreBtn.focus({ preventScroll: true }));
+    }
   }
 
   /* == 11. Vídeo do Iron (página de Apps) ====================================== */

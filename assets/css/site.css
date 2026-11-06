@@ -554,6 +554,24 @@ html[lang='es'] .lang::before { transform: translateX(200%); }
 .ph:hover img { transform: scale(1.05); filter: saturate(1.08); }
 .ph:active { transform: scale(0.98); }
 .ph:focus-visible { outline-offset: 3px; }
+/* a página mostra só as 9 primeiras fotos; todas aparecem no álbum. Fica no CSS (e não só no
+   site.js) para a página não abrir com 36 fotos e encolher depois. Para mostrar outro número,
+   troque o 10 (= 9 + 1). Sem JavaScript (sem .js no <html>) aparecem todas. */
+html.js .gallery:not(.is-all) > li:nth-child(n+10) { display: none; }
+.gallery__more { margin-top: 32px; text-align: center; }
+
+/* álbum: janela com todas as fotos, aberta pelo botão "Ver mais fotos".
+   Ocupa a tela toda e rola por dentro; o título fica preso no topo. */
+html:has(.album[open]) { overflow: hidden; }
+.album { width: 100%; height: 100%; max-width: none; max-height: none; margin: 0; padding: 0 0 64px; border: 0; overflow-y: auto; overscroll-behavior: contain; scroll-padding-top: 108px; background: var(--navy-950); color: var(--on-dark); }
+.album::backdrop { background: var(--navy-950); }
+.album :focus-visible { outline-color: var(--blue-on-dark); }
+.album__head { position: sticky; top: 0; z-index: 1; display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 20px max(var(--pad), calc((100% - 1180px) / 2 + var(--pad))); background: rgba(4, 12, 29, 0.78); -webkit-backdrop-filter: saturate(180%) blur(20px); backdrop-filter: saturate(180%) blur(20px); }
+.album__title { font-size: 28px; font-weight: 600; line-height: 1.15; letter-spacing: -0.012em; }
+.album__meta { margin-top: 2px; color: var(--on-dark-2); font-size: 15px; font-variant-numeric: tabular-nums; }
+.album .album__close { position: static; flex: none; }  /* .album na frente: vence o position: fixed do .lb-btn, que vem depois */
+.album__grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; max-width: 1180px; margin: 4px auto 0; padding-inline: var(--pad); }
+.album .ph { border-radius: 12px; background: var(--navy-850); }
 
 /* janela da foto ampliada, com o local e os botões ‹ › × */
 .lightbox { width: 100%; height: 100%; max-width: none; max-height: none; margin: 0; padding: 64px 84px 48px; border: 0; background: rgba(2, 6, 15, 0.86); -webkit-backdrop-filter: blur(18px); backdrop-filter: blur(18px); color: var(--on-dark); }
@@ -579,6 +597,10 @@ html[lang='es'] .lang::before { transform: translateX(200%); }
   .lightbox[open] .lightbox__fig { animation: lb-in 0.4s var(--ease); }
   .lightbox__img.is-swapping { animation: lb-swap 0.35s var(--ease); }
 }
+@media (prefers-reduced-motion: no-preference) {
+  .album[open] { animation: album-in 0.45s var(--ease); }
+}
+@keyframes album-in { from { opacity: 0; transform: translateY(24px); } }
 @keyframes lb-in { from { opacity: 0; transform: scale(0.96); } }
 @keyframes lb-swap { from { opacity: 0.2; } }
 
@@ -794,6 +816,7 @@ html:not(.js) .chips { display: none; }
   .drawer { background: rgba(255, 255, 255, 0.78); -webkit-backdrop-filter: none; backdrop-filter: none; }
   .glass { background: rgba(7, 21, 48, 0.86); -webkit-backdrop-filter: none; backdrop-filter: none; }
   .lightbox { background: #02060f; -webkit-backdrop-filter: none; backdrop-filter: none; }
+  .album__head { background: var(--navy-950); -webkit-backdrop-filter: none; backdrop-filter: none; }
 }
 @media (prefers-contrast: more) {
   .nav { background: var(--nav-solid); box-shadow: 0 1px 0 currentColor; }
@@ -822,6 +845,7 @@ html:not(.js) .lang, html:not(.js) .menu-btn, html:not(.js) .clip-btn { display:
   .teaser .cta-row { padding-bottom: 0; }
   .teaser__phones { margin-bottom: -140px; }
   .steps { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .album__grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 }
 
 
@@ -902,6 +926,15 @@ html:not(.js) .lang, html:not(.js) .menu-btn, html:not(.js) .clip-btn { display:
   /* fotografia: grade de ponta a ponta, sem cantos */
   .gallery { gap: 3px; margin-inline: calc(var(--pad) * -1); }
   .ph { border-radius: 0; }
+  /* álbum: igual ao app Fotos do iPhone, fotos coladas de ponta a ponta */
+  .album__head { padding-block: 12px; }
+  .album__title { font-size: 22px; }
+  .album__meta { font-size: 14px; }
+  .album { scroll-padding-top: 80px; }
+  .album__grid { gap: 2px; margin-top: 0; padding-inline: 0; }
+  .album .ph { border-radius: 0; }
+  /* fotos coladas na borda: o contorno do foco fica por dentro, senão a tela corta */
+  .ph:focus-visible { outline-offset: -3px; }
 
   /* contato */
   .form { padding: 28px 22px; }
