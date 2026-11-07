@@ -1,2 +1,20 @@
+# Arquivos que NUNCA vão para o site (git add -A ignora estes).
 .DS_Store
 *.swp
+__pycache__/
+
+# Fotos originais: têm GPS de onde foram tiradas. No site só entram as cópias limpas
+# em assets/photos/ (geradas pelo preparar-foto.py, sempre .jpg). Não pôr *.JPG aqui: o Mac
+# não diferencia maiúscula e o git ignoraria também as fotos boas (.jpg) do site.
+Fotos/
+*.jpeg
+*.heic
+*.dng
+*.tif
+*.tiff
+*.raw
+
+# Documentos e pastas pessoais
+*.md
+PERFIS/
+DADOS/

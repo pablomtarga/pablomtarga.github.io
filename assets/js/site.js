@@ -35,7 +35,8 @@
     // hCaptcha ("I am human"), exigido pelo Web3Forms. Esta é a chave pública que o
     // Web3Forms dá para o plano grátis (não é sua e não revela nada).
     captchaKey: '50b2fe65-b00b-4b9e-ad62-3ba471098be2',
-    captchaUrl: 'https://js.hcaptcha.com/1/api.js?render=explicit&recaptchacompat=off',
+    // onload=: o hCaptcha avisa (chamando ptpCaptchaReady) quando está pronto para desenhar
+    captchaUrl: 'https://js.hcaptcha.com/1/api.js?render=explicit&recaptchacompat=off&onload=ptpCaptchaReady',
     linkedIn: 'https://www.linkedin.com/in/pablomtarga',
     // prefixo das informações guardadas no navegador (hoje só o idioma: "ptp:lang")
     storagePrefix: 'ptp:'
@@ -144,6 +145,7 @@
   // a) a barra do topo fica escura sobre seções escuras (class="dark") e clara nas outras
   // b) a foto do A'DAM aproxima e escurece: o número --p vai de 0 (topo) a 1 (fim dos serviços)
   // c) o crédito da foto some aos poucos (só no computador; no celular ele fica mais abaixo)
+  // d) o botão redondo ao lado de "What I work with" pausa e volta a faixa de logos
   const nav = $('.nav');
   const zones = $$('main > *, footer');
   const stage = $('.stage');
@@ -173,6 +175,12 @@
   addEventListener('resize', queue);
   onChange(reduce, () => { if (stageBg) stageBg.style.removeProperty('--p'); queue(); });
   paint();
+  const toolsToggle = $('.tools__toggle');
+  if (toolsToggle) toolsToggle.addEventListener('click', () => {
+    const paused = toolsToggle.getAttribute('aria-pressed') !== 'true';
+    toolsToggle.setAttribute('aria-pressed', String(paused));
+    toolsToggle.closest('.tools').classList.toggle('is-paused', paused);
+  });
 
   /* == 7. Link da barra do topo marcado conforme a seção visível =============== */
   const navLinks = $$('.nav__link');
@@ -284,6 +292,8 @@
       startX = null;
       if (Math.abs(dx) > 50) show(at + (dx < 0 ? 1 : -1), true);
     });
+    // o navegador tomou o gesto para ele (rolagem, zoom): esquece o arraste
+    box.addEventListener('pointercancel', () => { startX = null; });
     // ao fechar: com o álbum aberto, o foco vai para a miniatura da última foto vista
     // (o álbum rola até ela); sem o álbum, volta para a foto que foi clicada
     box.addEventListener('close', () => {
@@ -421,15 +431,26 @@
       pt: [`Obrigado, ${name}. Sua mensagem foi enviada, e eu respondo no ${email}.`],
       es: [`Gracias, ${name}. Tu mensaje está enviado, y te respondo a ${email}.`]
     });
-    const failed = (tooMany) => show('err', tooMany ? {
-      en: ['Too many tries in a row. Wait a minute and try again, or message me on ', linkedIn(), '.'],
-      pt: ['Muitas tentativas seguidas. Espere um minuto e tente de novo, ou me chame no ', linkedIn(), '.'],
-      es: ['Demasiados intentos seguidos. Espera un minuto y vuelve a intentarlo, o escríbeme por ', linkedIn(), '.']
-    } : {
-      en: ['Your message wasn’t sent. Check your connection and try again, or message me on ', linkedIn(), '.'],
-      pt: ['A mensagem não foi enviada. Confira a conexão e tente de novo, ou me chame no ', linkedIn(), '.'],
-      es: ['El mensaje no se ha enviado. Revisa tu conexión y vuelve a intentarlo, o escríbeme por ', linkedIn(), '.']
-    });
+    // três tipos de falha, cada um com o seu aviso:
+    // 'busy' = tentativas demais; 'refused' = o Web3Forms recusou (spam, cota, captcha);
+    // 'unsure' = a conexão caiu ou demorou: a mensagem pode ter chegado, então não pede para reenviar já
+    const failed = (kind) => show('err', {
+      busy: {
+        en: ['Too many tries in a row. Wait a minute and try again, or message me on ', linkedIn(), '.'],
+        pt: ['Muitas tentativas seguidas. Espere um minuto e tente de novo, ou me chame no ', linkedIn(), '.'],
+        es: ['Demasiados intentos seguidos. Espera un minuto y vuelve a intentarlo, o escríbeme por ', linkedIn(), '.']
+      },
+      refused: {
+        en: ['The form service didn’t accept your message, so it wasn’t sent. Try again later or message me on ', linkedIn(), '.'],
+        pt: ['O serviço do formulário não aceitou a mensagem, então ela não foi enviada. Tente mais tarde ou me chame no ', linkedIn(), '.'],
+        es: ['El servicio del formulario no ha aceptado el mensaje, así que no se ha enviado. Inténtalo más tarde o escríbeme por ', linkedIn(), '.']
+      },
+      unsure: {
+        en: ['I couldn’t confirm that your message went through: the connection failed or took too long. It may have arrived, so wait a few minutes before sending it again, or message me on ', linkedIn(), '.'],
+        pt: ['Não consegui confirmar o envio: a conexão falhou ou demorou demais. A mensagem pode ter chegado, então espere alguns minutos antes de mandar de novo, ou me chame no ', linkedIn(), '.'],
+        es: ['No he podido confirmar el envío: la conexión falló o tardó demasiado. Puede que el mensaje haya llegado, así que espera unos minutos antes de volver a enviarlo, o escríbeme por ', linkedIn(), '.']
+      }
+    }[kind]);
     // enquanto envia: botão desligado e escrito "Sending…"
     let sending = false;
     const busy = (on) => {
@@ -440,11 +461,11 @@
       else btn.replaceChildren(...btnStart.map((n) => n.cloneNode(true)));
     };
     // --- hCaptcha ---
-    // Só carrega quando a pessoa começa a preencher o formulário: quem só visita o site
-    // não manda nada para o hCaptcha. A segurança do site (Trusted Types) só deixa o
+    // Só carrega quando a pessoa digita a primeira letra no formulário (ou aperta Enviar):
+    // quem só visita, clica no aviso de privacidade ou passa pelo formulário com Tab não
+    // manda nada para o hCaptcha. A segurança do site (Trusted Types) só deixa o
     // script entrar por esta "policy", e só com o endereço exato do hCaptcha.
     const captchaBox = $('.captcha', form);
-    const captchaWait = [...captchaBox.childNodes].map((n) => n.cloneNode(true));
     const ttPolicy = window.trustedTypes ? window.trustedTypes.createPolicy('ptp-captcha', {
       createScriptURL: (u) => { if (u === CONFIG.captchaUrl) return u; throw new TypeError('script bloqueado: ' + u); }
     }) : null;
@@ -459,24 +480,38 @@
         hl: { en: 'en', pt: 'pt-BR', es: 'es' }[lang()],
         // celular muito estreito: versão compacta (a normal tem 303px de largura)
         size: captchaBox.clientWidth < 304 ? 'compact' : 'normal',
-        callback: () => { if (note.dataset.state === 'err') resetNote(); }
+        callback: () => { if (note.dataset.state === 'err') resetNote(); },
+        // o hCaptcha travou (rede, bloqueador): avisa em vez de deixar a caixa vazia.
+        // Fechar ou deixar vencer o desafio não é erro: a pessoa só marca de novo.
+        'error-callback': (code) => { if (!/closed|expired/.test(String(code))) captchaFailed(); }
       });
     };
+    let captchaTried = false;
     const loadCaptcha = () => {
+      captchaTried = true;
       if (!captchaLoad) {
         captchaLoad = new Promise((ok, fail) => {
+          // já carregou numa tentativa anterior (chegou atrasado): só desenha
+          if (window.hcaptcha && window.hcaptcha.render) { ok(); return; }
+          // o próprio hCaptcha chama esta função quando está pronto (onload= no captchaUrl)
+          window.ptpCaptchaReady = ok;
           const s = document.createElement('script');
           s.src = ttPolicy ? ttPolicy.createScriptURL(CONFIG.captchaUrl) : CONFIG.captchaUrl;
           s.async = true;
-          s.addEventListener('load', ok);
           s.addEventListener('error', fail);
+          // bloqueado sem aviso ou rede muito lenta: desiste depois de 15 segundos
+          setTimeout(fail, 15000);
           document.head.append(s);
-        }).then(renderCaptcha).catch(() => { captchaLoad = null; captchaBox.replaceChildren(...captchaWait.map((n) => n.cloneNode(true))); });
+        }).then(renderCaptcha).catch(() => {
+          // falhou: mostra o aviso e só tenta de novo quando a pessoa apertar Enviar
+          captchaLoad = null;
+          captchaBox.replaceChildren();
+          captchaFailed();
+        });
       }
       return captchaLoad;
     };
-    form.addEventListener('focusin', loadCaptcha);
-    form.addEventListener('pointerdown', loadCaptcha);
+    form.addEventListener('input', () => { if (!captchaTried) loadCaptcha(); });
     // trocou o idioma e o captcha ainda não foi marcado: desenha de novo no idioma novo
     document.addEventListener('langchange', () => {
       if (captchaId !== null && !window.hcaptcha.getResponse(captchaId)) renderCaptcha();
@@ -516,7 +551,7 @@
       const msg = clean(form.elements.message.value, 600);
       // robô que marcou a caixa escondida: parece que deu certo, mas nada é enviado
       if (form.elements.botcheck.checked) { form.reset(); sent(name, from); return; }
-      if (!CONFIG.formKey) { failed(false); return; }
+      if (!CONFIG.formKey) { failed('refused'); return; }
       // o hCaptcha precisa estar marcado; se ainda não carregou, carrega agora
       await loadCaptcha();
       if (captchaId === null) { captchaFailed(); return; }
@@ -545,9 +580,10 @@
           signal: stop.signal
         });
         const data = await res.json().catch(() => ({}));
-        if (res.ok && data.success) { form.reset(); sent(name, from); } else failed(res.status === 429);
+        if (res.ok && data.success) { form.reset(); sent(name, from); } else failed(res.status === 429 ? 'busy' : 'refused');
       } catch {
-        failed(false);
+        // sem resposta (conexão caiu ou passou de 15 s): não dá para saber se chegou
+        failed('unsure');
       } finally {
         clearTimeout(timer);
         busy(false);
